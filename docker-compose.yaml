@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  app:
+    build: ./api
+    command: /bin/sh -c "bundle install && bundle exec puma -C config/puma.rb"
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    volumes:
+      - .:/api:delegated
+      - ./api:/app
+      - bundle:/usr/local/bundle
+    tty: true
+    stdin_open: true
+  db:
+    stdin_open: true
+    tty: true
+    restart: always
+    image: postgres:11.6
+    ports:
+      -  '5433:5432'
+    environment:
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpass
+      TZ: Asia/Tokyo
+    volumes:
+      - pgsql-data:/var/lib/postgresql/data
+  front:
+    build: ./front
+    volumes:
+      - ./front:/app
+    ports:
+      - '8080:8080'
+    tty: true
+    stdin_open: true
+    command: npm run serve
+
+volumes:
+  pgsql-data:
+  bundle:
