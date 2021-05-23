@@ -45,6 +45,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
@@ -65,6 +67,27 @@ export default {
       }
     }
   },
+
+  axios: {
+    baseURL: 'http:localhost:3000'
+  },
+  auth: {
+    redirect: {
+      login: '/users/login', 
+      logout: '/',
+      callback: false,
+      home: '/'
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: 'token' },
+          logout: false,
+          user: false
+        }
+      }
+    }  
+  }
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
