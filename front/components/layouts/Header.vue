@@ -11,7 +11,7 @@
       </n-link>
     </v-toolbar-title> 
     <v-btn
-      to="/auth/signin"
+      to="/users/login"
       text
       color="white"
       :outlined="true"
