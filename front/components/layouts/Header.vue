@@ -19,6 +19,15 @@
     >
     <span>ログイン</span>
     </v-btn>
+    <v-btn
+      to="/users/signup"
+      text
+      color="white"
+      :outlined="true"
+      small
+    >
+    <span>新規登録</span>
+    </v-btn>
   </v-app-bar>
 </template>
 

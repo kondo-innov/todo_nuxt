@@ -1,73 +1,73 @@
 <template>
   <div class="mx-auto mt-5 pa-5">
-    <v-card class="mt-5 mx-auto" max-width="600">
-      <v-form ref="form" v-model="valid" lazy-validation>
-        <v-container>
-          <v-row justify="center">
-            <p cols="12" class="mt-3 display-1 grey--text">
+    <v-card width="600px" class="mx-auto mt-5">
+      <v-card-title>
+        <h1 class="display-1">
+          ログイン
+        </h1>
+      </v-card-title>
+      <v-card-text>
+        <v-form ref="form" lazy-validation>
+          <v-text-field
+            v-model="email"
+            prepend-icon="mdi-email"
+            label="メールアドレス"
+          />
+          <v-text-field
+            v-model="password"
+            prepend-icon="mdi-lock"
+            append-icon="mdi-eye-off"
+            type="password"
+            label="パスワード"
+          />
+          <v-card-actions>
+            <v-btn
+              color="light-green darken-1"
+              class="white--text"
+              @click="loginWithAuthModule"
+            >
               ログイン
-            </p>
-          </v-row>
-          <v-row justify="center">
-            <v-col cols="12" md="10" sm="10">
-              <v-text-field
-                v-model="email"
-                prepend-icon="mdi-email"
-                label="メールアドレス"
-              />
-              <p class="caption mb-0" />
-            </v-col>
-          </v-row>
-          <v-row justify="center">
-            <v-col cols="12" md="10" sm="10">
-              <v-text-field
-                v-model="password"
-                prepend-icon="mdi-lock"
-                label="パスワード"
-              />
-            </v-col>
-          </v-row>
-          <v-row justify="center">
-            <v-col cols="12" md="10" sm="10">
-              <v-btn
-                block
-                class="mr-4 blue white--text"
-                @click="loginWithAuthModule"
-              >
-                ログイン
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-form>
+            </v-btn>
+          </v-card-actions>
+        </v-form>
+      </v-card-text>
     </v-card>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       password: '',
-      email: ''
+      email: '',
     }
   },
   methods: {
-    async loginWithAuthModule () {
-      await this.$auth.loginWith('local', {
-        data: {
-          email: this.email,
-          password: this.password
-        }
-      })
-        .then((response) => {
-          return response
-        },
-        (error) => {
-          return error
+    // loginメソッドの呼び出し
+    async loginWithAuthModule() {
+      await this.$auth
+        .loginWith('local', {
+         // emailとpasswordの情報を送信
+          data: {
+            email: this.email,
+            password: this.password,
+          },
         })
-    }
-  }
+        .then(
+          (response) => {
+            // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
+            localStorage.setItem('access-token', response.headers['access-token'])
+            localStorage.setItem('client', response.headers.client)
+            localStorage.setItem('uid', response.headers.uid)
+            localStorage.setItem('token-type', response.headers['token-type'])
+            return response
+          },
+          (error) => {
+            return error
+          }
+        )
+    },
+  },
 }
 </script>
-
