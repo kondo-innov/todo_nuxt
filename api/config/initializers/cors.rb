@@ -5,12 +5,19 @@
 
 # Read more: https://github.com/cyu/rack-cors
 
-# Rails.application.config.middleware.insert_before 0, Rack::Cors do
-#   allow do
-#     origins 'example.com'
-#
-#     resource '*',
-#       headers: :any,
-#       methods: [:get, :post, :put, :patch, :delete, :options, :head]
-#   end
-# end
+
+Rails.application.config.middleware.insert_before 0, Rack::Cors do
+  allow do
+    origins 'http://localhost:8080'
+    resource '*',
+      headers: :any,
+      methods: [:get, :post, :put, :patch, :delete, :options, :head]
+  end
+end
+
+# * はワイルドカードといい不特定の文字を表します。つまり、何が入っても〜という意味になります。
+
+# origins (文字列 or 正規表現): どのオリジンを許可するか（APIをうつ側のドメイン）
+# resource (文字列 or 正規表現): 許可したいリソースファイル
+# methods (文字列 or Array or :any): 許可したいHTTPメソッド
+# headers (文字列 or Array or :any): 許可したいHTTPヘッダー
