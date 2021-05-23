@@ -10,6 +10,15 @@
         <h2 class="app-title">Crearn City！</h2>
       </n-link>
     </v-toolbar-title> 
+    <v-btn
+      to="/auth/signin"
+      text
+      color="white"
+      :outlined="true"
+      small
+    >
+    <span>ログイン</span>
+    </v-btn>
   </v-app-bar>
 </template>
 
