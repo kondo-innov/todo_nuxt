@@ -10,6 +10,7 @@
         <h2 class="app-title">Crearn City！</h2>
       </n-link>
     </v-toolbar-title> 
+    <v-spacer />
     <v-btn
       to="/users/login"
       text
