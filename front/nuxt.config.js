@@ -70,7 +70,7 @@ export default {
   },
 
   axios: {
-    baseURL: 'http:localhost:3000'
+    baseURL: 'http://localhost:3000'
   },
   auth: {
     redirect: {
@@ -82,7 +82,7 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: 'token' },
+          login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: 'false' },
           logout: false,
           user: false
         }
