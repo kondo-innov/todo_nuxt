@@ -11,24 +11,29 @@
       </n-link>
     </v-toolbar-title> 
     <v-spacer />
-    <v-btn
-      to="/users/login"
-      text
-      color="white"
-      :outlined="true"
-      small
-    >
-    <span>ログイン</span>
-    </v-btn>
-    <v-btn
-      to="/users/signup"
-      text
-      color="white"
-      :outlined="true"
-      small
-    >
-    <span>新規登録</span>
-    </v-btn>
+    <template v-if="store">
+
+    </template>
+    <template v-else>
+      <v-btn
+        to="/users/login"
+        text
+        color="white"
+        :outlined="true"
+        small
+      >
+      <span>ログイン</span>
+      </v-btn>
+      <v-btn
+        to="/users/signup"
+        text
+        color="white"
+        :outlined="true"
+        small
+      >
+      <span>新規登録</span>
+      </v-btn>
+    </template>
   </v-app-bar>
 </template>
 
@@ -38,5 +43,11 @@
       drawer: false,
       group: null,
     }),
+    computed: {
+      store() {
+      console.log(this.$auth.loggedIn)
+      return this.$auth.loggedIn
+      },
+    }
   }
 </script> 

@@ -14,6 +14,7 @@
 import Footer from '../components/layouts/Footer.vue'
 import Header from '../components/layouts/Header.vue'
 export default {
+  auth: false,
   components: {
     Header,
     Footer,

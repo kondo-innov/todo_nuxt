@@ -82,7 +82,7 @@ export default {
     strategies: {
       local: {
         endpoints: {
-          login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: 'false' },
+          login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: false },
           logout: false,
           user: false
         }
@@ -91,5 +91,8 @@ export default {
   },
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+  },
+  router: {
+    middleware: ['auth']
   }
 }
