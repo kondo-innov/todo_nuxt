@@ -49,6 +49,7 @@
 
 <script>
 export default {
+  auth: false,
   data() {
     return {
       user: {
@@ -61,9 +62,36 @@ export default {
   },
   methods: {
     registerUser() {
-      this.$axios.post('/api/v1/auth', this.user).then((response) => {
-        window.location.href = '/'
-      })
+      this.$axios.post('/api/v1/auth', this.user)
+        .then(async(response) => {
+          await this.$auth
+            .loginWith('local', {
+            // emailとpasswordの情報を送信
+              data: {
+                email: this.user.email,
+                password: this.user.password,
+              },
+            })
+            .then(
+              (response) => {
+                // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
+                localStorage.setItem('access-token', response.headers['access-token'])
+                localStorage.setItem('client', response.headers.client)
+                localStorage.setItem('uid', response.headers.uid)
+                localStorage.setItem('token-type', response.headers['token-type'])
+                return response
+              },
+              (error) => {
+                return error
+              }
+            )
+            window.location.href = '/'
+          })
+        .catch((error) => {
+          debugger;
+          console.log(error)
+        })
+          
     },
   },
 }
