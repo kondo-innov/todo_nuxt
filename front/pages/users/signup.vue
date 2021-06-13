@@ -97,7 +97,15 @@ export default {
             window.location.href = '/'
           })
         .catch((error) => {
-          console.log(error)
+          this.$store.dispatch(
+            "flashMessage/showMessage",
+            {
+              message: "新規登録出来ませんでした.",
+              type: "sucess",
+              status: true,
+            },
+            { root: true }
+          )
         })
     },
   },
