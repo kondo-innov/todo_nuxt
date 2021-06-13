@@ -79,6 +79,15 @@ export default {
                 localStorage.setItem('client', response.headers.client)
                 localStorage.setItem('uid', response.headers.uid)
                 localStorage.setItem('token-type', response.headers['token-type'])
+                this.$store.dispatch(
+                  "flashMessage/showMessage",
+                  {
+                    message: "新規登録しました.",
+                    type: "sucess",
+                    status: true,
+                  },
+                  { root: true }
+                )
                 return response
               },
               (error) => {
@@ -88,10 +97,8 @@ export default {
             window.location.href = '/'
           })
         .catch((error) => {
-          debugger;
           console.log(error)
         })
-          
     },
   },
 }

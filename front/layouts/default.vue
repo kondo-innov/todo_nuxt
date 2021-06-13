@@ -3,6 +3,7 @@
     <Header />
     <v-main>
       <v-container>
+        <FlashMessage />
         <nuxt />
       </v-container>
     </v-main>
@@ -11,6 +12,7 @@
 </template>
 
 <script>
+import FlashMessage from '../components/layouts/FlashMessage.vue'
 import Footer from '../components/layouts/Footer.vue'
 import Header from '../components/layouts/Header.vue'
 export default {
@@ -18,6 +20,7 @@ export default {
   components: {
     Header,
     Footer,
+    FlashMessage,
   }
 }
 </script>

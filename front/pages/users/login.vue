@@ -61,6 +61,15 @@ export default {
             localStorage.setItem('client', response.headers.client)
             localStorage.setItem('uid', response.headers.uid)
             localStorage.setItem('token-type', response.headers['token-type'])
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "ログインしました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
             return response
           },
           (error) => {
@@ -68,26 +77,6 @@ export default {
           }
         )
     },
-        // loginWithAuthModule() {
-    //   const url = '/api/v1/auth/sign_in'
-    //   const params = {
-    //         email: this.email,
-    //         password: this.password
-    //       };
-    //   this.$axios.post(url, params)
-    //     .then((response) => {
-    //       console.log(response)
-    //       localStorage.setItem('access-token', response.headers['access-token'])
-    //       localStorage.setItem('client', response.headers.client)
-    //       localStorage.setItem('uid', response.headers.uid)
-    //       localStorage.setItem('token-type', response.headers['token-type'])
-    //       window.location.href = '/'
-    //     })
-    //     .catch((err) => {
-    //       debugger;
-    //       console.log(err)
-    //     })
-    // }
   },
 }
 </script>
