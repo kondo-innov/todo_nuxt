@@ -73,6 +73,15 @@ export default {
             return response
           },
           (error) => {
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "ログイン出来ませんでした.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
             return error
           }
         )
