@@ -143,7 +143,6 @@ export default {
                   return error
                 }
               )
-              window.location.href = '/'
             })
           .catch((error) => {
             debugger;
