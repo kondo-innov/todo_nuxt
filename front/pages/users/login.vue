@@ -7,21 +7,29 @@
         </h1>
       </v-card-title>
       <v-card-text>
-        <v-form ref="form" lazy-validation>
+        <v-form ref="form" v-model="isValid" lazy-validation>
           <v-text-field
-            v-model="email"
+            v-model="user.email"
+            :rules="[rules.required, rules.email]"
+            :placeholder="emailForm.placeholder"
             prepend-icon="mdi-email"
             label="メールアドレス"
           />
           <v-text-field
-            v-model="password"
+            v-model="user.password"
+            :rules="[rules.required, rules.password]"
+            :counter="!noValidation"
+            :placeholder="form.placeholder"
             prepend-icon="mdi-lock"
-            append-icon="mdi-eye-off"
-            type="password"
             label="パスワード"
+            :append-icon="toggle.icon"
+            :type="toggle.type"
+            autocomplete="on"
+            @click:append="show = !show"
           />
           <v-card-actions>
             <v-btn
+              :disabled="!isValid"
               color="light-green darken-1"
               class="white--text"
               @click="loginWithAuthModule"
@@ -38,10 +46,37 @@
 <script>
 export default {
   data() {
+    const min = 6
     return {
-      password: '',
-      email: '',
+      isValid:      false,
+      noValidation: false,
+      show:         false,
+      user: {
+        password: '',
+        email: '',
+      },
+      rules: {
+        required: v => !!v || '入力してください',
+        email:    v => /.+@.+\..+/.test(v) || '',
+        password: v => (!!v && min <= v.length) || `${min}文字以上で入力してください`,
+      },
     }
+  },
+  computed: {
+    emailForm() {
+      const placeholder = this.noValidation ? undefined : "your@email.com"
+      return { placeholder }
+    },
+    form() {
+      const min = "6文字以上"
+      const placeholder = this.noValidation ? undefined : min
+      return { placeholder }
+    },
+    toggle() {
+      const icon = this.show ? "mdi-eye" : "mdi-eye-off"
+      const type = this.show ? "text" : "password"
+      return { icon, type }
+    },
   },
   methods: {
     // loginメソッドの呼び出し
