@@ -12,7 +12,11 @@
     </v-toolbar-title> 
     <v-spacer />
     <template v-if="store">
-
+      <v-avatar
+        size="40"
+      >
+      <img v-bind:src="require('@/assets/images/default_user_icon.jpeg')">
+      </v-avatar>
     </template>
     <template v-else>
       <v-btn
