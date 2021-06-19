@@ -1,70 +1,57 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-card width="400px" class="mx-auto mt-5">
-        <v-card-title>
-          <h1 class="display-1">
-            メールアドレス変更
-          </h1>
-        </v-card-title>
-        <v-card-text>
-          <v-form ref="form" lazy-validation>
-            <v-text-field
-              v-model="user.email"
-              prepend-icon="mdi-email"
-              label="新しいメールアドレス"
-            />
-            <v-text-field
-              v-model="user.password"
-              prepend-icon="mdi-lock"
-              append-icon="mdi-eye-off"
-              label="パスワード"
-            />
-            <v-card-actions>
-              <v-btn
-                color="light-green darken-1"
-                class="white--text"
-                @click="editEmail"
-              >
-                保存する
-              </v-btn>
-            </v-card-actions>
-          </v-form>
-        </v-card-text>
-      </v-card>
-    </v-container>
-  </v-app>
+  <v-container>
+    <v-row justify="center">
+      <v-col xl="4" lg="6" sm="8" cols="12">
+        <v-card class="mx-auto">
+          <v-tabs
+            v-model="tab"
+            fixed-tabs
+            centered
+            background-color="cyan darken-1"
+            color="white"
+            slider-color="orange"
+            icons-and-text
+          >
+            <v-tab class="ma-0 pa-0">
+              プロフィール
+              <v-icon>mdi-account</v-icon>
+            </v-tab>
+            <v-tab class="ma-0 pa-0">
+              登録情報
+              <v-icon>mdi-account-cog</v-icon>
+            </v-tab>
+          </v-tabs>
+          <v-tabs-items v-model="tab" touchless>
+            <v-tab-item>
+              <v-container>
+                <edit-avatar />
+              </v-container>
+            </v-tab-item>
+            <v-tab-item>
+              <v-container>
+
+              </v-container>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-card>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
+  
 
 <script>
+import editAvatar from "~/components/editUser/editAvatar"
 export default {
-  name: 'App',
+  components: {
+    editAvatar,
+  },
   data() {
     return {
-      user: {
-        password: '',
-        email: '',
-      },
+      tab: null,
     }
   },
   methods: {
-    editEmail() {
-      this.$axios
-        .put('api/v1/auth', this.user, {
-          headers: {
-            'access-token': localStorage.getItem('access-token'),
-            uid: localStorage.getItem('uid'),
-            client: localStorage.getItem('client'),
-          },
-        })
-        .then((response) => {
-          localStorage.setItem('access-token', response.headers['access-token'])
-          localStorage.setItem('client', response.headers.client)
-          localStorage.setItem('uid', response.headers.uid)
-          localStorage.setItem('token-type', response.headers['token-type'])
-          window.location.href = '/'
-        })
-    },
   },
 }
 </script>
