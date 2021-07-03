@@ -30,6 +30,7 @@
             <v-tab-item>
               <v-container>
                 <edit-logout />
+                <edit-delete />
               </v-container>
             </v-tab-item>
           </v-tabs-items>

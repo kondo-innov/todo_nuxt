@@ -9,7 +9,7 @@
               class="mr-4 blue white--text"
               @click="logout()"
             >
-              logout
+              ログアウト
             </v-btn>
           </v-col>
         </v-row>
