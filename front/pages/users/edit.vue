@@ -25,6 +25,7 @@
             <v-tab-item>
               <v-container>
                 <edit-avatar />
+                <edit-email />
               </v-container>
             </v-tab-item>
             <v-tab-item>
