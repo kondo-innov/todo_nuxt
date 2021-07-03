@@ -145,7 +145,6 @@ export default {
               )
             })
           .catch((error) => {
-            debugger;
             this.$store.dispatch(
               "flashMessage/showMessage",
               {
