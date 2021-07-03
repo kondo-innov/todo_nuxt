@@ -29,7 +29,7 @@
             </v-tab-item>
             <v-tab-item>
               <v-container>
-
+                <edit-logout />
               </v-container>
             </v-tab-item>
           </v-tabs-items>
