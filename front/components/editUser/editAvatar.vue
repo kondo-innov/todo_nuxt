@@ -15,91 +15,87 @@
         </template>
       </v-avatar>
       <v-col cols="12">
-      <v-file-input
-        v-model="inputValue"
-        accept="image/png, image/jpeg, image/bmp"
-        prepend-icon="mdi-image"
-        label="画像を選択してください"
-        class="pt-14"
-        @change="setImage"
-      />
-        <v-btn block color="success" class="white--text" @click="changeUserAvatar">
-          変更
-        </v-btn>
+        <input
+          accept="image/png, image/jpeg, image/bmp"
+          prepend-icon="mdi-image"
+          label="画像を選択してください"
+          class="pt-14"
+          id="image-files"
+          ref="image_files"
+          type="file"
+          @change="onChangeFiles"
+        />
       </v-col>
     </v-row>
   </v-form>
 </template>
 
 <script>
+  import DirectUploader from '@/plugins/DirectUploader'
   export default {
-    props: {
-      value: {
-        type: null
-      },
-    },
     data(){
       return {
+        files: [],
         input_image: null,
         defaultImg: require("@/assets/images/default_user_icon.jpeg")
       }
     },
-    computed: {
-      inputValue: {
-        get() {
-          return this.value
-        },
-        set(value) {
-          this.$emit("input", value)
-        }
-      }
-    },
     methods: {
-      setImage(file) {
-        if (file !== undefined && file !== null) {
-          if (file.name.lastIndexOf(".") <= 0) {
-            return
-          }
-          const fr = new FileReader()
-          fr.readAsDataURL(file)
-          fr.addEventListener("load", () => {
-            this.input_image = fr.result
-          })
-        } else {
-          this.input_image = null
+      onChangeFiles (_event) {
+        const input = this.$refs.image_files
+        this.uploadFiles(input.files)
+        // 選択されたファイルを入力からクリアしておく
+        input.value = null
+      },
+      uploadFiles (files) {
+        this.files = []
+        Array.from(files).forEach(file => this.uploadFile(file))
+      },
+      uploadFile (file) {
+        // アップロードを実行
+        const filename = file.name
+        const tmpUploadFile = { name: filename, fileSize: file.size, progress: 0, isUploading: true }
+        this.files.push(tmpUploadFile)
+        const url = 'http://localhost:3000/rails/active_storage/direct_uploads'
+        const directUploader = new DirectUploader(file, url, this._onUploadProgress.bind(this))
+        directUploader.upload(this._onUploadError.bind(this), this._onUploadSuccess.bind(this))
+      },
+      _onUploadError (error, directUploader) {
+        // アップロード失敗時の処理
+        const params = { isUploading: false, message: error }
+        const filename = directUploader.file.name
+        this._updateFiles(filename, params)
+      },
+      async _onUploadSuccess (blob, directUploader) {
+        // アップロード成功時の処理
+        const filename = directUploader.file.name
+        const params = { isUploading: false, message: 'アップロード完了' }
+        const postParams = { filename: blob.filename, image: blob.signed_id }
+        const url = 'http://localhost:3000/api/v1/avatars'
+        try {
+          await this.$axios.$post(url, postParams)
+          this._updateFiles(filename, params)
+        } catch (error) {
+          const params = { isUploading: false, message: error }
+          this._updateFiles(filename, params)
         }
       },
-      async changeUserAvatar() {
-        const formData = new FormData()
-        console.log(formData.get('image')); 
-        if (this.input_image != "") {
-          formData.append("image", this.input_image)
-        }
-        await this.$axios
-          .put("api/v1/auth", formData, {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          })
-      // 成功時の処理
-      .then((res) => {
-        console.log(res)
-        this.$store.commit("auth/setCurrentUser", res.data.data)
-        this.$store.dispatch(
-          "flashMessage/showMessage",
-          {
-            message: "アバター画像を更新しました。",
-            type: "success",
-            status: true,
-          },
-          { root: true }
-        )
-      })
-      // 失敗時の処理
-      .catch((error) => {
-        console.log(error)
-      })
+      _onUploadProgress (event, directUploader) {
+        // アップロード中の処理
+        const progress = this._calcProgress(event)
+        const params = { progress }
+        const filename = directUploader.file.name
+        this._updateFiles(filename, params)
+      },
+      _updateFiles (filename, params) {
+        this.files = this.files.map((file) => {
+          if (file.name !== filename) { return file }
+          return Object.assign(file, params)
+        })
+      },
+      _calcProgress (event) {
+        return (event.loaded / event.total) * 100
+      }
     }
   }
- }
 </script>
