@@ -4,11 +4,15 @@
         <v-form ref="form" lazy-validation>
           <v-text-field
             v-model="user.name"
+            :placeholder="nameForm.placeholder"
+            :rules="[rules.required, rules.name]"
             prepend-icon="mdi-account"
             label="新しい名前"
           />
           <v-text-field
             v-model="user.email"
+            :rules="[rules.required, rules.email]"
+            :placeholder="emailForm.placeholder"
             prepend-icon="mdi-email"
             label="新しいメールアドレス"
           />
@@ -30,12 +34,27 @@
 export default {
   name: 'App',
   data() {
+    const max = 20
     return {
       user: {
         name: '',
         email: '',
       },
+      rules: {
+        name:     v => (!!v && max >= v.length) || `${max}文字以内で入力してください`,
+        email:    v => /.+@.+\..+/.test(v) || '',
+      },
     }
+  },
+  computed: {
+    nameForm() {
+      const placeholder = this.noValidation ? undefined : "username"
+      return { placeholder }
+    },
+    emailForm() {
+      const placeholder = this.noValidation ? undefined : "your@email.com"
+      return { placeholder }
+    },
   },
   methods: {
     editEmail() {
