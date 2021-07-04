@@ -16,7 +16,7 @@
         <v-icon>mdi-clock-time-eight</v-icon>
       </v-tab>
       <v-tab
-        
+        @change="goodtweetList"
         class="ma-0 pa-0"
       >
         いいね
@@ -48,7 +48,7 @@
         <newtweetList />
       </v-tab-item>
       <v-tab-item>
-        
+        <goodtweetList />
       </v-tab-item>
       <v-tab-item>
         
@@ -58,10 +58,13 @@
 </template>
 
 <script>
-import newtweetList from "~/components/menu/tweetList/newtweetList.vue"
+import newtweetList  from "~/components/menu/tweetList/newtweetList.vue"
+import goodtweetList from "~/components/menu/tweetList/goodtweetList.vue"
+
 export default {
   components: {
     newtweetList,
+    goodtweetList,
   },
   data () {
     return {
@@ -71,6 +74,9 @@ export default {
   methods: {
     newtweetList () {
       this.newtweetList = !this.newtweetList
+    },
+    goodtweetList () {
+      this.goodtweetList = !this.goodtweetList
     },
   }
 }
