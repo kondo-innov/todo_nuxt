@@ -7,7 +7,7 @@
         />
       </v-col>
       <v-col xl="5" lg="7" sm="8" cols="12">
-
+        <tweetList />
       </v-col>
     </v-row>
   </v-container>
