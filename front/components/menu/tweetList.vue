@@ -23,6 +23,7 @@
         <v-icon>mdi-thumb-up</v-icon>
       </v-tab>
       <v-tab
+        @change="mytweetList"
         class="ma-0 pa-0"
       >
         自分のつぶやき
@@ -51,7 +52,7 @@
         <goodtweetList />
       </v-tab-item>
       <v-tab-item>
-        
+        <mytweetList />
       </v-tab-item>
     </v-tabs-items>
   </v-container>
@@ -60,11 +61,13 @@
 <script>
 import newtweetList  from "~/components/menu/tweetList/newtweetList.vue"
 import goodtweetList from "~/components/menu/tweetList/goodtweetList.vue"
+import mytweetList   from "~/components/menu/tweetList/mytweetList.vue"
 
 export default {
   components: {
     newtweetList,
     goodtweetList,
+    mytweetList,
   },
   data () {
     return {
@@ -77,6 +80,9 @@ export default {
     },
     goodtweetList () {
       this.goodtweetList = !this.goodtweetList
+    },
+    mytweetList () {
+      this.mytweetList = !this.mytweetList
     },
   }
 }
