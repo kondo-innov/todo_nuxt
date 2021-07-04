@@ -34,7 +34,17 @@ export default {
         })
         .then((response) => {
           this.$auth.logout()
-          window.location.href = '/'
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "削除しました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
+            window.location.href = '/'
+          return response
         })
     },
   },

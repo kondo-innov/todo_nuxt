@@ -1,7 +1,7 @@
 <template>
     <v-container>
       <v-card-text>
-        <v-form ref="form" lazy-validation>
+        <v-form ref="form" v-model="isValid" lazy-validation>
           <v-text-field
             v-model="user.name"
             :placeholder="nameForm.placeholder"
@@ -11,7 +11,7 @@
           />
           <v-text-field
             v-model="user.email"
-            :rules="[rules.required, rules.email]"
+            :rules="[rules.email]"
             :placeholder="emailForm.placeholder"
             prepend-icon="mdi-email"
             label="新しいメールアドレス"
@@ -32,10 +32,11 @@
 
 <script>
 export default {
-  name: 'App',
   data() {
     const max = 20
     return {
+      isValid:      false,
+      noValidation: false,
       user: {
         name: '',
         email: '',
@@ -66,14 +67,40 @@ export default {
             client: localStorage.getItem('client'),
           },
         })
-        .then((response) => {
-          localStorage.setItem('access-token', response.headers['access-token'])
-          localStorage.setItem('client', response.headers.client)
-          localStorage.setItem('uid', response.headers.uid)
-          localStorage.setItem('token-type', response.headers['token-type'])
-          window.location.href = '/'
-        })
-    },
+        .then(
+          (response) => {
+            localStorage.setItem('access-token', response.headers['access-token'])
+            localStorage.setItem('client', response.headers.client)
+            localStorage.setItem('uid', response.headers.uid)
+            localStorage.setItem('token-type', response.headers['token-type'])
+              this.$store.dispatch(
+                "flashMessage/showMessage",
+                {
+                  message: "更新しました.",
+                  type: "sucess",
+                  status: true,
+                },
+                { root: true }
+              )
+              window.location.href = '/'
+            return response
+          },
+        (error) => {
+          return error
+        }
+      )
+      .catch((error) => {
+        this.$store.dispatch(
+          "flashMessage/showMessage",
+          {
+            message: "更新出来ませんでした.",
+            type: "sucess",
+            status: true,
+          },
+          { root: true }
+        )
+      })
+    }
   },
 }
 </script>
