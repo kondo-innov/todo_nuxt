@@ -23,6 +23,26 @@ export default {
   methods: {
     logout() {
       this.$auth.logout();
+      this.$store.dispatch(
+        "flashMessage/showMessage",
+        {
+          message: "ログアウトしました.",
+          type: "sucess",
+          status: true,
+        },
+        { root: true }
+      )
+      .catch((error) => {
+        this.$store.dispatch(
+          "flashMessage/showMessage",
+          {
+            message: "ログアウト出来ませんでした.",
+            type: "sucess",
+            status: true,
+          },
+          { root: true }
+        )
+      })
     },
   }
 }
