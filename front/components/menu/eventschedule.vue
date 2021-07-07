@@ -1,3 +1,3 @@
 <template>
-  <p>ko</p>
+  <p>ki</p>
 </template>

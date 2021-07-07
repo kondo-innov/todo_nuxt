@@ -8,24 +8,15 @@
       slider-color="orange"
       icons-and-text
     >
-      <v-tab
-        @change="newtweetList"
-        class="ma-0 pa-0"
-      >
+      <v-tab>
         新着順
         <v-icon>mdi-clock-time-eight</v-icon>
       </v-tab>
-      <v-tab
-        @change="goodtweetList"
-        class="ma-0 pa-0"
-      >
+      <v-tab>
         いいね
         <v-icon>mdi-thumb-up</v-icon>
       </v-tab>
-      <v-tab
-        @change="mytweetList"
-        class="ma-0 pa-0"
-      >
+      <v-tab>
         自分のつぶやき
         <v-icon>mdi-comment-account-outline</v-icon>
       </v-tab>
@@ -46,13 +37,28 @@
     </v-row>
     <v-tabs-items v-model="tab" touchless>
       <v-tab-item>
-        <newtweetList />
+        <v-card flat>
+          <v-card-text>
+            <newtweetList v-if="newtweetList"
+            />
+          </v-card-text>
+        </v-card>
       </v-tab-item>
       <v-tab-item>
-        <goodtweetList />
+        <v-card flat>
+          <v-card-text>
+            <goodtweetList v-if="goodtweetList"
+            />
+          </v-card-text>
+        </v-card>
       </v-tab-item>
       <v-tab-item>
-        <mytweetList />
+        <v-card flat>
+          <v-card-text>
+            <mytweetList v-if="mytweetList"
+            />
+          </v-card-text>
+        </v-card>
       </v-tab-item>
     </v-tabs-items>
   </v-container>
@@ -71,17 +77,23 @@ export default {
   },
   data () {
     return {
-      tab: null
+      tab:                 null,
+      newtweetList:        true,
+      goodtweetList:       false,
+      mytweetList:         false
     }
   },
   methods: {
     newtweetList () {
+      console.log('a')
       this.newtweetList = !this.newtweetList
     },
     goodtweetList () {
+      console.log('b')
       this.goodtweetList = !this.goodtweetList
     },
     mytweetList () {
+      console.log('c')
       this.mytweetList = !this.mytweetList
     },
   }

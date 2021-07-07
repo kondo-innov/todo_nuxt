@@ -1,5 +1,4 @@
 <template>
-  <v-container>
     <v-card>
       <v-toolbar
         color="cyan darken-1"
@@ -13,30 +12,28 @@
           Menu
         </v-toolbar-title>
       </v-toolbar>
-    <v-list>
-      <v-list-item-group
-        color="orange"
-        mandatory
-      >
-        <v-list-item
-          v-for="item in menuItems"
-          :key="item.id"
-          @click="menuClick(item.name)"
+      <v-list>
+        <v-list-item-group
+          color="orange"
+          mandatory
         >
-          <v-list-item-content>
-            <v-list-item-title>
-              <v-icon class="mr-3">
-                {{ item.icon }}
-              </v-icon>
-              {{ item.title }}
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
-    </v-list>
-  </v-card>
-  </v-container>
-  
+          <v-list-item
+            v-for="item in menuItems"
+            :key="item.id"
+            @click="menuClick(item.name)"
+          >
+            <v-list-item-content>
+              <v-list-item-title>
+                <v-icon class="mr-3">
+                  {{ item.icon }}
+                </v-icon>
+                {{ item.title }}
+              </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-card>
 </template>
 <script>
 export default {
@@ -45,7 +42,7 @@ export default {
       menuItems: [
         {
           title: 'つぶやき',
-          name: 'talktweet',
+          name: 'tweetList',
           icon: 'mdi-post-outline'
         },
         {
@@ -63,7 +60,7 @@ export default {
   },
   methods: {
     menuClick (name) {
-      this.$emit(`${name}`)
+      this.$emit(`open${name}`)
     }
   }
 }
