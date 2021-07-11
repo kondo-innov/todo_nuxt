@@ -5,14 +5,15 @@
       <span>ユーザー画像</span>
     </v-row>
     <v-row justify="center" class="pt-6">
-      <v-avatar size="100">
-        <template v-if="defaultImg !== null">
-          <v-img v-if="input_image !== null" :src="input_image" />
+      <v-avatar size="150">
+        <img :src="url" />
+        <!-- <template v-if="defaultImg !== null">
+          <v-img v-if="defaultImg !== null" :src="defaultImg" />
           <v-img v-else :src="defaultImg" />
         </template>
         <template v-else>
           <v-img v-if="input_image" :src="input_image" />
-        </template>
+        </template> -->
       </v-avatar>
       <v-col cols="12">
         <input
@@ -35,7 +36,7 @@
     data(){
       return {
         imageFile: [],
-        input_image: null,
+        url: '',
         defaultImg: require("@/assets/images/default_user_icon.jpeg")
       }
     },
@@ -55,7 +56,7 @@
       async createPost(post) {
         const url = 'http://localhost:3000/api/v1/avatars'
         const response = await this.$axios.post(url, post)
-        console.log(response)
+        this.url = response.data.url
       },
     }
   }
