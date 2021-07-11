@@ -5,7 +5,7 @@
           <v-text-field
             v-model="user.name"
             :placeholder="nameForm.placeholder"
-            :rules="[rules.required, rules.name]"
+            :rules="[rules.name]"
             prepend-icon="mdi-account"
             label="新しい名前"
           />
