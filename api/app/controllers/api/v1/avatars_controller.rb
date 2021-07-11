@@ -5,9 +5,7 @@ module Api
       def create
         @avatar = Avatar.new(controller_params)
         if @avatar.save
-          render json: { status: 200 }
-        else
-          render json: @avatar.errors, status: 422
+          render json: { url: @avatar.image.service_url, messages: '成功' }, stauts: :ok
         end
       end
 
