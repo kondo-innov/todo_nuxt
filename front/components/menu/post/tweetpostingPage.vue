@@ -32,7 +32,6 @@
             </v-col>
             <v-col cols="12">
               <v-textarea
-                v-model="description"
                 label="説明文"
               >
 
@@ -48,14 +47,14 @@
           text
           @click="dialog = false"
         >
-          Close
+          閉じる
         </v-btn>
         <v-btn
           color="blue darken-1"
           text
           @click="dialog = false"
         >
-          Save
+          送信
         </v-btn>
       </v-card-actions>
     </v-card>
