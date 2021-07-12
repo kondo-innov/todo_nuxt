@@ -74,7 +74,6 @@ export default {
   },
   methods: {
     opentweetpostingPage () {
-      console.log('gg')
       this.tweetpostingPage  = true
     },
     opennewtweetList () {
