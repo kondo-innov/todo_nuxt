@@ -8,7 +8,7 @@
           @openeventschedule="openeventschedule"
         />
       </v-col>
-      <v-col xl="5" lg="7" sm="8" cols="12">
+      <v-col xl="5" lg="7" sm="8" cols="12" class="menu_list">
         <tweetList v-if="tweetList"
         />
         <eventsearch v-if="eventsearch"
@@ -59,3 +59,9 @@ export default {
   }
 }
 </script>
+
+<style>
+  .menu_list {
+    padding: 0;
+ }
+</style>
