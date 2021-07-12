@@ -10,7 +10,6 @@ module Api
       end
 
       private
-
         def name
           File.basename(filename, ".*")
         end
