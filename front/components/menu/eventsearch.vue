@@ -18,8 +18,14 @@
       <v-tab
         @click="openSearch"
       >
-        イベント検索
+        市区郡検索
         <v-icon>mdi-magnify</v-icon>
+      </v-tab>
+      <v-tab
+        @click="openPost"
+      >
+        イベント投稿
+        <v-icon>mdi-file-send</v-icon>
       </v-tab>
     </v-tabs>
     <v-row justify="center">
@@ -36,6 +42,10 @@
         <Search v-if="Search"
         />
       </v-tab-item>
+      <v-tab-item>
+        <Post v-if="Post"
+        />
+      </v-tab-item>
     </v-tabs-items>
   </v-container>
 </template>
@@ -43,29 +53,35 @@
 <script>
 import newEvent       from "~/components/menu/eventsearch/newEvent.vue"
 import Search         from "~/components/menu/eventsearch/Search.vue"
+import Post           from "~/components/menu/post/eventpostingPage.vue"
 
 export default {
   components: {
     newEvent,
     Search,
+    Post,
   },
   data () {
     return {
       tab:                 null,
       newEvent:            true,
       Search:              false,
+      Post:                false,
     }
   },
   methods: {
     opennewEvent () {
-      console.log('a')
       this.newEvent       = true,
       this.Search         = false
     },
     openSearch () {
-      console.log('b')
       this.newEvent       = false,
       this.Search         = true
+    },
+    openPost () {
+      this.newEvent       = false,
+      this.Search         = false,
+      this.Post           = true
     },
   }
 }
