@@ -1,7 +1,5 @@
 <template>
-  <container>
-    <p>ya</p>
-  </container>
+  <p>ya</p>
 </template>
 
 <script>
