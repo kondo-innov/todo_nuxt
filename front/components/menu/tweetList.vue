@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-tabs
+      v-model="tab"
       fixed-tabs
       centered
       background-color="cyan darken-1"
@@ -35,15 +36,15 @@
     <v-tabs-items v-model="tab" touchless>
       <v-tab-item>
         <newtweetList 
-          v-if="newtweetList"
+          v-if="shownewtweetList"
         />
       </v-tab-item>
       <v-tab-item>
-        <goodtweetList v-if="goodtweetList"
+        <goodtweetList v-if="showgoodtweetList"
         />
       </v-tab-item>
       <v-tab-item>
-        <mytweetList v-if="mytweetList"
+        <mytweetList v-if="showmytweetList"
         />
       </v-tab-item>
     </v-tabs-items>
@@ -65,11 +66,11 @@ export default {
   },
   data () {
     return {
-      tweetpostingPage:    false,
-      tab:                 null,
-      newtweetList:        true,
-      goodtweetList:       false,
-      mytweetList:         false
+      tweetpostingPage:        false,
+      tab:                     null,
+      shownewtweetList:        true,
+      showgoodtweetList:       false,
+      showmytweetList:         false
     }
   },
   methods: {
@@ -78,21 +79,21 @@ export default {
     },
     opennewtweetList () {
       console.log('a')
-      this.newtweetList      = true,
-      this.goodtweetList     = false,
-      this.mytweetList       = false
+      this.shownewtweetList      = true,
+      this.showgoodtweetList     = false,
+      this.showmytweetList       = false
     },
     opengoodtweetList () {
       console.log('b')
-      this.newtweetList      = false,
-      this.goodtweetList     = true,
-      this.mytweetList       = false
+      this.shownewtweetList      = false,
+      this.showgoodtweetList     = true,
+      this.showmytweetList       = false
     },
     openmytweetList () {
       console.log('c')
-      this.newtweetList      = false,
-      this.goodtweetList     = false,
-      this.mytweetList       = true
+      this.shownewtweetList      = false,
+      this.showgoodtweetList     = false,
+      this.showmytweetList       = true
     },
   }
 }

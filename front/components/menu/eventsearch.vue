@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-tabs
+      v-model="tab"
       fixed-tabs
       centered
       background-color="cyan darken-1"
