@@ -13,7 +13,7 @@
         @click="openPlan"
       >
         イベント予定
-        <v-icon>mdi-book</v-icon>
+        <v-icon>mdi-calendar-clock</v-icon>
       </v-tab>
       <v-tab
         @click="openPastPost"
