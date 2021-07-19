@@ -7,7 +7,8 @@ Rails.application.routes.draw do
           registrations: 'api/v1/auth/registrations',
           sessions: 'api/v1/auth/sessions'
       }
-      resources :users, only: %i[index, create]
+      resources :users,          only: %i[index create]
+      resource  :current_user,   only: %i[show] 
     end
   end
 end

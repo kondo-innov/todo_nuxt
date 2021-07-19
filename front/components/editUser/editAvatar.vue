@@ -40,6 +40,9 @@
         defaultImg: require("@/assets/images/default_user_icon.jpeg")
       }
     },
+    mounted () {
+      this.fetchUser()
+    },
     methods: {
       setImage(e) {
         e.preventDefault();
@@ -53,8 +56,14 @@
         }
         this.createPost(formData);
       },
+      async fetchUser(get) {
+        const url = 'http://localhost:3000/api/v1/current_user'
+        const response = await this.$axios.get(url, get)
+        console.log(response)
+        this.url = response.data.url
+      },
       async createPost(post) {
-        const url = 'http://localhost:3000/api/v1/avatars'
+        const url = 'http://localhost:3000/api/v1/users'
         const response = await this.$axios.post(url, post)
         this.url = response.data.url
       },
