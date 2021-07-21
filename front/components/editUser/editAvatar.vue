@@ -6,14 +6,14 @@
     </v-row>
     <v-row justify="center" class="pt-6">
       <v-avatar size="150">
-        <img :src="url" />
-        <!-- <template v-if="defaultImg !== null">
-          <v-img v-if="defaultImg !== null" :src="defaultImg" />
-          <v-img v-else :src="defaultImg" />
+        <!-- <img :src="url" /> -->
+        <template v-if="imageFile !== null">
+          <v-img v-if="url == null" :src="defaultImg" />
+          <v-img v-else :src="url" />
         </template>
         <template v-else>
-          <v-img v-if="input_image" :src="input_image" />
-        </template> -->
+          <v-img :src="defaultImg" />
+        </template>
       </v-avatar>
       <v-col cols="12">
         <input
@@ -59,7 +59,6 @@
       async fetchUser(get) {
         const url = 'http://localhost:3000/api/v1/current_user'
         const response = await this.$axios.get(url, get)
-        console.log(response)
         this.url = response.data.url
       },
       async createPost(post) {
