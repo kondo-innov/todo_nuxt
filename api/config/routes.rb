@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       }
       resources :users,          only: %i[index create]
       resource  :current_user,   only: %i[show] 
+      resources :events
     end
   end
 end
