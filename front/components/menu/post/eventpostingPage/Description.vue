@@ -1,18 +1,33 @@
 <template>
   <v-container >
-    <v-textarea
-      v-model="descriptionValue"
-      label="イベントの説明"
-      counter="1000"
-      clearable
-      clear-icon="mdi-close-circle"
-    ></v-textarea>
+    <ValidationProvider
+      v-slot="{ errors }"
+      :rules="rules"
+      name="イベントの説明"
+    >
+      <v-textarea
+        v-model="descriptionValue"
+        label="イベントの説明"
+        :counter="1000"
+        clearable
+        clear-icon="mdi-close-circle"
+      ></v-textarea>
+      <span id="error">{{ errors[0] }}</span>
+    </ValidationProvider>
   </v-container>
 </template>
 
 <script>
 export default {
-  props: ["value"],
+  props: {
+    rules: {
+      type: [Object, String],
+      default: ''
+    },
+    value: {
+      type: null
+    }
+  },
 
   computed: {
     descriptionValue: {

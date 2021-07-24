@@ -1,19 +1,34 @@
 <template>
   <v-container>
-    <v-text-field
-      v-model="internalValue"
-      :counter="20"
-      label="イベント名"
-      outlined
-      dense
-      clearable
-    ></v-text-field>
+    <ValidationProvider
+      v-slot="{ errors }"
+      :rules="rules"
+      name="イベント名"
+    >
+      <v-text-field
+        v-model="internalValue"
+        :counter="20"
+        label="イベント名"
+        outlined
+        dense
+        clearable
+      ></v-text-field>
+      <span id="error">{{ errors[0] }}</span>
+    </ValidationProvider>
   </v-container>
 </template>
 
 <script>
 export default {
-  props: ['value'],
+  props: {
+    rules: {
+      type: [Object, String],
+      default: ''
+    },
+    value: {
+      type: null
+    }
+  },
   computed: {
     internalValue: {
       get () {

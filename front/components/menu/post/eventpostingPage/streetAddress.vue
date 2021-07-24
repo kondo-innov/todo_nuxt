@@ -1,18 +1,33 @@
 <template>
   <v-container>
-    <v-text-field
-      v-model="addressValue"
-      label="◯◯町◯◯番地"
-      outlined
-      dense
-      clearable
-    ></v-text-field>
+    <ValidationProvider
+      v-slot="{ errors }"
+      :rules="rules"
+      name="開催場所"
+    >
+      <v-text-field
+        v-model="addressValue"
+        label="開催場所、◯◯町◯◯番地"
+        outlined
+        dense
+        clearable
+      ></v-text-field>
+      <span id="error">{{ errors[0] }}</span>
+    </ValidationProvider>
   </v-container>
 </template>
 
 <script>
 export default {
-  props: ["value"],
+  props: {
+    rules: {
+      type: [Object, String],
+      default: ''
+    },
+    value: {
+      type: String
+    }
+  },
 
   computed: {
     addressValue: {

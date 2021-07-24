@@ -1,13 +1,20 @@
 <template>
-  <v-combobox
-    class="mx-2"
-    :items="name"
-    label="市区郡"
-    outlined
-    dense
-    clearable
-    v-model="selectValue"
-  ></v-combobox>
+  <ValidationProvider
+    v-slot="{ errors }"
+    :rules="rules"
+    name="市区郡"
+  >
+    <v-combobox
+      class="mx-2"
+      :items="name"
+      label="市区郡"
+      outlined
+      dense
+      clearable
+      v-model="selectValue"
+    ></v-combobox>
+    <span id="error">{{ errors[0] }}</span>
+  </ValidationProvider>
 </template>
 
 <script>
@@ -26,7 +33,15 @@
         ],
       }
     },
-    props: ["value"],
+    props: {
+      rules: {
+        type: [Object, String],
+        default: ''
+      },
+      value: {
+        type: String
+      }
+    },
 
     computed: {
       selectValue: {
