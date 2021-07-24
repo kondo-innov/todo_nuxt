@@ -1,15 +1,27 @@
 <template>
   <div class="container">
-    <div>
-      <VueCtkDateTimePicker v-model="timeValue"></VueCtkDateTimePicker>    </div>
+    <v-input>
+      <VueCtkDateTimePicker 
+        v-model="timeValue" 
+        label="イベント日時"
+      >
+      </VueCtkDateTimePicker>
+    </v-input>
   </div>
 </template>
  
 <script> 
 export default {
-  data() {
-    return {
-      timeValue: "2021-01-01 00:00"
+  props: ["value"],
+
+  computed: {
+    timeValue: {
+      get () {
+        return this.value
+      },
+      set (newVal) {
+        if (this.value !== newVal) this.$emit('input', newVal)
+      }
     }
   }
 }

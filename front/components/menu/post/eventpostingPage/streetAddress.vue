@@ -1,9 +1,8 @@
 <template>
   <v-container>
     <v-text-field
-      v-model="internalValue"
-      :counter="20"
-      label="イベント名"
+      v-model="addressValue"
+      label="◯◯町◯◯番地"
       outlined
       dense
       clearable
@@ -13,9 +12,10 @@
 
 <script>
 export default {
-  props: ['value'],
+  props: ["value"],
+
   computed: {
-    internalValue: {
+    addressValue: {
       get () {
         return this.value
       },
