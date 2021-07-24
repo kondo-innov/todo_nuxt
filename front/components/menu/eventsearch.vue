@@ -22,7 +22,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-tab>
       <v-tab
-        @click="openPost"
+        @click.stop="openPost"
       >
         イベント投稿
         <v-icon>mdi-file-send</v-icon>
@@ -42,46 +42,53 @@
         <Search v-if="Search"
         />
       </v-tab-item>
-      <v-tab-item>
-        <Post v-if="Post"
-        />
-      </v-tab-item>
+      <v-dialog v-model="dialog" v-if="eventpostingPage" max-width="600px" activator>
+        <v-tab-item>
+          <eventpostingPage @closeDialog= "dialog=false"
+          />
+        </v-tab-item>
+      </v-dialog>
     </v-tabs-items>
   </v-container>
 </template>
 
 <script>
-import newEvent       from "~/components/menu/eventsearch/newEvent.vue"
-import Search         from "~/components/menu/eventsearch/Search.vue"
-import Post           from "~/components/menu/post/eventpostingPage.vue"
+import newEvent                   from "~/components/menu/eventsearch/newEvent.vue"
+import Search                     from "~/components/menu/eventsearch/Search.vue"
+import eventpostingPage           from "~/components/menu/post/eventpostingPage.vue"
 
 export default {
   components: {
     newEvent,
     Search,
-    Post,
+    eventpostingPage,
   },
   data () {
     return {
       tab:                 null,
+      dialog:              false,
       newEvent:            true,
       Search:              false,
-      Post:                false,
+      eventpostingPage:    false,
     }
   },
   methods: {
     opennewEvent () {
-      this.newEvent       = true,
-      this.Search         = false
+      this.newEvent           = true,
+      this.Search             = false,
+      this.eventpostingPage   = false
     },
     openSearch () {
-      this.newEvent       = false,
-      this.Search         = true
+      this.newEvent           = false,
+      this.Search             = true,
+      this.eventpostingPage   = false
     },
     openPost () {
-      this.newEvent       = false,
-      this.Search         = false,
-      this.Post           = true
+      this.newEvent           = false,
+      this.Search             = false,
+      this.eventpostingPage   = true,
+      this.dialog             = true
+
     },
   }
 }

@@ -1,21 +1,21 @@
 <template>
-  <v-container>
-    <v-text-field
-      v-model="internalValue"
-      :counter="20"
-      label="イベント名"
-      outlined
-      dense
+  <v-container >
+    <v-textarea
+      v-model="descriptionValue"
+      label="イベントの説明"
+      counter="1000"
       clearable
-    ></v-text-field>
+      clear-icon="mdi-close-circle"
+    ></v-textarea>
   </v-container>
 </template>
 
 <script>
 export default {
-  props: ['value'],
+  props: ["value"],
+
   computed: {
-    internalValue: {
+    descriptionValue: {
       get () {
         return this.value
       },
