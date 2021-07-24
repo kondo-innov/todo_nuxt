@@ -1,18 +1,33 @@
 <template>
   <div class="container">
-    <v-input>
-      <VueCtkDateTimePicker 
-        v-model="timeValue" 
-        label="イベント日時"
-      >
-      </VueCtkDateTimePicker>
-    </v-input>
+    <ValidationProvider
+      v-slot="{ errors }"
+      :rules="rules"
+      name="イベント日時"
+    >
+      <v-input>
+        <VueCtkDateTimePicker 
+          v-model="timeValue" 
+          label="イベント日時"
+        >
+        </VueCtkDateTimePicker>
+      </v-input>
+      <span id="error">{{ errors[0] }}</span>
+    </ValidationProvider>
   </div>
 </template>
  
 <script> 
 export default {
-  props: ["value"],
+  props: {
+    rules: {
+      type: [Object, String],
+      default: ''
+    },
+    value: {
+      type: null
+    }
+  },
 
   computed: {
     timeValue: {

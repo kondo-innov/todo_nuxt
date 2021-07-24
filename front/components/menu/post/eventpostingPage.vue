@@ -3,66 +3,74 @@
     <v-row justify="center">
       <v-card>
         <v-form>
-          <v-card-title>
-            <span class="text-h5">イベント投稿</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container>
-              <v-row>
-                <v-col
-                  cols="12"
-                >
-                <eventName 
-                  v-model="eventname"
-                />
-                </v-col>
-                <v-col
-                  cols="12"
-                >
-                  <dateTime 
-                    v-model="datetime"
-                  />
-                </v-col>
-                <v-col
-                  cols="4"
-                >
-                  <cityWard 
-                    v-model="cityward"
-                  />
-                </v-col>
-                <v-flex offset-xs0 xs8
+          <ValidationObserver v-slot="ObserverProps">
+            <v-card-title>
+              <span class="text-h5">イベント投稿</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container>
+                <v-row>
+                  <v-col
+                    cols="12"
                   >
-                  <streetAddress 
-                    v-model="streetaddress"
+                  <eventName
+                    v-model="eventname"
+                    rules="max:20|required"
                   />
-                </v-flex>
-                <v-col
-                  cols="12"
-                >
-                  <Description 
-                    v-model="description"
-                  />
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="$emit('closeDialog')"
-            >
-              Close
-            </v-btn>
-            <v-btn
-              color="blue darken-1"
-              text
-              @click="eventPost"
-            >
-              Save
-            </v-btn>
-          </v-card-actions>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                  >
+                    <dateTime
+                      v-model="datetime"
+                      rules="required"
+                    />
+                  </v-col>
+                  <v-col
+                    cols="4"
+                  >
+                    <cityWard
+                      v-model="cityward"
+                      rules="required"
+                    />
+                  </v-col>
+                  <v-flex offset-xs0 xs8
+                    >
+                    <streetAddress
+                      v-model="streetaddress"
+                      rules="required"
+                    />
+                  </v-flex>
+                  <v-col
+                    cols="12"
+                  >
+                    <Description
+                      v-model="description"
+                      rules="max:1000|required"
+                    />
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn
+                color="blue darken-1"
+                text
+                @click="$emit('closeDialog')"
+              >
+                Close
+              </v-btn>
+              <v-btn
+                :disabled="ObserverProps.invalid"
+                color="blue darken-1"
+                text
+                @click="eventPost"
+              >
+                Save
+              </v-btn>
+            </v-card-actions>
+          </ValidationObserver>
         </v-form>
       </v-card>
     </v-row>
