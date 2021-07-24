@@ -13,6 +13,7 @@
     "@nuxtjs/auth": "^4.9.1",
     "core-js": "^3.9.1",
     "nuxt": "^2.15.3",
+    "vee-validate": "^3.4.11",
     "vue-ctk-date-time-picker": "^2.5.0"
   },
   "devDependencies": {
