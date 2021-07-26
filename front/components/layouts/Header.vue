@@ -14,7 +14,10 @@
     <template v-if="store">
       <router-link to="/users/edit">
         <v-avatar size="40">
-          <img v-bind:src="require('@/assets/images/default_user_icon.jpeg')">
+          <template v-if="image">
+            <v-img v-if=" image== null" :src="defaultImg" />
+            <v-img v-else :src="image" /> 
+          </template>
         </v-avatar>
       </router-link>
     </template>
@@ -43,14 +46,35 @@
 
 <script>
   export default {
-    data: () => ({
-      drawer: false,
-      group: null,
-    }),
+    data() {
+      return {
+        url: '',
+        drawer: false,
+        group: null,
+        defaultImg: require("@/assets/images/default_user_icon.jpeg")
+      }
+    },
     computed: {
       store() {
-      console.log(this.$auth.loggedIn)
-      return this.$auth.loggedIn
+        return this.$auth.loggedIn
+      },
+      image() {
+        const hoge = this.$store.getters['image/imagedate']
+        return hoge
+      },
+    },
+    mounted () {
+      this.fetchUser()
+        this.$store.dispatch(
+          "image/doSearch",
+          
+        )
+    },
+    methods: {
+      async fetchUser(get) {
+        const url = 'http://localhost:3000/api/v1/current_user'
+        const response = await this.$axios.get(url, get)
+        this.url = response.data.url
       },
     }
   }
