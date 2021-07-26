@@ -1,7 +1,7 @@
-export const state = {
+export const state = () => ({
   imagedate: null,
   loading: false
-};
+})
 
 export const getters = {
   imagedate(state) {
