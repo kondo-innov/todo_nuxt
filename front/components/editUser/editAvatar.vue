@@ -6,7 +6,6 @@
     </v-row>
     <v-row justify="center" class="pt-6">
       <v-avatar size="150">
-        <!-- <img :src="url" /> -->
         <template v-if="imageFile !== null">
           <v-img v-if="url == null" :src="defaultImg" />
           <v-img v-else :src="url" />
@@ -57,6 +56,7 @@
         this.createPost(formData);
       },
       async fetchUser(get) {
+        console.log('hu')
         const url = 'http://localhost:3000/api/v1/current_user'
         const response = await this.$axios.get(url, get)
         this.url = response.data.url
@@ -65,6 +65,9 @@
         const url = 'http://localhost:3000/api/v1/users'
         const response = await this.$axios.post(url, post)
         this.url = response.data.url
+        this.$store.dispatch(
+          "image/doSearch",
+        )
       },
     }
   }
