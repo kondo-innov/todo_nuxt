@@ -14,10 +14,8 @@
     <template v-if="store">
       <router-link to="/users/edit">
         <v-avatar size="40">
-          <template v-if="image">
-            <v-img v-if=" image== null" :src="defaultImg" />
-            <v-img v-else :src="image" /> 
-          </template>
+          <v-img v-if="image == null" :src="defaultImg" />
+          <v-img v-else :src="image" />
         </v-avatar>
       </router-link>
     </template>
@@ -48,7 +46,6 @@
   export default {
     data() {
       return {
-        url: '',
         drawer: false,
         group: null,
         defaultImg: require("@/assets/images/default_user_icon.jpeg")
@@ -67,7 +64,6 @@
       this.fetchUser()
         this.$store.dispatch(
           "image/doSearch",
-          
         )
     },
     methods: {

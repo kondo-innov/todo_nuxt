@@ -56,7 +56,6 @@
         this.createPost(formData);
       },
       async fetchUser(get) {
-        console.log('hu')
         const url = 'http://localhost:3000/api/v1/current_user'
         const response = await this.$axios.get(url, get)
         this.url = response.data.url
