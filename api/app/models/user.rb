@@ -5,5 +5,9 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   include DeviseTokenAuth::Concerns::User
 
+  ################################################################################################
+  # アソシエーション
+  ################################################################################################
   has_one_attached :image
+  has_many :events, dependent: :destroy
 end
