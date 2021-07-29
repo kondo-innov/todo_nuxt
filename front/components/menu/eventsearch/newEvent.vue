@@ -10,10 +10,10 @@
             <h2 class="pb-4">
               {{ event.eventname }}
             </h2>
-            <h4 class="d-inline" >
-              開催日時:{{ event.datetime }}
-            </h4>
             <h4 class="d-inline">
+              開催日時:{{ $moment(event.datetime).format('YYYY年MM月DD日 HH時mm分') }}
+            </h4>
+            <h4 class="city">
               開催市区:{{ event.cityward }}
             </h4>
           </v-card>
@@ -58,3 +58,10 @@ export default {
   }
 }
 </script>
+
+<style>
+.city {
+  display: inline;
+  float: right;
+}
+</style>
