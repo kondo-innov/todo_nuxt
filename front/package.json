@@ -14,7 +14,8 @@
     "core-js": "^3.9.1",
     "nuxt": "^2.15.3",
     "vee-validate": "^3.4.11",
-    "vue-ctk-date-time-picker": "^2.5.0"
+    "vue-ctk-date-time-picker": "^2.5.0",
+    "vue-infinite-loading": "^2.4.5"
   },
   "devDependencies": {
     "@nuxtjs/moment": "^1.6.1",
