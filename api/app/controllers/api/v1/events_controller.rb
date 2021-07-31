@@ -3,8 +3,9 @@ module Api
     class EventsController < ApplicationController
       protect_from_forgery
       def index
-        events = Event.all.page(params[:page]).per(5).order(created_at: 'DESC')
-        render json: events
+        events = Event.all.page(params[:page]).order(created_at: 'DESC')
+        render json: events.as_json(include: :user)
+        # render json: events.as_json(include: %i[user], methods: :image)
       end 
 
       def create
