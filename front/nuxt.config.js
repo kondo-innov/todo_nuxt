@@ -35,6 +35,7 @@ export default {
     { src: '~/plugins/vee-validate' },
     { src: '~/plugins/axios.js' },
     { src: '@/plugins/plugin', mode: 'client' },
+    { src: '~/plugins/infiniteloading', ssr: false },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
