@@ -6,14 +6,15 @@
     >
       <v-row class="mt-8">
         <v-col cols="10">
-          <v-card color="gray">
+          <v-card color="gray" class="px-6">
             <h2 class="pb-4">
               {{ event.eventname }}
+              <h6 class="float-right d-inline">ユーザー名：{{ event.user.name }}</h6>
             </h2>
             <h4 class="d-inline">
               開催日時:{{ $moment(event.datetime).format('YYYY年MM月DD日 HH時mm分') }}
             </h4>
-            <h4 class="city">
+            <h4 class="d-inline float-right">
               開催市区:{{ event.cityward }}
             </h4>
           </v-card>
@@ -57,6 +58,7 @@ export default {
   methods: {
     async fetchEvent(get) {
       const events = 'http://localhost:3000/api/v1/events'
+      console.log(events)
       const response = await this.$axios.get(events, get)
       this.events = response.data
     },
@@ -73,10 +75,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.city {
-  display: inline;
-  float: right;
-}
-</style>
