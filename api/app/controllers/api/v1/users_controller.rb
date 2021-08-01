@@ -3,7 +3,8 @@ module Api
     class UsersController < ApplicationController
       protect_from_forgery
       def index
-
+        users = current_user
+        render json: users
       end 
 
       def create
