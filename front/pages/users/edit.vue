@@ -17,7 +17,7 @@
               <v-icon>mdi-account</v-icon>
             </v-tab>
             <v-tab class="ma-0 pa-0">
-              登録情報
+              編集・ログアウト
               <v-icon>mdi-account-cog</v-icon>
             </v-tab>
           </v-tabs>
@@ -25,11 +25,12 @@
             <v-tab-item>
               <v-container>
                 <edit-avatar />
-                <edit-email />
+                <name-email />
               </v-container>
             </v-tab-item>
             <v-tab-item>
               <v-container>
+                <edit-email />
                 <edit-logout />
                 <edit-delete />
               </v-container>
@@ -44,9 +45,11 @@
 
 <script>
 import editAvatar from "~/components/editUser/editAvatar"
+import NameEmail from "~/components/editUser/NameEmail"
 export default {
   components: {
     editAvatar,
+    NameEmail,
   },
   data() {
     return {
