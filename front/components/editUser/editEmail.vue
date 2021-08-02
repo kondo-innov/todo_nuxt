@@ -43,7 +43,7 @@ export default {
       },
       rules: {
         name:     v => (!!v && max >= v.length) || `${max}文字以内で入力してください`,
-        email:    v => /.+@.+\..+/.test(v) || '',
+        email:    v => /.+@.+\..+/.test(v),
       },
     }
   },
@@ -73,33 +73,32 @@ export default {
             localStorage.setItem('client', response.headers.client)
             localStorage.setItem('uid', response.headers.uid)
             localStorage.setItem('token-type', response.headers['token-type'])
+            setTimeout(() => {
               this.$store.dispatch(
                 "flashMessage/showMessage",
                 {
-                  message: "更新しました.",
+                  message: "更新に成功しました.",
                   type: "sucess",
                   status: true,
-                },
-                { root: true }
-              )
-              window.location.href = '/'
-            return response
-          },
-        (error) => {
-          return error
-        }
-      )
-      .catch((error) => {
-        this.$store.dispatch(
-          "flashMessage/showMessage",
-          {
-            message: "更新出来ませんでした.",
-            type: "sucess",
-            status: true,
-          },
-          { root: true }
-        )
-      })
+              },
+              { root: true }
+            )
+            window.location.href = '/users/edit'
+          },500)
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "更新に失敗しました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
+          },500)
+        })
     }
   },
 }
