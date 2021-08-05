@@ -59,7 +59,7 @@
                 text
                 @click="$emit('closeDialog')"
               >
-                Close
+                閉じる
               </v-btn>
               <v-btn
                 :disabled="ObserverProps.invalid"
@@ -67,7 +67,7 @@
                 text
                 @click="eventPost"
               >
-                Save
+                送信
               </v-btn>
             </v-card-actions>
           </ValidationObserver>

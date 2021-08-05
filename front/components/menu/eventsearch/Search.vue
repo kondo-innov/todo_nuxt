@@ -22,7 +22,7 @@
           <v-card color="gray" class="px-6">
             <h2 class="pb-4">
               {{ event.eventname }}
-              <h6 class="float-right d-inline">ユーザー名：{{ event.user.name }}</h6>
+              <h6 class="float-right d-inline">ユーザー名：{{ event.name }}</h6>
             </h2>
             <h4 class="d-inline">
               開催日時:{{ $moment(event.datetime).format('YYYY年MM月DD日 HH時mm分') }}
@@ -34,8 +34,8 @@
         </v-col>
         <v-col cols="2">
           <v-avatar size="80">
-            <v-img v-if="image == null" :src="defaultImg" />
-            <v-img v-else :src="image" />
+            <v-img v-if="event.image == null" :src="defaultImg" />
+            <v-img v-else :src="event.image" />
           </v-avatar>
         </v-col>
       </v-row>
@@ -49,7 +49,7 @@ export default {
     return {
       count:       10,
       keyword:  '',
-      ward:     '',
+      ward:     [],
       events: '',
       defaultImg: require("@/assets/images/default_user_icon.jpeg"),
       search: [
@@ -79,7 +79,7 @@ export default {
     async filteredSearch(e) {
       const events = 'http://localhost:3000/api/v1/events'
       const response = await this.$axios.get(events)
-      this.events = response.data
+      this.events = response.data.events
       const array = this.events.map(value => value.cityward)
       var aryCheck = array.filter(value => {
         return value == e
