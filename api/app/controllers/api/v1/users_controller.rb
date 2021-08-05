@@ -1,7 +1,6 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      protect_from_forgery
       def index
         users = current_user
         render json: users
