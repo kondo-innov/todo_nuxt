@@ -15,7 +15,8 @@ module Api
       end
 
       def show
-        @event = Event.find(params[:id])
+        @event = Event.find_by(id: params[:event_id])
+        render json: @event.as_json(include: :user)
       end
 
       def delete
