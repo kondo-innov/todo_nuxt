@@ -7,9 +7,10 @@ Rails.application.routes.draw do
           registrations: 'api/v1/auth/registrations',
           sessions: 'api/v1/auth/sessions'
       }
-      resources :users,          only: %i[index create]
-      resource  :current_user,   only: %i[show] 
-      resources :events
+      resources :users,          only: %i[index create show]
+      resource  :current_user,   only: %i[index show]
+      resources :tweets,         only: %i[index create show destroy]
+      resources :events, format: "json"
     end
   end
 end
