@@ -83,15 +83,11 @@ export default {
   props: ["value"],
 
   methods: {
-    setPicture (payload) {
-      this.picture = payload
-    },
     tweetPost() {
       const formData = new FormData()
       formData.append("picture", this.picture)
       formData.append("description", this.description)
-           console.log(formData.get('description'));
-            console.log(formData.get('picture'));
+      console.log(this.picture)
       const config = {
         headers: {
           "content-type": "multipart/form-data",
@@ -102,8 +98,9 @@ export default {
         .then((res) => {
           console.log('投稿に成功しました')
           this.$emit('tweetPost', res)
-          this.picture=            '',
+          this.picture=            [],
           this.description=      '',
+          this.dialog = false
           setTimeout(() => {
             this.$store.dispatch(
               "flashMessage/showMessage",
@@ -129,6 +126,9 @@ export default {
             )
           },1000)
         })
+    },
+    setPicture (payload) {
+      this.picture = payload
     },
   }
 }
