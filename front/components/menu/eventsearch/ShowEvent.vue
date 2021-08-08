@@ -9,8 +9,9 @@
         <v-row class="mx-auto">
           <v-card-text class="text-h5" >開催日時:{{ $moment(event.datetime).format('YYYY年MM月DD日 HH時mm分') }}</v-card-text>
           <v-card-text class="text-h5">開催市区:{{ event.cityward }}</v-card-text>
-          <v-card-text class="text-h5">開催地{{ event.streetaddress }}</v-card-text>
-          <v-card-text class="text-h5">イベント内容{{ event.description }}</v-card-text>
+          <v-card-text class="text-h5">開催地:{{ event.streetaddress }}</v-card-text>
+          <v-card-text class="text-h6">イベント内容:</v-card-text>
+          <v-card-text class="text-h5">{{ event.description }}</v-card-text>
         </v-row>
       </v-container>
     </v-card-text>

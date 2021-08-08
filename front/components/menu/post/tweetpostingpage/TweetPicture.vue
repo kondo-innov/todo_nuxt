@@ -6,7 +6,7 @@
     </v-row>
     <v-row justify="center" class="pt-6">
       <v-avatar tile size="200">
-        <img :src="image">
+        <img :src="picture">
       </v-avatar>
       <v-col cols="12">
         <input
@@ -27,23 +27,24 @@
 export default {
   data() {
     return {
-      image: [],
+      picture: [],
     }
   },
+
   methods: {
     addPicture(e) {
       e.preventDefault();
-      const image = e.target.files[0];
-      this.upload(image)
+      const picture = e.target.files[0];
+      this.upload(picture)
     },
-    async upload(image) {
+    async upload(picture) {
       const reader = new FileReader()
-      reader.readAsDataURL(image)
+      reader.readAsDataURL(picture)
       reader.addEventListener('load', () => {
-        this.image = reader.result
+        this.picture = reader.result
       })
-      this.image = image
-      this.$emit('setPicture', this.image)
+      this.picture = picture
+      this.$emit('setPicture', this.picture)
     },
   }
 }

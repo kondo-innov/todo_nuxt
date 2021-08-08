@@ -1,9 +1,8 @@
 module Api
   module V1
     class TweetsController < ApplicationController
-
       def index
-
+        @tweets = Tweet.all.page(params[:page]).order(created_at: 'DESC')
       end
 
       def create

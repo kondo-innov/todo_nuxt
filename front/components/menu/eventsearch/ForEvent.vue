@@ -39,6 +39,8 @@ export default {
   data() {
     return {
       dialog:    false,
+      defaultImg: require("@/assets/images/default_user_icon.jpeg"),
+
     }
   },
  props: ["event"],

@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       }
       resources :users,          only: %i[index create show]
       resource  :current_user,   only: %i[index show]
-      resources :tweets,         only: %i[index create show destroy]
+      resources :tweets, format: "json"
       resources :events, format: "json"
     end
   end

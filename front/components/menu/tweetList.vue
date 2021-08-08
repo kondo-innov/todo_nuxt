@@ -28,7 +28,7 @@
         <v-icon>mdi-comment-account-outline</v-icon>
       </v-tab>
     </v-tabs>
-    <v-row justify="center">
+    <v-row justify="center" class="my-2">
       <v-col cols="12" md="10" sm="10">
         <tweetpostingPage />
       </v-col>
