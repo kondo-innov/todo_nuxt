@@ -56,7 +56,7 @@ export default {
         } else {
           this.$refs.infiniteLoading.stateChanger.complete()
         }
-      }, 500)
+      }, 1000)
     }
   }
 }
