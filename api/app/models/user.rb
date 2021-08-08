@@ -10,4 +10,5 @@ class User < ActiveRecord::Base
   ################################################################################################
   has_one_attached :image
   has_many :events, dependent: :destroy
+  has_many :tweets, dependent: :destroy
 end
