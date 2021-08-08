@@ -29,7 +29,6 @@ export default {
       count:       10,
       event:     '',
       events:    [],
-      defaultImg: require("@/assets/images/default_user_icon.jpeg"),
       dialog: false
     }
   },

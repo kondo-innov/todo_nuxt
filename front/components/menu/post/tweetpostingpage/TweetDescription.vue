@@ -8,7 +8,7 @@
       <v-textarea
         v-model="tweetValue"
         label="つぶやき"
-        :counter="300"
+        :counter="100"
         clearable
         clear-icon="mdi-close-circle"
       ></v-textarea>
