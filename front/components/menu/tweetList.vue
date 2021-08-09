@@ -78,19 +78,16 @@ export default {
       this.tweetpostingPage  = true
     },
     opennewtweetList () {
-      console.log('a')
       this.shownewtweetList      = true,
       this.showgoodtweetList     = false,
       this.showmytweetList       = false
     },
     opengoodtweetList () {
-      console.log('b')
       this.shownewtweetList      = false,
       this.showgoodtweetList     = true,
       this.showmytweetList       = false
     },
     openmytweetList () {
-      console.log('c')
       this.shownewtweetList      = false,
       this.showgoodtweetList     = false,
       this.showmytweetList       = true

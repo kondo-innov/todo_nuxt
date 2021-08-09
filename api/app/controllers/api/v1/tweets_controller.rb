@@ -20,6 +20,12 @@ module Api
       end
 
       def destroy
+        tweet = Tweet.find(params[:id])
+        if tweet.destroy
+          render json: tweet, status: 200
+        else
+          render json: {message: '削除に失敗しました' }, status: 400
+        end
       end
 
       private

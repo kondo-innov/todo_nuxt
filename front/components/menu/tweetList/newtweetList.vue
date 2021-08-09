@@ -6,6 +6,7 @@
     >
       <ForTweet
         :tweet ="tweet"
+        @tweetdelete='tweet = $event'
       />
     </v-list-item>
     <infinite-loading 
