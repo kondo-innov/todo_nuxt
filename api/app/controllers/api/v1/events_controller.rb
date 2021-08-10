@@ -19,7 +19,7 @@ module Api
         render json: @event.as_json(include: :user)
       end
 
-      def delete
+      def destroy
       end
 
       private
