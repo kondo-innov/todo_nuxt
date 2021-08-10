@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_09_071350) do
+ActiveRecord::Schema.define(version: 2021_08_10_053435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,16 @@ ActiveRecord::Schema.define(version: 2021_08_09_071350) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "tweet_comments", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "tweet_id", null: false
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tweet_id"], name: "index_tweet_comments_on_tweet_id"
+    t.index ["user_id"], name: "index_tweet_comments_on_user_id"
+  end
+
   create_table "tweets", force: :cascade do |t|
     t.text "description", null: false
     t.bigint "user_id", null: false
@@ -97,5 +107,7 @@ ActiveRecord::Schema.define(version: 2021_08_09_071350) do
   add_foreign_key "events", "users"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
+  add_foreign_key "tweet_comments", "tweets"
+  add_foreign_key "tweet_comments", "users"
   add_foreign_key "tweets", "users"
 end
