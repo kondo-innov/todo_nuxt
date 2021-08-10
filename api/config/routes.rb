@@ -11,6 +11,7 @@ Rails.application.routes.draw do
       resource  :current_user,   only: %i[index show]
       resources :tweets, format: "json"
       resources :events, format: "json"
+      resources :likes,          only: %i[create destroy]
     end
   end
 end
