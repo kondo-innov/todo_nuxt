@@ -16,7 +16,7 @@ module Api
       end
 
       def destroy
-        @like = Like.find_by(user_id: params[:user_id], tweet_id: params[:tweet_id])
+        @like = Like.find_by(tweet_id: params[:id])
         @like.destroy
         render status: 200, json: false
       end

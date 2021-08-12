@@ -26,15 +26,6 @@
         </v-row>
         <div>
           <v-row justify="end" class="mt-8 mr-6">
-            <!-- <v-btn
-              icon
-              text
-              color="grey darken-2"
-            >
-              <v-icon>
-                mdi-pencil-box-multiple
-              </v-icon>
-            </v-btn> -->
             <v-btn
               icon
               text
@@ -45,17 +36,9 @@
                 mdi-delete
               </v-icon>
             </v-btn>
+            <TweetComment />
             <v-btn
-              icon
-              text
-              color="grey darken-2"
-              @click="openCommentDialog"
-            >
-              <v-icon>
-                mdi-comment-outline
-              </v-icon>
-            </v-btn>
-            <v-btn
+              v-if="islike()"
               icon
               text
               color="grey darken-2"
@@ -63,6 +46,17 @@
             >
               <v-icon>
                 mdi-heart-outline
+              </v-icon>
+            </v-btn>
+            <v-btn
+              v-else
+              icon
+              text
+              color="pink"
+              @click="sendgoodDelete"
+            >
+              <v-icon>
+                mdi-heart
               </v-icon>
             </v-btn>
           </v-row>
@@ -73,22 +67,23 @@
 </template>
 
 <script>
+import TweetComment        from "~/components/menu/tweetList/TweetComment.vue"
 export default {
+  components: {
+    TweetComment
+  },
   data() {
     return {
       defaultImg: require("@/assets/images/default_user_icon.jpeg"),
-      loading: false,
     }
   },
-  props: ["tweet"],
+  props: ["tweet", "likes"],
 
   methods: {
     sendDelete(id) {
       this.$axios.delete(`/api/v1/tweets/${id}`)
       .then(() => {
         this.$emit("tweetdelete", this.tweet);
-        this.loading = true
-        console.log(this.loading)
         setTimeout(() => {
           this.$store.dispatch(
             "flashMessage/showMessage",
@@ -100,6 +95,7 @@ export default {
             { root: true }
           )
         },1000)
+        this.$emit("fetchtweet")
       })
       .catch((err) => {
         setTimeout(() => {
@@ -119,7 +115,44 @@ export default {
       console.log('comment')
     },
     sendGood() {
-      console.log('good')
+      this.$axios
+        .post('/api/v1/likes' , {tweet_id: this.tweet.id})
+        .then(() => {
+          setTimeout(() => {
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "つぶやきにいいねしました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
+          },1000)
+          this.$emit("fetchlike")
+        })
+    },
+    sendgoodDelete() {
+      this.$axios
+        .delete(`/api/v1/likes/${this.tweet.id}`, {tweet_id: this.tweet.id})
+        .then(() => {
+          setTimeout(() => {
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "つぶやきを外しました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
+          },1000)
+          this.$emit("fetchlike")
+        })
+    },
+    islike() {
+      const like = this.likes.find(like => like.tweet_id == this.tweet.id);
+      return like === undefined
     },
   },
 }
