@@ -1,25 +1,4 @@
 <template>
-  <v-dialog
-    v-model="dialog"
-    persistent
-    max-width="600px"
-  >
-    <template v-slot:activator="{ on, attrs }">
-      <v-btn
-        class="mt-2"
-        block
-        elevation="2"
-        large
-        rounded
-        x-large
-        color="primary"
-        dark
-        v-bind="attrs"
-        v-on="on"
-      >
-        つぶやきはこちらから
-      </v-btn>
-    </template>
     <v-card>
       <v-form>
         <v-card-title class="cyan darken-1" flat>
@@ -46,7 +25,7 @@
           <v-btn
             color="blue darken-1"
             text
-            @click="dialog = false"
+            @click="$emit('closeDialog')"
           >
             閉じる
           </v-btn>
@@ -60,7 +39,6 @@
         </v-card-actions>
       </v-form>
     </v-card>
-  </v-dialog>
 </template>
 
 <script>
@@ -98,6 +76,7 @@ export default {
         .then((res) => {
           console.log('投稿に成功しました')
           this.$emit('tweetPost', res)
+          this.$emit('closeDialog')
           this.picture=            [],
           this.description=      '',
           this.dialog = false
