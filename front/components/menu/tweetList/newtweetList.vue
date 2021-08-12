@@ -6,7 +6,10 @@
     >
       <ForTweet
         :tweet ="tweet"
+        :likes ="likes"
         @tweetdelete='tweet = $event'
+        @fetchtweet='fetchTweet'
+        @fetchlike='fetchLike'
       />
     </v-list-item>
     <infinite-loading 
@@ -30,10 +33,12 @@ export default {
     return {
       tweets:   [],
       tweet:    '',
+      likes:    [],
     }
   },
   mounted() {
     this.fetchTweet()
+    this.fetchLike()
   },
 
   methods: {
@@ -41,6 +46,11 @@ export default {
       const tweets = 'http://localhost:3000/api/v1/tweets'
       const response = await this.$axios.get(tweets, get)
       this.tweets = response.data.tweets
+    },
+    async fetchLike(get) {
+      const likes = 'http://localhost:3000/api/v1/likes'
+      const response = await this.$axios.get(likes, get)
+      this.likes = response.data
     },
     infiniteHandler() {
       setTimeout(() => {
