@@ -22,17 +22,12 @@
         <v-icon>mdi-thumb-up</v-icon>
       </v-tab>
       <v-tab
-        @click="openmytweetList"
+        @click.stop="opentweetPost"
       >
-        自分のつぶやき
-        <v-icon>mdi-comment-account-outline</v-icon>
+        つぶやき投稿
+        <v-icon>mdi-file-send</v-icon>
       </v-tab>
     </v-tabs>
-    <v-row justify="center" class="my-2">
-      <v-col cols="12" md="10" sm="10">
-        <tweetpostingPage />
-      </v-col>
-    </v-row>
     <v-tabs-items v-model="tab" touchless>
       <v-tab-item>
         <newtweetList 
@@ -43,10 +38,12 @@
         <goodtweetList v-if="showgoodtweetList"
         />
       </v-tab-item>
-      <v-tab-item>
-        <mytweetList v-if="showmytweetList"
-        />
-      </v-tab-item>
+      <v-dialog v-model="dialog" v-if="tweetpostingPage" max-width="600px" activator>
+        <v-tab-item>
+          <tweetpostingPage @closeDialog= "dialog=false"
+          />
+        </v-tab-item>
+      </v-dialog>
     </v-tabs-items>
   </v-container>
 </template>
@@ -54,43 +51,40 @@
 <script>
 import newtweetList       from "~/components/menu/tweetList/newtweetList.vue"
 import goodtweetList      from "~/components/menu/tweetList/goodtweetList.vue"
-import mytweetList        from "~/components/menu/tweetList/mytweetList.vue"
 import tweetpostingPage   from "~/components/menu/post/tweetpostingPage.vue"
 
 export default {
   components: {
     newtweetList,
     goodtweetList,
-    mytweetList,
     tweetpostingPage,
   },
   data () {
     return {
-      tweetpostingPage:        false,
+      dialog:                  false,
       tab:                     null,
       shownewtweetList:        true,
       showgoodtweetList:       false,
-      showmytweetList:         false
+      tweetpostingPage:        false,
     }
   },
   methods: {
-    opentweetpostingPage () {
-      this.tweetpostingPage  = true
-    },
     opennewtweetList () {
-      this.shownewtweetList      = true,
-      this.showgoodtweetList     = false,
-      this.showmytweetList       = false
+      this.shownewtweetList       = true,
+      this.showgoodtweetList      = false,
+      this.tweetpostingPage       = false
     },
     opengoodtweetList () {
-      this.shownewtweetList      = false,
-      this.showgoodtweetList     = true,
-      this.showmytweetList       = false
+      this.shownewtweetList       = false,
+      this.showgoodtweetList      = true,
+      this.tweetpostingPage       = false
     },
-    openmytweetList () {
+    opentweetPost () {
       this.shownewtweetList      = false,
       this.showgoodtweetList     = false,
-      this.showmytweetList       = true
+      this.tweetpostingPage      = true,
+      this.dialog                = true
+
     },
   }
 }
