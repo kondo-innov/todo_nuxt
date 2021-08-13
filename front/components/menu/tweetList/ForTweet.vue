@@ -36,7 +36,10 @@
                 mdi-delete
               </v-icon>
             </v-btn>
-            <TweetComment />
+            <TweetComment 
+              :tweet= "tweet"
+              :comments= "comments"
+            />
             <v-btn
               v-if="islike()"
               icon
@@ -75,6 +78,7 @@ export default {
   data() {
     return {
       defaultImg: require("@/assets/images/default_user_icon.jpeg"),
+      comments:  [],
     }
   },
   props: ["tweet", "likes"],
@@ -110,9 +114,6 @@ export default {
           )
         },1000)
       })
-    },
-    openCommentDialog() {
-      console.log('comment')
     },
     sendGood() {
       this.$axios
