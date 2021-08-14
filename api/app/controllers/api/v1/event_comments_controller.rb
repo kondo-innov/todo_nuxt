@@ -13,7 +13,7 @@ module Api
       end
 
       def destroy
-        @comment = TweetComment.find(comment_id: params[:id])
+        @comment = EventComment.find(params[:id])
         @comment.destroy
         render status: 200, json: false
       end
