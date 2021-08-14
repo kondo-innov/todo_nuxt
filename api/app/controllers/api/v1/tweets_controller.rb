@@ -1,6 +1,6 @@
 module Api
   module V1
-    class TweetsController < ApplicationController
+    class TweetsController < ApplicationController      
       def index
         @tweets = Tweet.all.page(params[:page]).order(created_at: 'DESC')
       end
@@ -13,10 +13,6 @@ module Api
         else
           render json: {message: '失敗しました' }, status: 400 
         end
-      end
-
-      def show
-
       end
 
       def destroy
