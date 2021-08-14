@@ -20,6 +20,12 @@ module Api
       end
 
       def destroy
+        event = Event.find(params[:id])
+        if event.destroy
+          render json: event, status: 200
+        else
+          render json: {message: '削除に失敗しました'}, status: 400
+        end
       end
 
       private
