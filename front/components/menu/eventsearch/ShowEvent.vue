@@ -1,7 +1,28 @@
 <template>
   <v-card>
-    <v-card-title>
+    <v-card-title class="justify-space-between ">
       <span class="text-h4">{{ event.eventname }}</span>
+        <div>
+          <v-btn
+            class="mr-4"
+            icon
+            text
+            color="grey darken-2"
+          >
+            <v-icon>
+              mdi-cog
+            </v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            text
+            color="grey darken-2"
+          >
+            <v-icon>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+        </div>
     </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
