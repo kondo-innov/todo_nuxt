@@ -6,6 +6,7 @@
     >
       <ForEvent 
         :event ="event"
+        @eventdelete= 'fetchEvent'
       />
     </v-list-item>
     <infinite-loading 

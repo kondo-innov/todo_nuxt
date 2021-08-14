@@ -17,6 +17,7 @@
             icon
             text
             color="grey darken-2"
+            @click= "sendDelete(event.id)" 
           >
             <v-icon>
               mdi-delete
@@ -57,12 +58,40 @@
 
 <script>
 export default {
-  data() {
-    return {
-      dialog:    false,
-      events:    {},
-    }
-  },
   props: ["event"],
+
+  methods: {
+    sendDelete(id) {
+      this.$axios.delete(`/api/v1/events/${id}`)
+      .then(() => {
+        this.$emit("eventdelete", this.event);
+        this.$emit('closeDialog')
+        setTimeout(() => {
+          this.$store.dispatch(
+            "flashMessage/showMessage",
+            {
+              message: "削除に成功しました.",
+              type: "sucess",
+              status: true,
+            },
+            { root: true }
+          )
+        },1000)
+      })
+      .catch((err) => {
+        setTimeout(() => {
+          this.$store.dispatch(
+            "flashMessage/showMessage",
+            {
+              message: "削除に失敗しました.",
+              type: "sucess",
+              status: true,
+            },
+            { root: true }
+          )
+        },1000)
+      })
+    },
+  }
 }
 </script>
