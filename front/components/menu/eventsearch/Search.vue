@@ -19,6 +19,7 @@
     >
       <ForEvent 
         :event ="event"
+        @eventdelete= 'filteredSearch'
       />
     </v-list-item>
     <infinite-loading 
