@@ -7,8 +7,7 @@
       <ForTweet
         :tweet ="tweet"
         :likes ="likes"
-        @tweetdelete='tweet = $event'
-        @fetchtweet='fetchTweet'
+        @comment='fetchTweet'
         @fetchlike='fetchLike'
       />
     </v-list-item>

@@ -43,7 +43,7 @@
                 icon
                 text
                 color="grey darken-2"
-                @click="sendDelete(tweet.id)"
+                @click="sendDelete(comment.id)"
               >
                 <v-icon>
                   mdi-delete
@@ -93,6 +93,7 @@ export default {
     sendDelete(id) {
       this.$axios.delete(`/api/v1/tweet_comments/${id}`)
       .then(() => {
+        this.$emit("setcomment", this.tweet)
         setTimeout(() => {
           this.$store.dispatch(
             "flashMessage/showMessage",
@@ -104,7 +105,6 @@ export default {
             { root: true }
           )
         },1000)
-        this.$emit("fetchtweet")
       })
       .catch((err) => {
         setTimeout(() => {
@@ -134,6 +134,7 @@ export default {
         .then(() => {
           console.log('投稿に成功しました')
           this.content=        '',
+          this.$emit("setcomment", this.tweet)
           setTimeout(() => {
             this.$store.dispatch(
               "flashMessage/showMessage",
