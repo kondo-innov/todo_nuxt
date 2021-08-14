@@ -15,6 +15,7 @@
         <v-dialog hide-overlay persistent v-model="dialog" max-width="600px" activator :retain-focus="false">
           <ShowEvent 
             @closeDialog= "dialog=false"
+            @eventdelete= "$listeners['eventdelete']"
             :event ="event"
           />
         </v-dialog>
@@ -43,6 +44,12 @@ export default {
 
     }
   },
- props: ["event"],
+  props: ["event"],
+
+  methods: {
+    sendDelete(id) {
+      this.$emit('eventdelete', id)
+    },
+  }
 }
 </script>
