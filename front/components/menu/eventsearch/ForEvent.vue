@@ -20,6 +20,23 @@
           />
         </v-dialog>
       </v-card>
+      <div class="float-right">
+        <EditEvent
+          :event ="event"
+          @eventdelete= "$listeners['eventdelete']"
+          @closeDialog= "dialog=false"
+        />
+        <v-btn
+          icon
+          text
+          color="grey darken-2"
+          @click= "sendDelete(event.id)" 
+        >
+          <v-icon>
+            mdi-delete
+          </v-icon>
+        </v-btn>
+      </div>
     </v-col>
     <v-col cols="2">
       <v-avatar size="80">
@@ -32,23 +49,52 @@
 
 <script>
 import ShowEvent    from "~/components/menu/eventsearch/ShowEvent.vue"
+import EditEvent    from "~/components/menu/eventsearch/EditEvent.vue"
 
 export default {
   components: {
     ShowEvent,
+    EditEvent,
   },
   data() {
     return {
       dialog:    false,
       defaultImg: require("@/assets/images/default_user_icon.jpeg"),
-
     }
   },
   props: ["event"],
 
   methods: {
     sendDelete(id) {
-      this.$emit('eventdelete', id)
+      this.$axios.delete(`/api/v1/events/${id}`)
+      .then(() => {
+        this.$emit("eventdelete", this.event);
+        this.$emit('closeDialog')
+        setTimeout(() => {
+          this.$store.dispatch(
+            "flashMessage/showMessage",
+            {
+              message: "削除に成功しました.",
+              type: "sucess",
+              status: true,
+            },
+            { root: true }
+          )
+        },1000)
+      })
+      .catch((err) => {
+        setTimeout(() => {
+          this.$store.dispatch(
+            "flashMessage/showMessage",
+            {
+              message: "削除に失敗しました.",
+              type: "sucess",
+              status: true,
+            },
+            { root: true }
+          )
+        },1000)
+      })
     },
   }
 }
