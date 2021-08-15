@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_14_110820) do
+ActiveRecord::Schema.define(version: 2021_08_15_151557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,15 @@ ActiveRecord::Schema.define(version: 2021_08_14_110820) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_events_on_user_id"
+  end
+
+  create_table "joins", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "event_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_joins_on_event_id"
+    t.index ["user_id"], name: "index_joins_on_user_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -117,6 +126,8 @@ ActiveRecord::Schema.define(version: 2021_08_14_110820) do
   add_foreign_key "event_comments", "events"
   add_foreign_key "event_comments", "users"
   add_foreign_key "events", "users"
+  add_foreign_key "joins", "events"
+  add_foreign_key "joins", "users"
   add_foreign_key "likes", "tweets"
   add_foreign_key "likes", "users"
   add_foreign_key "tweet_comments", "tweets"
