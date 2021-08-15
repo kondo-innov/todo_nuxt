@@ -19,6 +19,15 @@ module Api
         render json: @event.as_json(include: :user)
       end
 
+      def update
+        @event = Event.find(params[:id])
+        if @event.update(event_params)
+          render json: @event, status: :ok
+        else
+          render json: { status: 400 }
+        end
+      end
+
       def destroy
         event = Event.find(params[:id])
         if event.destroy
