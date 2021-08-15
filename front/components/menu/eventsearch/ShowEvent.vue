@@ -2,28 +2,6 @@
   <v-card>
     <v-card-title class="justify-space-between ">
       <span class="text-h4">{{ event.eventname }}</span>
-        <div>
-          <v-btn
-            class="mr-4"
-            icon
-            text
-            color="grey darken-2"
-          >
-            <v-icon>
-              mdi-cog
-            </v-icon>
-          </v-btn>
-          <v-btn
-            icon
-            text
-            color="grey darken-2"
-            @click= "sendDelete(event.id)" 
-          >
-            <v-icon>
-              mdi-delete
-            </v-icon>
-          </v-btn>
-        </div>
     </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
@@ -110,6 +88,7 @@ export default {
   data() {
     return {
       content: '',
+      dialog: false,
       defaultImg: require("@/assets/images/default_user_icon.jpeg")
     }
   },
@@ -161,37 +140,6 @@ export default {
       this.$axios.delete(`/api/v1/event_comments/${id}`)
       .then(() => {
         this.$emit("eventdelete", this.event)
-        setTimeout(() => {
-          this.$store.dispatch(
-            "flashMessage/showMessage",
-            {
-              message: "削除に成功しました.",
-              type: "sucess",
-              status: true,
-            },
-            { root: true }
-          )
-        },1000)
-      })
-      .catch((err) => {
-        setTimeout(() => {
-          this.$store.dispatch(
-            "flashMessage/showMessage",
-            {
-              message: "削除に失敗しました.",
-              type: "sucess",
-              status: true,
-            },
-            { root: true }
-          )
-        },1000)
-      })
-    },
-    sendDelete(id) {
-      this.$axios.delete(`/api/v1/events/${id}`)
-      .then(() => {
-        this.$emit("eventdelete", this.event);
-        this.$emit('closeDialog')
         setTimeout(() => {
           this.$store.dispatch(
             "flashMessage/showMessage",
