@@ -21,21 +21,23 @@
         </v-dialog>
       </v-card>
       <div class="float-right">
-        <EditEvent
-          :event ="event"
-          @eventdelete= "$listeners['eventdelete']"
-          @closeDialog= "dialog=false"
-        />
-        <v-btn
-          icon
-          text
-          color="grey darken-2"
-          @click= "sendDelete(event.id)" 
-        >
-          <v-icon>
-            mdi-delete
-          </v-icon>
-        </v-btn>
+        <template v-if="event.user_id === $auth.user.id">
+          <EditEvent
+            :event ="event"
+            @eventdelete= "$listeners['eventdelete']"
+            @closeDialog= "dialog=false"
+          />
+          <v-btn
+            icon
+            text
+            color="grey darken-2"
+            @click= "sendDelete(event.id)" 
+          >
+            <v-icon>
+              mdi-delete
+            </v-icon>
+          </v-btn>
+        </template>
       </div>
     </v-col>
     <v-col cols="2">
