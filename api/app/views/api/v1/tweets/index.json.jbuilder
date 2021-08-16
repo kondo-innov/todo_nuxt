@@ -3,6 +3,7 @@ json.tweets @tweets.each do |tweet|
   json.name tweet.user.name
   json.picture tweet.picture.service_url
   json.comment tweet.tweet_comments
+  json.like tweet.likes
   if tweet.user.image.present?
     json.image tweet.user.image.service_url
   end

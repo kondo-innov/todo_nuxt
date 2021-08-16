@@ -98,7 +98,7 @@ export default {
         endpoints: {
           login: { url: '/api/v1/auth/sign_in', method: 'post', propertyName: false },
           logout: false,
-          user: false
+          user: { url: '/api/v1/auth/user', method: 'get', propertyName: 'user' }
         }
       }
     }  

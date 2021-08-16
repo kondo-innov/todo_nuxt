@@ -27,6 +27,7 @@
         <div>
           <v-row justify="end" class="mt-8 mr-6">
             <v-btn
+              v-if="tweet.user_id === $auth.user.id"
               icon
               text
               color="grey darken-2"
@@ -39,6 +40,7 @@
             <TweetComment 
               :tweet= "tweet"
               :comments= "comments"
+              @setcomment= "$listeners['comment']"
             />
             <v-btn
               v-if="islike()"
@@ -87,7 +89,7 @@ export default {
     sendDelete(id) {
       this.$axios.delete(`/api/v1/tweets/${id}`)
       .then(() => {
-        this.$emit("tweetdelete", this.tweet);
+        this.$emit("comment", this.tweet);
         setTimeout(() => {
           this.$store.dispatch(
             "flashMessage/showMessage",
@@ -99,7 +101,6 @@ export default {
             { root: true }
           )
         },1000)
-        this.$emit("fetchtweet")
       })
       .catch((err) => {
         setTimeout(() => {
