@@ -2,7 +2,8 @@ module Api
   module V1
     class JoinsController < ApplicationController
       def index
-
+        joins = Join.where(event_id: params[:event_id])
+        render json: joins.as_json(include: { user: { only: %w[id name] } })
       end
       def create
         @join = Join.new(join_params)
@@ -15,7 +16,7 @@ module Api
       end
 
       def destroy
-        @join = Join.find_by(join_id: params[:id])
+        @join = Join.find(params[:id])
         @join.destroy
         render status: 200, json: false
       end
