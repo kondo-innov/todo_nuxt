@@ -22,12 +22,12 @@
               v-for="join in joins"
               :key="join.id"
             >
-            <span>
+            <h4>
               {{join.user.name}}
-            </span>
+            </h4>
             </li>
           </ul>
-              <v-card-actions>
+              <v-card-actions class="justify-end">
                 <v-btn
                   color="blue"
                   text
@@ -108,12 +108,7 @@
 </template>
 
 <script>
-import ClickEvent from "~/components/menu/eventsearch/ClickEvent.vue"
-
 export default {
-  components: {
-    ClickEvent,
-  },
   data() {
     return {
       content: '',
