@@ -14,22 +14,46 @@
         <v-divider></v-divider>
         <v-card-text class="text-h6">イベント内容:</v-card-text>
         <v-card-text class="text-h5">{{ event.description }}</v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="$emit('closeDialog')"
-          >
-            閉じる
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-          >
-            参加
-          </v-btn>
-        </v-card-actions>
+        <v-divider></v-divider>
+        <v-container>
+          <v-card-text class="text-h5" >参加メンバー一覧</v-card-text>
+          <ul>
+            <li
+              v-for="join in joins"
+              :key="join.id"
+            >
+            <span>
+              {{join.user.name}}
+            </span>
+            </li>
+          </ul>
+              <v-card-actions>
+                <v-btn
+                  color="blue"
+                  text
+                  outlined
+                  @click="$emit('closeDialog')"
+                >
+                  閉じる
+                </v-btn>
+                <v-btn
+                  v-if="isjoin()"
+                  color="primary"
+                  @click="deleteJoin"
+                >
+                  参加済
+                </v-btn>
+                <v-btn
+                  v-else
+                  color="blue"
+                  text
+                  outlined
+                  @click="sendJoin"
+                >
+                  参加
+                </v-btn>
+              </v-card-actions>
+        </v-container>
         <v-divider></v-divider>
       </v-container>
       <v-container>
@@ -84,17 +108,33 @@
 </template>
 
 <script>
+import ClickEvent from "~/components/menu/eventsearch/ClickEvent.vue"
+
 export default {
+  components: {
+    ClickEvent,
+  },
   data() {
     return {
       content: '',
+      join:    '',
+      joins:  [],
       dialog: false,
       defaultImg: require("@/assets/images/default_user_icon.jpeg")
     }
   },
   props: ["event"],
 
+  mounted() {
+    this.fetchJoin()
+  },
+
   methods: {
+    async fetchJoin() {
+      const joins = `http://localhost:3000/api/v1/joins`
+      const response = await this.$axios.get(joins, {params: {event_id: this.event.id}})
+      this.joins = response.data
+    },
     sendcontent() {
       const formData = new FormData()
       formData.append("content", this.content)
@@ -165,6 +205,47 @@ export default {
           )
         },1000)
       })
+    },
+    sendJoin() {
+      this.$axios
+        .post('/api/v1/joins' , {event_id: this.event.id})
+        .then(() => {
+          this.fetchJoin()
+          setTimeout(() => {
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "参加しました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
+          },1000)
+        })
+    },
+    deleteJoin() {
+      const joins = this.joins.find(join => join.user.id == this.$auth.user.id);
+      this.$axios
+        .delete(`/api/v1/joins/${joins.id}`)
+        .then(() => {
+          this.fetchJoin()
+          setTimeout(() => {
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "参加をキャンセルしました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
+          },1000)
+        })
+    },
+    isjoin() {
+      const join = this.joins.find(join => join.user_id == this.$auth.user.id);
+      return join !== undefined
     },
   }
 }
