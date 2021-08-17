@@ -19,7 +19,7 @@
     >
       <ForEvent 
         :event ="event"
-        @eventdelete= 'filteredSearch'
+        @eventdelete= 'fetchEvent'
       />
     </v-list-item>
     <infinite-loading 
@@ -40,6 +40,7 @@ export default {
   },
   data() {
     return {
+      city: '',
       count:       10,
       keyword:  '',
       ward:     [],
@@ -58,7 +59,7 @@ export default {
     }
   },
   mounted () {
-    this.filteredSearch()
+    this.fetchEvent()
   },
 
   computed: {
@@ -69,13 +70,19 @@ export default {
   },
   
   methods: {
-    async filteredSearch(e) {
+    async fetchEvent() {
       const events = 'http://localhost:3000/api/v1/events'
       const response = await this.$axios.get(events)
       this.events = response.data.events
+      this.filteredSearch()
+    },
+    async filteredSearch(e) {
+      if(e !== undefined) {
+        this.city = e 
+      }
       const array = this.events.map(value => value.cityward)
       var aryCheck = array.filter(value => {
-        return value == e
+        return value == this.city
         })
       const ward = this.events.filter(event => {
         return event.cityward === aryCheck[0]
