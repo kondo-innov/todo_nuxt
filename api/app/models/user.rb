@@ -16,4 +16,10 @@ class User < ActiveRecord::Base
   has_many :event_comments, dependent: :destroy
   has_many :joins, dependent: :destroy
   has_many :like_lists, dependent: :destroy
+
+  ################################################################################################
+  # バリデーション
+  ################################################################################################
+  validates :name, presence: true, length: { maximum: 20 }
+  validates :email, presence: true, length: { maximum: 255 }, uniqueness: true
 end
