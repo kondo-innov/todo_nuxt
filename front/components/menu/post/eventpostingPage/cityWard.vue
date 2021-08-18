@@ -4,7 +4,7 @@
     :rules="rules"
     name="市区郡"
   >
-    <v-combobox
+    <v-select
       class="mx-2"
       :items="name"
       label="市区郡"
@@ -12,7 +12,7 @@
       dense
       clearable
       v-model="selectValue"
-    ></v-combobox>
+    ></v-select>
     <span id="error">{{ errors[0] }}</span>
   </ValidationProvider>
 </template>
@@ -53,6 +53,5 @@
         }
       }
     }
-
   }
 </script>
