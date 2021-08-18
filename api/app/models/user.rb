@@ -15,5 +15,5 @@ class User < ActiveRecord::Base
   has_many :tweet_comments, dependent: :destroy
   has_many :event_comments, dependent: :destroy
   has_many :joins, dependent: :destroy
-
+  has_many :like_lists, dependent: :destroy
 end
