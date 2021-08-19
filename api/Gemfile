@@ -38,6 +38,7 @@ group :development, :test do
 end
 
 group :development do
+  gem 'bullet'
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'listen', '~> 3.2'
