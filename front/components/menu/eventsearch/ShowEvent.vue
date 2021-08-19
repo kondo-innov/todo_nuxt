@@ -81,26 +81,36 @@
           </v-list-item>
         </v-row>
         <form>
-          <v-row class="footer">
-            <v-col cols="9" class="ml-8">
-              <v-text-field
-                v-model="content"
-                :counter="50"
-                label="コメント"
-                dense
-              ></v-text-field>
-            </v-col>
-            <v-col cols="2">
-              <v-btn
-                color="blue darken-1"
-                text
-                outlined
-                @click="sendcontent"
-              >
-                Save
-              </v-btn>
-            </v-col>
-          </v-row>
+          <ValidationObserver v-slot="ObserverProps">
+            <v-row class="footer">
+              <v-col cols="9" class="ml-8">
+                <ValidationProvider
+                  v-slot="{ errors }"
+                  rules="max:100|required"
+                  name="コメント"
+                >
+                  <v-text-field
+                    v-model="content"
+                    :counter="100"
+                    label="コメント"
+                    dense
+                  ></v-text-field>
+                  <span id="error">{{ errors[0] }}</span>
+                </ValidationProvider>
+              </v-col>
+              <v-col cols="2">
+                <v-btn
+                  :disabled="ObserverProps.invalid"
+                  color="blue darken-1"
+                  text
+                  outlined
+                  @click="sendcontent"
+                >
+                  Save
+                </v-btn>
+              </v-col>
+            </v-row>
+          </ValidationObserver>
         </form>
       </v-container>
     </v-card-text>
