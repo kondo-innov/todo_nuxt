@@ -2,7 +2,8 @@ module Api
   module V1
     class EventsController < ApplicationController
       def index
-        @events = Event.all.page(params[:page]).order(created_at: 'DESC')
+        @events = Event.all.includes({user: {image_attachment: :blob}},
+                                            :event_comments).page(params[:page]).order(created_at: 'DESC')
       end 
 
       def create

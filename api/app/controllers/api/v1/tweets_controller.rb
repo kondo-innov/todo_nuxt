@@ -2,7 +2,10 @@ module Api
   module V1
     class TweetsController < ApplicationController      
       def index
-        @tweets = Tweet.all.page(params[:page]).order(created_at: 'DESC')
+        @tweets = Tweet.all.includes({user: {image_attachment: :blob}}, 
+                                            :tweet_comments, 
+                                            :likes,
+                                            {picture_attachment: :blob}).page(params[:page]).order(created_at: 'DESC')
       end
 
       def create
