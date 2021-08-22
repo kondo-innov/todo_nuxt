@@ -1,3 +1,3 @@
 <template>
-  <p>PastParticipation</p>
+  <p>工事中</p>
 </template>

@@ -1,3 +1,3 @@
 <template>
-  <p>Plan</p>
+  <p>工事中</p>
 </template>

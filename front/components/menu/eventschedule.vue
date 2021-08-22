@@ -12,19 +12,19 @@
       <v-tab
         @click="openPlan"
       >
-        イベント予定
+        自分のつぶやき
         <v-icon>mdi-calendar-clock</v-icon>
       </v-tab>
       <v-tab
         @click="openPastPost"
       >
-        過去の投稿イベント
+        自分の投稿イベント
         <v-icon>mdi-clock-time-eight</v-icon>
       </v-tab>
       <v-tab
         @click="openPastParticipation"
       >
-        過去の参加イベント
+        参加イベント
         <v-icon>mdi-magnify</v-icon>
       </v-tab>
     </v-tabs>
@@ -72,19 +72,16 @@ export default {
   },
   methods: {
     openPlan () {
-      console.log('a')
       this.Plan                      = true,
       this.PastPost                  = false,
       this.PastParticipation         = false
     },
     openPastPost () {
-      console.log('b')
       this.Plan                      = false,
       this.PastPost                  = true,
       this.PastParticipation         = false
     },
     openPastParticipation () {
-      console.log('c')
       this.Plan                      = false,
       this.PastPost                  = false,
       this.PastParticipation         = true
