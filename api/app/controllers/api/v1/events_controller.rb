@@ -2,9 +2,9 @@ module Api
   module V1
     class EventsController < ApplicationController
       def index
-        @events = Event.all.includes({user: {image_attachment: :blob}},
-                                            :event_comments).page(params[:page]).order(created_at: 'DESC')
-      end 
+        @events = Event.all.includes({ user: { image_attachment: :blob } },
+                                     :event_comments).page(params[:page]).order(created_at: 'DESC')
+      end
 
       def create
         @event = Event.new(event_params)
@@ -34,14 +34,15 @@ module Api
         if event.destroy
           render json: event, status: 200
         else
-          render json: {message: '削除に失敗しました'}, status: 400
+          render json: { message: '削除に失敗しました' }, status: 400
         end
       end
 
       private
-        def event_params
-          params.permit(:eventname, :datetime, :cityward, :streetaddress, :description).merge(user_id:current_user.id)
-        end
+
+      def event_params
+        params.permit(:eventname, :datetime, :cityward, :streetaddress, :description).merge(user_id: current_user.id)
+      end
     end
   end
 end

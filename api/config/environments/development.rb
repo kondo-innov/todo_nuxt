@@ -1,10 +1,10 @@
 Rails.application.configure do
   config.after_initialize do
-    Bullet.enable = true #Bullet gemを有効
-    Bullet.alert = true #ブラウザにJavaScriptアラートをポップアップ
-    Bullet.bullet_logger = true #Bulletログファイル（Rails.root/log/bullet.log）に記録
-    Bullet.console = true #警告をブラウザーのconsole.logに記録
-    Bullet.rails_logger = true #警告を直接Railsログに追加
+    Bullet.enable = true # Bullet gemを有効
+    Bullet.alert = true # ブラウザにJavaScriptアラートをポップアップ
+    Bullet.bullet_logger = true # Bulletログファイル（Rails.root/log/bullet.log）に記録
+    Bullet.console = true # 警告をブラウザーのconsole.logに記録
+    Bullet.rails_logger = true # 警告を直接Railsログに追加
   end
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -49,7 +49,6 @@ Rails.application.configure do
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
 
-  
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 

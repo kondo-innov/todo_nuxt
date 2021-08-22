@@ -4,35 +4,31 @@ module Api
       def index
         users = current_user
         render json: users
-      end 
+      end
 
       def create
         @user = User.find(current_user.id)
-        if @user.update(controller_params)
-          render json: { url: current_user.image.service_url, messages: '成功' }, stauts: :ok
-        end
+        render json: { url: current_user.image.service_url, messages: '成功' }, stauts: :ok if @user.update(controller_params)
       end
 
-      def show
+      def show; end
 
-      end
-
-      def delete
-      end
+      def delete; end
 
       private
-        def name
-          File.basename(filename, ".*")
-        end
 
-        def filename
-          params[:filename]
-        end
+      def name
+        File.basename(filename, '.*')
+      end
 
-        def controller_params
-          # imageはファイルではなくblob.signed_idが送られてきます
-          params.permit(:image)
-        end
+      def filename
+        params[:filename]
+      end
+
+      def controller_params
+        # imageはファイルではなくblob.signed_idが送られてきます
+        params.permit(:image)
+      end
     end
   end
 end

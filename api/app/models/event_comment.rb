@@ -8,5 +8,4 @@ class EventComment < ApplicationRecord
   # バリデーション
   ################################################################################################
   validates :content, presence: true, length: { maximum: 100 }
-
 end

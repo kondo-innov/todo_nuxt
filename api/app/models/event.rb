@@ -14,5 +14,4 @@ class Event < ApplicationRecord
   validates :cityward, presence: true
   validates :streetaddress, presence: true
   validates :description, presence: true, length: { maximum: 1000 }
-
 end

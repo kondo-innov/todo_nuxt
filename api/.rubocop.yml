@@ -33,3 +33,9 @@ Style/FrozenStringLiteralComment:
 # Railsではドキュメント用コメントはなるべく付けない方向なのでオフ。
 Style/Documentation:
   Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - db/schema.rb
+  Max: 50
+
