@@ -4,7 +4,7 @@ module Api
       class UsersController < ApplicationController
         def show
           user = current_user
-          render json: {user: user}, status: 200
+          render json: { user: user }, status: 200
         end
       end
     end

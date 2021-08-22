@@ -4,7 +4,5 @@ json.tweets @tweets.each do |tweet|
   json.picture tweet.picture.service_url
   json.comment tweet.tweet_comments
   json.like tweet.likes
-  if tweet.user.image.present?
-    json.image tweet.user.image.service_url
-  end
+  json.image tweet.user.image.service_url if tweet.user.image.present?
 end

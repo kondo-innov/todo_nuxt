@@ -13,5 +13,4 @@ class Tweet < ApplicationRecord
   # バリデーション
   ################################################################################################
   validates :description, presence: true, length: { maximum: 100 }
-
 end
