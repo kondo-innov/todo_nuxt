@@ -12,19 +12,19 @@
       <v-tab
         @click="openPlan"
       >
-        自分のつぶやき
+        自分のつぶやき(工事中)
         <v-icon>mdi-calendar-clock</v-icon>
       </v-tab>
       <v-tab
         @click="openPastPost"
       >
-        自分の投稿イベント
+        自分の投稿イベント(工事中)
         <v-icon>mdi-clock-time-eight</v-icon>
       </v-tab>
       <v-tab
         @click="openPastParticipation"
       >
-        参加イベント
+        参加イベント(工事中)
         <v-icon>mdi-magnify</v-icon>
       </v-tab>
     </v-tabs>
