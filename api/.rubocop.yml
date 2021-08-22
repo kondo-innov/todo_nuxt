@@ -1,32 +1,35 @@
-inherit_from: rubocop-todo.yml
+inherit_from: .rubocop_todo.yml
+
+# @see default https://github.com/rubocop-hq/rubocop/blob/master/config/default.yml
+AllCops:
+  # ルール名の表示
+  DisplayCopNames: true
+  TargetRubyVersion: 2.6
+  Exclude:
+    - '.git/**/*'
+    - 'bin/**/*'
+    - 'config/**/*'
+    - 'docker/**/*'
+    - 'db/**/*'
+    - 'Dockerfile'
+    - 'node_modules/**/*'
+    - 'Procfile'
+    - 'storage/**/*'
+    - 'tmp/**/*'
+    - 'vagrant/**/*'
+    - 'Vagrantfile'
+    - 'vendor/**/*'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+  CacheRootDirectory: tmp
 
 # 日本語でのコメントを許可
-AsciiComments:
+Style/AsciiComments:
   Enabled: false
-
-# 複数行での「lambda」で「->」による省略記法を許可
-Lambda:
+# Ruby3.0から文字列リテラルがデフォルトでfreezeになる予定。
+# 移行シミュレーション用なのでオフ。
+Style/FrozenStringLiteralComment:
   Enabled: false
-
-# モジュール名::クラス名の定義を許可
-ClassAndModuleChildren:
+# Railsではドキュメント用コメントはなるべく付けない方向なのでオフ。
+Style/Documentation:
   Enabled: false
-
-# メソッド名のprefixに「set_」「get_」を許可
-AccessorMethodName:
-  Enabled: false
-
-# クラスにコメントを残さない
-Documentation:
-  Enabled: false
-
-# 「and」「or」の使用を許可
-AndOr:
-  Enabled: false
-
-AllCops:
-  Exclude:
-    - db/schema.rb
-    - config/unicorn.rb
-    - config/unicorn_staging.rb
-    - tmp/**/*
