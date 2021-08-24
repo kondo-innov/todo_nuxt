@@ -11,10 +11,6 @@ module Api
         render json: { url: current_user.image.service_url, messages: '成功' }, stauts: :ok if @user.update(controller_params)
       end
 
-      def show; end
-
-      def delete; end
-
       private
 
       def name
