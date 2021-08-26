@@ -4,7 +4,6 @@ RSpec.describe Tweet, type: :model do
 
   describe "バリデーションテスト" do
     context "投稿作成時" do
-      subject(:tweet) { create(:tweet) }
 
       it 'descriptionの値が設定済みだと成功' do
         tweet = build(:tweet)
