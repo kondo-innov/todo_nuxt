@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :tweet do
-    sequence(:description) { |n| "TEST_DESCRIPTION#{n}" }
-
+    description { 'description' }
+    
     association :user
   end
 end
