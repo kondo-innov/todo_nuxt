@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'users', type: :request do
   describe 'user' do
     before(:each) do
-      @user = create(:user)
+      user = create(:user)
     end
 
     it 'ユーザー一覧取得' do
