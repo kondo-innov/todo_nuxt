@@ -7,7 +7,6 @@ class Tweet < ApplicationRecord
   belongs_to :user
   has_many :likes, dependent: :destroy
   has_many :tweet_comments, dependent: :destroy
-  has_many :like_lists, dependent: :destroy
 
   ################################################################################################
   # バリデーション
