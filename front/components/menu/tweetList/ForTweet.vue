@@ -160,7 +160,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .name {
   display: inline-block;
   text-align: center;
