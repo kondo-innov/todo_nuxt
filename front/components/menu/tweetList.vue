@@ -66,19 +66,19 @@ export default {
   methods: {
     opennewtweetList() {
       ;(this.shownewtweetList = true),
-        (this.showgoodtweetList = false),
-        (this.tweetpostingPage = false)
+        this.showgoodtweetList = false,
+        this.tweetpostingPage = false
     },
     opengoodtweetList() {
       ;(this.shownewtweetList = false),
-        (this.showgoodtweetList = true),
-        (this.tweetpostingPage = false)
+        this.showgoodtweetList = true,
+        this.tweetpostingPage = false
     },
     opentweetPost() {
       ;(this.shownewtweetList = false),
-        (this.showgoodtweetList = false),
-        this.tweetpostingPage = true,
-        this.dialog = true
+        this.showgoodtweetList = false,
+        (this.tweetpostingPage = true),
+        (this.dialog = true)
     },
   },
 }

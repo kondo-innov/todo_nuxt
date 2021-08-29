@@ -69,19 +69,19 @@ export default {
   methods: {
     opennewEvent() {
       ;(this.newEvent = true),
-        this.Search = false,
-        (this.eventpostingPage = false)
+        (this.Search = false),
+        this.eventpostingPage = false
     },
     openSearch() {
       ;(this.newEvent = false),
-        (this.Search = true),
-        this.eventpostingPage = false
+        this.Search = true,
+        (this.eventpostingPage = false)
     },
     openPost() {
       ;(this.newEvent = false),
         (this.Search = false),
-        this.eventpostingPage = true,
-        this.dialog = true
+        (this.eventpostingPage = true),
+        (this.dialog = true)
     },
   },
 }

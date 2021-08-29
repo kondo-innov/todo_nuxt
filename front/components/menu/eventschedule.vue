@@ -61,18 +61,18 @@ export default {
   methods: {
     openPlan() {
       ;(this.Plan = true),
-        (this.PastPost = false),
-        this.PastParticipation = false
+        this.PastPost = false,
+        (this.PastParticipation = false)
     },
     openPastPost() {
       ;(this.Plan = false),
-        this.PastPost = true,
-        this.PastParticipation = false
+        (this.PastPost = true),
+        (this.PastParticipation = false)
     },
     openPastParticipation() {
       ;(this.Plan = false),
-        (this.PastPost = false),
-        this.PastParticipation = true
+        this.PastPost = false,
+        (this.PastParticipation = true)
     },
   },
 }

@@ -105,7 +105,7 @@ export default {
             (this.description = ""),
             setTimeout(() => {
               this.$store.dispatch(
-                'flashMessage/showMessage',
+                "flashMessage/showMessage",
                 {
                   message: "投稿に成功しました.",
                   type: "sucess",
