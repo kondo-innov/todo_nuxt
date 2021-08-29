@@ -16,12 +16,12 @@
       </v-avatar>
       <v-col cols="12">
         <input
+          id="image-files"
+          ref="image_files"
           accept="image/png, image/jpeg, image/bmp"
           prepend-icon="mdi-image"
           label="画像を選択してください"
           class="pt-14"
-          id="image-files"
-          ref="image_files"
           type="file"
           @change="setImage"
         />
@@ -31,43 +31,41 @@
 </template>
 
 <script>
-  export default {
-    data(){
-      return {
-        imageFile: [],
-        url: '',
-        defaultImg: require("@/assets/images/default_user_icon.jpeg")
-      }
-    },
-    mounted () {
-      this.fetchUser()
-    },
-    methods: {
-      setImage(e) {
-        e.preventDefault();
-        this.imageFile = e.target.files[0];
-        this.upload()
-      },
-      async upload() {
-        let formData = new FormData();
-        if (this.imageFile !== null) {
-          formData.append("image", this.imageFile);
-        }
-        this.createPost(formData);
-      },
-      async fetchUser(get) {
-        const url = 'http://localhost:3000/api/v1/current_user'
-        const response = await this.$axios.get(url, get)
-        this.url = response.data.url
-      },
-      async createPost(post) {
-        const url = 'http://localhost:3000/api/v1/users'
-        const response = await this.$axios.post(url, post)
-        this.url = response.data.url
-        this.$store.dispatch(
-          "image/doSearch",
-        )
-      },
+export default {
+  data() {
+    return {
+      imageFile: [],
+      url: "",
+      defaultImg: require("@/assets/images/default_user_icon.jpeg"),
     }
-  }
+  },
+  mounted() {
+    this.fetchUser()
+  },
+  methods: {
+    setImage(e) {
+      e.preventDefault()
+      this.imageFile = e.target.files[0]
+      this.upload()
+    },
+    async upload() {
+      let formData = new FormData()
+      if (this.imageFile !== null) {
+        formData.append("image", this.imageFile)
+      }
+      this.createPost(formData)
+    },
+    async fetchUser(get) {
+      const url = "http://localhost:3000/api/v1/current_user"
+      const response = await this.$axios.get(url, get)
+      this.url = response.data.url
+    },
+    async createPost(post) {
+      const url = "http://localhost:3000/api/v1/users"
+      const response = await this.$axios.post(url, post)
+      this.url = response.data.url
+      this.$store.dispatch("image/doSearch")
+    },
+  },
+}
 </script>

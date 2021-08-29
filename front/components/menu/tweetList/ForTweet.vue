@@ -31,8 +31,7 @@
               icon
               text
               color="grey darken-2"
-              @click="sendDelete(tweet.id)"
-            >
+              @click="sendDelete(tweet.id)">
               <v-icon>
                 mdi-delete
               </v-icon>
@@ -40,15 +39,13 @@
             <TweetComment 
               :tweet= "tweet"
               :comments= "comments"
-              @setcomment= "$listeners['comment']"
-            />
+              @setcomment= "$listeners['comment']"/>
             <v-btn
               v-if="islike()"
               icon
               text
               color="grey darken-2"
-              @click="sendGood"
-            >
+              @click="sendGood">
               <v-icon>
                 mdi-heart-outline
               </v-icon>
@@ -58,8 +55,7 @@
               icon
               text
               color="pink"
-              @click="sendgoodDelete"
-            >
+              @click="sendgoodDelete">
               <v-icon>
                 mdi-heart
               </v-icon>
@@ -72,66 +68,66 @@
 </template>
 
 <script>
-import TweetComment        from "~/components/menu/tweetList/TweetComment.vue"
+import TweetComment from '~/components/menu/tweetList/TweetComment.vue'
 export default {
   components: {
     TweetComment
   },
+  props: ['tweet', 'likes'],
   data() {
     return {
-      defaultImg: require("@/assets/images/default_user_icon.jpeg"),
-      comments:  [],
+      defaultImg: require('@/assets/images/default_user_icon.jpeg'),
+      comments: [],
     }
   },
-  props: ["tweet", "likes"],
 
   methods: {
     sendDelete(id) {
       this.$axios.delete(`/api/v1/tweets/${id}`)
-      .then(() => {
-        this.$emit("comment", this.tweet);
-        setTimeout(() => {
-          this.$store.dispatch(
-            "flashMessage/showMessage",
-            {
-              message: "削除に成功しました.",
-              type: "sucess",
-              status: true,
-            },
-            { root: true }
-          )
-        },1000)
-      })
-      .catch((err) => {
-        setTimeout(() => {
-          this.$store.dispatch(
-            "flashMessage/showMessage",
-            {
-              message: "削除に失敗しました.",
-              type: "sucess",
-              status: true,
-            },
-            { root: true }
-          )
-        },1000)
-      })
-    },
-    sendGood() {
-      this.$axios
-        .post('/api/v1/likes' , {tweet_id: this.tweet.id})
         .then(() => {
+          this.$emit('comment', this.tweet)
           setTimeout(() => {
             this.$store.dispatch(
-              "flashMessage/showMessage",
+              'flashMessage/showMessage',
               {
-                message: "つぶやきにいいねしました.",
-                type: "sucess",
+                message: '削除に成功しました.',
+                type: 'sucess',
                 status: true,
               },
               { root: true }
             )
-          },1000)
-          this.$emit("fetchlike")
+          }, 1000)
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.$store.dispatch(
+              'flashMessage/showMessage',
+              {
+                message: '削除に失敗しました.',
+                type: 'sucess',
+                status: true,
+              },
+              { root: true }
+            )
+          }, 1000)
+        })
+    },
+    sendGood() {
+      this.$axios
+        .post('/api/v1/likes', {tweet_id: this.tweet.id})
+        .then(() => {
+          setTimeout(() => {
+            this.$store.dispatch(
+              'flashMessage/showMessage',
+              {
+                message: 'つぶやきにいいねしました.',
+                type: 'sucess',
+                status: true,
+              },
+              { root: true }
+            )
+          }, 1000)
+          this.$emit('fetchlike')
         })
     },
     sendgoodDelete() {
@@ -140,20 +136,20 @@ export default {
         .then(() => {
           setTimeout(() => {
             this.$store.dispatch(
-              "flashMessage/showMessage",
+              'flashMessage/showMessage',
               {
-                message: "つぶやきを外しました.",
-                type: "sucess",
+                message: 'つぶやきを外しました.',
+                type: 'sucess',
                 status: true,
               },
               { root: true }
             )
-          },1000)
-          this.$emit("fetchlike")
+          }, 1000)
+          this.$emit('fetchlike')
         })
     },
     islike() {
-      const like = this.likes.find(like => like.tweet_id == this.tweet.id);
+      const like = this.likes.find(like => like.tweet_id == this.tweet.id)
       return like === undefined
     },
   },

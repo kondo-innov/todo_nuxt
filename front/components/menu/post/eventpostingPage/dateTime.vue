@@ -1,17 +1,13 @@
 <template>
   <div class="container">
-    <ValidationProvider
-      v-slot="{ errors }"
-      :rules="rules"
-      name="イベント日時"
-    >
+    <ValidationProvider v-slot="{ errors }" :rules="rules" name="イベント日時">
       <v-input>
-        <VueCtkDateTimePicker 
+        <VueCtkDateTimePicker
+          v-model="datetime"
           :format="'YYYY-MM-DD HH:mm'"
-          v-model="datetime" 
           label="イベント日時"
           :minute-interval="30"
-          :noButtonNow="true"
+          :no-button-now="true"
           :min-date="start"
           :max-date="end"
         >
@@ -21,39 +17,39 @@
     </ValidationProvider>
   </div>
 </template>
- 
-<script> 
+
+<script>
 export default {
   props: {
     rules: {
       type: [Object, String],
-      default: ''
+      default: "",
     },
     value: {
-      type: null
-    }
+      type: null,
+    },
   },
 
   computed: {
     datetime: {
-      get () {
+      get() {
         return this.value
       },
-      set (newVal) {
-        if (this.value !== newVal) this.$emit('input', newVal)
-      }
+      set(newVal) {
+        if (this.value !== newVal) this.$emit("input", newVal)
+      },
     },
     start() {
       // min-date に明日の9時を指定
-      const start = this.$moment().add(1, 'days')
-      return start.format('YYYY-MM-DDTHH:mm:ss')
+      const start = this.$moment().add(1, "days")
+      return start.format("YYYY-MM-DDTHH:mm:ss")
     },
     end() {
       // max-date に min-date から3ヶ月後を指定
       const start = this.$moment(this.start)
-      const end = start.add(2, 'months').endOf('day')
-      return end.format('YYYY-MM-DDTHH:mm:ss')
-    }
-  }
+      const end = start.add(2, "months").endOf("day")
+      return end.format("YYYY-MM-DDTHH:mm:ss")
+    },
+  },
 }
 </script>

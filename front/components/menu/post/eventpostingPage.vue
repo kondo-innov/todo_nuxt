@@ -10,40 +10,19 @@
             <v-card-text>
               <v-container>
                 <v-row>
-                  <v-col
-                    cols="12"
-                  >
-                  <eventName
-                    v-model="eventname"
-                    rules="max:20|required"
-                  />
+                  <v-col cols="12">
+                    <eventName v-model="eventname" rules="max:20|required" />
                   </v-col>
-                  <v-col
-                    cols="12"
-                  >
-                    <dateTime
-                      v-model="datetime"
-                      rules="required"
-                    />
+                  <v-col cols="12">
+                    <dateTime v-model="datetime" rules="required" />
                   </v-col>
-                  <v-col
-                    cols="4"
-                  >
-                    <cityWard
-                      v-model="cityward"
-                      rules="required"
-                    />
+                  <v-col cols="4">
+                    <cityWard v-model="cityward" rules="required" />
                   </v-col>
-                  <v-flex offset-xs0 xs8
-                    >
-                    <streetAddress
-                      v-model="streetaddress"
-                      rules="required"
-                    />
+                  <v-flex offset-xs0 xs8>
+                    <streetAddress v-model="streetaddress" rules="required" />
                   </v-flex>
-                  <v-col
-                    cols="12"
-                  >
+                  <v-col cols="12">
                     <Description
                       v-model="description"
                       rules="max:1000|required"
@@ -54,11 +33,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
-                text
-                @click="$emit('closeDialog')"
-              >
+              <v-btn color="blue darken-1" text @click="$emit('closeDialog')">
                 閉じる
               </v-btn>
               <v-btn
@@ -78,11 +53,11 @@
 </template>
 
 <script>
-import eventName      from "~/components/menu/post/eventpostingPage/eventName.vue"
-import dateTime       from "~/components/menu/post/eventpostingPage/dateTime.vue"
-import cityWard       from "~/components/menu/post/eventpostingPage/cityWard.vue"
-import streetAddress  from "~/components/menu/post/eventpostingPage/streetAddress.vue"
-import Description    from "~/components/menu/post/eventpostingPage/Description.vue"
+import eventName from "~/components/menu/post/eventpostingPage/eventName.vue"
+import dateTime from "~/components/menu/post/eventpostingPage/dateTime.vue"
+import cityWard from "~/components/menu/post/eventpostingPage/cityWard.vue"
+import streetAddress from "~/components/menu/post/eventpostingPage/streetAddress.vue"
+import Description from "~/components/menu/post/eventpostingPage/Description.vue"
 
 export default {
   components: {
@@ -92,18 +67,18 @@ export default {
     streetAddress,
     Description,
   },
-  data () {
+  props: ["value"],
+  data() {
     return {
-      dialog:          false,
-      eventname:        '',
-      datetime:         '',
-      cityward:         '',
-      streetaddress:    '',
-      description:      '',
+      dialog: false,
+      eventname: "",
+      datetime: "",
+      cityward: "",
+      streetaddress: "",
+      description: "",
     }
   },
-  props: ["value"],
-  
+
   methods: {
     eventPost() {
       const formData = new FormData()
@@ -118,27 +93,27 @@ export default {
         },
       }
       this.$axios
-        .post('/api/v1/events', formData, config)
+        .post("/api/v1/events", formData, config)
         .then((res) => {
-          console.log('投稿に成功しました')
-          this.$emit('eventPost', res)
-          this.$emit('closeDialog')
-          this.eventname=        '',
-          this.datetime=         '',
-          this.cityward=         '',
-          this.streetaddress=    '',
-          this.description=      '',
-          setTimeout(() => {
-            this.$store.dispatch(
-              "flashMessage/showMessage",
-              {
-                message: "投稿に成功しました.",
-                type: "sucess",
-                status: true,
-              },
-              { root: true }
-            )
-          },1000)
+          console.log("投稿に成功しました")
+          this.$emit("eventPost", res)
+          this.$emit("closeDialog")
+          ;(this.eventname = ""),
+            (this.datetime = ""),
+            (this.cityward = ""),
+            (this.streetaddress = ""),
+            (this.description = ""),
+            setTimeout(() => {
+              this.$store.dispatch(
+                'flashMessage/showMessage',
+                {
+                  message: "投稿に成功しました.",
+                  type: "sucess",
+                  status: true,
+                },
+                { root: true }
+              )
+            }, 1000)
         })
         .catch((err) => {
           setTimeout(() => {
@@ -151,9 +126,9 @@ export default {
               },
               { root: true }
             )
-          },1000)
+          }, 1000)
         })
     },
-  }
+  },
 }
 </script>
