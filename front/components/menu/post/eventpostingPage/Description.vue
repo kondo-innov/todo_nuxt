@@ -1,5 +1,5 @@
 <template>
-  <v-container >
+  <v-container>
     <ValidationProvider
       v-slot="{ errors }"
       :rules="rules"
@@ -22,22 +22,22 @@ export default {
   props: {
     rules: {
       type: [Object, String],
-      default: ''
+      default: "",
     },
     value: {
-      type: null
-    }
+      type: null,
+    },
   },
 
   computed: {
     descriptionValue: {
-      get () {
+      get() {
         return this.value
       },
-      set (newVal) {
-        if (this.value !== newVal) this.$emit('input', newVal)
-      }
-    }
-  }
+      set(newVal) {
+        if (this.value !== newVal) this.$emit("input", newVal)
+      },
+    },
+  },
 }
 </script>

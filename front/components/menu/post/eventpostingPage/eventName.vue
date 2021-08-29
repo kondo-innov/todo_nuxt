@@ -1,10 +1,6 @@
 <template>
   <v-container>
-    <ValidationProvider
-      v-slot="{ errors }"
-      :rules="rules"
-      name="イベント名"
-    >
+    <ValidationProvider v-slot="{ errors }" :rules="rules" name="イベント名">
       <v-text-field
         v-model="internalValue"
         :counter="20"
@@ -23,21 +19,21 @@ export default {
   props: {
     rules: {
       type: [Object, String],
-      default: ''
+      default: "",
     },
     value: {
-      type: null
-    }
+      type: null,
+    },
   },
   computed: {
     internalValue: {
-      get () {
+      get() {
         return this.value
       },
-      set (newVal) {
-        if (this.value !== newVal) this.$emit('input', newVal)
-      }
-    }
-  }
+      set(newVal) {
+        if (this.value !== newVal) this.$emit("input", newVal)
+      },
+    },
+  },
 }
 </script>

@@ -41,7 +41,6 @@
     </v-row>
   </v-container>
 </template>
-  
 
 <script>
 import editAvatar from "~/components/editUser/editAvatar"
@@ -56,7 +55,6 @@ export default {
       tab: null,
     }
   },
-  methods: {
-  },
+  methods: {},
 }
 </script>

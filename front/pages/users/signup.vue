@@ -2,9 +2,7 @@
   <div class="mx-auto mt-5 pa-5">
     <v-card width="600px" class="mx-auto mt-5">
       <v-card-title>
-        <h1 class="display-1">
-          新規登録
-        </h1>
+        <h1 class="display-1">新規登録</h1>
       </v-card-title>
       <v-card-text>
         <v-form ref="form" v-model="isValid" lazy-validation>
@@ -69,21 +67,23 @@ export default {
     const max = 20
     const min = 6
     return {
-      isValid:      false,
+      isValid: false,
       noValidation: false,
-      show:         false,
+      show: false,
       user: {
-        name:                  '',
-        password:              '',
-        email:                 '',
-        password_confirmation: '',
+        name: "",
+        password: "",
+        email: "",
+        password_confirmation: "",
       },
       max,
       rules: {
-        required: v => !!v || '入力してください',
-        name:     v => (!!v && max >= v.length) || `${max}文字以内で入力してください`,
-        email:    v => /.+@.+\..+/.test(v) || '',
-        password: v => (!!v && min <= v.length) || `${min}文字以上で入力してください`,
+        required: (v) => !!v || "入力してください",
+        name: (v) =>
+          (!!v && max >= v.length) || `${max}文字以内で入力してください`,
+        email: (v) => /.+@.+\..+/.test(v) || "",
+        password: (v) =>
+          (!!v && min <= v.length) || `${min}文字以上で入力してください`,
       },
     }
   },
@@ -109,12 +109,13 @@ export default {
   },
   methods: {
     registerUser() {
-      if (this.$refs.form.validate()){
-        this.$axios.post('/api/v1/auth', this.user)
-          .then(async(response) => {
+      if (this.$refs.form.validate()) {
+        this.$axios
+          .post("/api/v1/auth", this.user)
+          .then(async (response) => {
             await this.$auth
-              .loginWith('local', {
-              // emailとpasswordの情報を送信
+              .loginWith("local", {
+                // emailとpasswordの情報を送信
                 data: {
                   email: this.user.email,
                   password: this.user.password,
@@ -123,27 +124,33 @@ export default {
               .then(
                 (response) => {
                   // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
-                  localStorage.setItem('access-token', response.headers['access-token'])
-                  localStorage.setItem('client', response.headers.client)
-                  localStorage.setItem('uid', response.headers.uid)
-                  localStorage.setItem('token-type', response.headers['token-type'])
-                    this.$store.dispatch(
-                      "flashMessage/showMessage",
-                      {
-                        message: "新規登録しました.",
-                        type: "sucess",
-                        status: true,
-                      },
-                      { root: true }
-                    )
-                    window.location.href = '/'
+                  localStorage.setItem(
+                    "access-token",
+                    response.headers["access-token"]
+                  )
+                  localStorage.setItem("client", response.headers.client)
+                  localStorage.setItem("uid", response.headers.uid)
+                  localStorage.setItem(
+                    "token-type",
+                    response.headers["token-type"]
+                  )
+                  this.$store.dispatch(
+                    "flashMessage/showMessage",
+                    {
+                      message: "新規登録しました.",
+                      type: "sucess",
+                      status: true,
+                    },
+                    { root: true }
+                  )
+                  window.location.href = "/"
                   return response
                 },
                 (error) => {
                   return error
                 }
               )
-            })
+          })
           .catch((error) => {
             this.$store.dispatch(
               "flashMessage/showMessage",

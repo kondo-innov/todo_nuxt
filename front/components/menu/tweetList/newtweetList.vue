@@ -1,28 +1,25 @@
 <template>
   <v-container class="mx-auto">
-    <v-list-item
-      v-for="tweet in tweets"
-      :key="tweet.id"
-    >
+    <v-list-item v-for="tweet in tweets" :key="tweet.id">
       <ForTweet
-        :tweet ="tweet"
-        :likes ="likes"
-        @comment='fetchTweet'
-        @fetchlike='fetchLike'
+        :tweet="tweet"
+        :likes="likes"
+        @comment="fetchTweet"
+        @fetchlike="fetchLike"
       />
     </v-list-item>
-    <infinite-loading 
-      ref="infiniteLoading" 
+    <infinite-loading
+      ref="infiniteLoading"
       spinner="spiral"
-      @infinite="infiniteHandler">
-      <div slot="no-results"/>
+      @infinite="infiniteHandler"
+    >
+      <div slot="no-results" />
     </infinite-loading>
   </v-container>
 </template>
 
-
 <script>
-import ForTweet    from "~/components/menu/tweetList/ForTweet.vue"
+import ForTweet from "~/components/menu/tweetList/ForTweet.vue"
 
 export default {
   components: {
@@ -30,9 +27,9 @@ export default {
   },
   data() {
     return {
-      tweets:   [],
-      tweet:    '',
-      likes:    [],
+      tweets: [],
+      tweet: "",
+      likes: [],
     }
   },
   mounted() {
@@ -42,12 +39,12 @@ export default {
 
   methods: {
     async fetchTweet(get) {
-      const tweets = 'http://localhost:3000/api/v1/tweets'
+      const tweets = "http://localhost:3000/api/v1/tweets"
       const response = await this.$axios.get(tweets, get)
       this.tweets = response.data.tweets
     },
     async fetchLike(get) {
-      const likes = 'http://localhost:3000/api/v1/likes'
+      const likes = "http://localhost:3000/api/v1/likes"
       const response = await this.$axios.get(likes, get)
       this.likes = response.data
     },
@@ -60,8 +57,7 @@ export default {
           this.$refs.infiniteLoading.stateChanger.complete()
         }
       }, 1000)
-    }
-  }
-
+    },
+  },
 }
 </script>

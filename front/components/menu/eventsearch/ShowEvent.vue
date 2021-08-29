@@ -1,70 +1,55 @@
 <template>
   <v-card>
-    <v-card-title class="justify-space-between ">
+    <v-card-title class="justify-space-between">
       <span class="text-h4">{{ event.eventname }}</span>
     </v-card-title>
     <v-divider></v-divider>
     <v-card-text>
       <v-container>
-        <v-card-text class="text-h5" >開催日時:{{ $moment(event.datetime).format('YYYY年MM月DD日 HH時mm分') }}</v-card-text>
+        <v-card-text class="text-h5"
+          >開催日時:{{
+            $moment(event.datetime).format("YYYY年MM月DD日 HH時mm分")
+          }}</v-card-text
+        >
         <v-divider></v-divider>
         <v-card-text class="text-h5">開催市区:{{ event.cityward }}</v-card-text>
         <v-divider></v-divider>
-        <v-card-text class="text-h5">開催地:{{ event.streetaddress }}</v-card-text>
+        <v-card-text class="text-h5"
+          >開催地:{{ event.streetaddress }}</v-card-text
+        >
         <v-divider></v-divider>
         <v-card-text class="text-h6">イベント内容:</v-card-text>
         <v-card-text class="text-h5">{{ event.description }}</v-card-text>
         <v-divider></v-divider>
         <v-container>
-          <v-card-text class="text-h5" >参加メンバー一覧</v-card-text>
+          <v-card-text class="text-h5">参加メンバー一覧</v-card-text>
           <ul>
-            <li
-              v-for="join in joins"
-              :key="join.id"
-            >
-            <h4>
-              {{join.user.name}}
-            </h4>
+            <li v-for="join in joins" :key="join.id">
+              <h4>
+                {{ join.user.name }}
+              </h4>
             </li>
           </ul>
-              <v-card-actions class="justify-end">
-                <v-btn
-                  color="blue"
-                  text
-                  outlined
-                  @click="$emit('closeDialog')"
-                >
-                  閉じる
-                </v-btn>
-                <v-btn
-                  v-if="isjoin()"
-                  color="primary"
-                  @click="deleteJoin"
-                >
-                  参加済
-                </v-btn>
-                <v-btn
-                  v-else
-                  color="blue"
-                  text
-                  outlined
-                  @click="sendJoin"
-                >
-                  参加
-                </v-btn>
-              </v-card-actions>
+          <v-card-actions class="justify-end">
+            <v-btn color="blue" text outlined @click="$emit('closeDialog')">
+              閉じる
+            </v-btn>
+            <v-btn v-if="isjoin()" color="primary" @click="deleteJoin">
+              参加済
+            </v-btn>
+            <v-btn v-else color="blue" text outlined @click="sendJoin">
+              参加
+            </v-btn>
+          </v-card-actions>
         </v-container>
         <v-divider></v-divider>
       </v-container>
       <v-container>
-        <v-card-text class="text-h5" >コメント一覧</v-card-text>
+        <v-card-text class="text-h5">コメント一覧</v-card-text>
         <v-row>
-          <v-list-item
-            v-for="comment in event.comment"
-            :key="comment.id"
-          >
-            <v-col cols="10"> 
-              {{comment.content}}
+          <v-list-item v-for="comment in event.comment" :key="comment.id">
+            <v-col cols="10">
+              {{ comment.content }}
             </v-col>
             <v-col cols="2">
               <v-btn
@@ -73,9 +58,7 @@
                 color="grey darken-2"
                 @click="commentDelete(comment.id)"
               >
-                <v-icon>
-                  mdi-delete
-                </v-icon>
+                <v-icon> mdi-delete </v-icon>
               </v-btn>
             </v-col>
           </v-list-item>
@@ -119,16 +102,16 @@
 
 <script>
 export default {
+  props: ["event"],
   data() {
     return {
-      content: '',
-      join:    '',
-      joins:  [],
+      content: "",
+      join: "",
+      joins: [],
       dialog: false,
-      defaultImg: require("@/assets/images/default_user_icon.jpeg")
+      defaultImg: require("@/assets/images/default_user_icon.jpeg"),
     }
   },
-  props: ["event"],
 
   mounted() {
     this.fetchJoin()
@@ -136,8 +119,10 @@ export default {
 
   methods: {
     async fetchJoin() {
-      const joins = `http://localhost:3000/api/v1/joins`
-      const response = await this.$axios.get(joins, {params: {event_id: this.event.id}})
+      const joins = "http://localhost:3000/api/v1/joins"
+      const response = await this.$axios.get(joins, {
+        params: { event_id: this.event.id },
+      })
       this.joins = response.data
     },
     sendcontent() {
@@ -150,11 +135,10 @@ export default {
         },
       }
       this.$axios
-        .post('/api/v1/event_comments', formData, config)
+        .post("/api/v1/event_comments", formData, config)
         .then(() => {
-          console.log('投稿に成功しました')
-          this.content=        '',
-          this.$emit("eventdelete", this.event)
+          console.log("投稿に成功しました")
+          ;(this.content = ""), this.$emit("eventdelete", this.event)
           setTimeout(() => {
             this.$store.dispatch(
               "flashMessage/showMessage",
@@ -165,7 +149,7 @@ export default {
               },
               { root: true }
             )
-          },1000)
+          }, 1000)
         })
         .catch((err) => {
           setTimeout(() => {
@@ -178,42 +162,43 @@ export default {
               },
               { root: true }
             )
-          },1000)
+          }, 1000)
         })
     },
     commentDelete(id) {
-      this.$axios.delete(`/api/v1/event_comments/${id}`)
-      .then(() => {
-        this.$emit("eventdelete", this.event)
-        setTimeout(() => {
-          this.$store.dispatch(
-            "flashMessage/showMessage",
-            {
-              message: "削除に成功しました.",
-              type: "sucess",
-              status: true,
-            },
-            { root: true }
-          )
-        },1000)
-      })
-      .catch((err) => {
-        setTimeout(() => {
-          this.$store.dispatch(
-            "flashMessage/showMessage",
-            {
-              message: "削除に失敗しました.",
-              type: "sucess",
-              status: true,
-            },
-            { root: true }
-          )
-        },1000)
-      })
+      this.$axios
+        .delete(`/api/v1/event_comments/${id}`)
+        .then(() => {
+          this.$emit("eventdelete", this.event)
+          setTimeout(() => {
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "削除に成功しました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
+          }, 1000)
+        })
+        .catch((err) => {
+          setTimeout(() => {
+            this.$store.dispatch(
+              "flashMessage/showMessage",
+              {
+                message: "削除に失敗しました.",
+                type: "sucess",
+                status: true,
+              },
+              { root: true }
+            )
+          }, 1000)
+        })
     },
     sendJoin() {
       this.$axios
-        .post('/api/v1/joins' , {event_id: this.event.id})
+        .post("/api/v1/joins", { event_id: this.event.id })
         .then(() => {
           this.fetchJoin()
           setTimeout(() => {
@@ -226,32 +211,32 @@ export default {
               },
               { root: true }
             )
-          },1000)
+          }, 1000)
         })
     },
     deleteJoin() {
-      const joins = this.joins.find(join => join.user.id == this.$auth.user.id);
-      this.$axios
-        .delete(`/api/v1/joins/${joins.id}`)
-        .then(() => {
-          this.fetchJoin()
-          setTimeout(() => {
-            this.$store.dispatch(
-              "flashMessage/showMessage",
-              {
-                message: "参加をキャンセルしました.",
-                type: "sucess",
-                status: true,
-              },
-              { root: true }
-            )
-          },1000)
-        })
+      const joins = this.joins.find(
+        (join) => join.user.id == this.$auth.user.id
+      )
+      this.$axios.delete(`/api/v1/joins/${joins.id}`).then(() => {
+        this.fetchJoin()
+        setTimeout(() => {
+          this.$store.dispatch(
+            "flashMessage/showMessage",
+            {
+              message: "参加をキャンセルしました.",
+              type: "sucess",
+              status: true,
+            },
+            { root: true }
+          )
+        }, 1000)
+      })
     },
     isjoin() {
-      const join = this.joins.find(join => join.user_id == this.$auth.user.id);
+      const join = this.joins.find((join) => join.user_id == this.$auth.user.id)
       return join !== undefined
     },
-  }
+  },
 }
 </script>
