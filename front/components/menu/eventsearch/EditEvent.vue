@@ -110,7 +110,7 @@ export default {
         .then((res) => {
           console.log("更新に成功しました")
           this.$emit("eventdelete", res)
-          ;(this.dialog = false),
+          ;this.dialog = false,
             (this.eventname = ""),
             (this.datetime = ""),
             (this.cityward = ""),
@@ -118,7 +118,7 @@ export default {
             (this.description = ""),
             setTimeout(() => {
               this.$store.dispatch(
-                "flashMessage/showMessage",
+                'flashMessage/showMessage',
                 {
                   message: "更新に成功しました.",
                   type: "sucess",
