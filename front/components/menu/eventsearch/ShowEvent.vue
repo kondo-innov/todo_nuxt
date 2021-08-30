@@ -88,6 +88,7 @@
             </v-col>
             <v-col cols="2">
               <v-btn
+                v-if="comment.user_id === $auth.user.id"
                 icon
                 text
                 color="grey darken-2"
