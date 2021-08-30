@@ -1,11 +1,21 @@
 <template>
   <v-row class="mt-8">
     <v-col cols="12">
-      <v-card color="gray" position: relative>
+      <v-card
+        color="gray"
+        position:
+        relative
+      >
         <span>
           <v-avatar size="80">
-            <v-img v-if="tweet.image == null" :src="defaultImg" />
-            <v-img v-else :src="tweet.image" />
+            <v-img
+              v-if="tweet.image == null"
+              :src="defaultImg"
+            />
+            <v-img
+              v-else
+              :src="tweet.image"
+            />
           </v-avatar>
           <h2 class="name">
             {{ tweet.name }}<br>
@@ -20,32 +30,41 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-avatar tile size="150">
+          <v-avatar
+            tile
+            size="150"
+          >
             <v-img :src="tweet.picture" />
           </v-avatar>
         </v-row>
         <div>
-          <v-row justify="end" class="mt-8 mr-6">
+          <v-row
+            justify="end"
+            class="mt-8 mr-6"
+          >
             <v-btn
               v-if="tweet.user_id === $auth.user.id"
               icon
               text
               color="grey darken-2"
-              @click="sendDelete(tweet.id)">
+              @click="sendDelete(tweet.id)"
+            >
               <v-icon>
                 mdi-delete
               </v-icon>
             </v-btn>
             <TweetComment 
-              :tweet= "tweet"
-              :comments= "comments"
-              @setcomment= "$listeners['comment']"/>
+              :tweet="tweet"
+              :comments="comments"
+              @setcomment="$listeners['comment']"
+            />
             <v-btn
               v-if="islike()"
               icon
               text
               color="grey darken-2"
-              @click="sendGood">
+              @click="sendGood"
+            >
               <v-icon>
                 mdi-heart-outline
               </v-icon>
@@ -55,7 +74,8 @@
               icon
               text
               color="pink"
-              @click="sendgoodDelete">
+              @click="sendgoodDelete"
+            >
               <v-icon>
                 mdi-heart
               </v-icon>
@@ -68,7 +88,7 @@
 </template>
 
 <script>
-import TweetComment from '~/components/menu/tweetList/TweetComment.vue'
+import TweetComment from '~/components/menu/tweetList/TweetComment.vue';
 export default {
   components: {
     TweetComment
@@ -78,14 +98,14 @@ export default {
     return {
       defaultImg: require('@/assets/images/default_user_icon.jpeg'),
       comments: [],
-    }
+    };
   },
 
   methods: {
     sendDelete(id) {
       this.$axios.delete(`/api/v1/tweets/${id}`)
         .then(() => {
-          this.$emit('comment', this.tweet)
+          this.$emit('comment', this.tweet);
           setTimeout(() => {
             this.$store.dispatch(
               'flashMessage/showMessage',
@@ -95,8 +115,8 @@ export default {
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
+            );
+          }, 1000);
         })
         .catch((err) => {
           setTimeout(() => {
@@ -108,9 +128,9 @@ export default {
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
-        })
+            );
+          }, 1000);
+        });
     },
     sendGood() {
       this.$axios
@@ -125,10 +145,10 @@ export default {
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
-          this.$emit('fetchlike')
-        })
+            );
+          }, 1000);
+          this.$emit('fetchlike');
+        });
     },
     sendgoodDelete() {
       this.$axios
@@ -143,17 +163,17 @@ export default {
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
-          this.$emit('fetchlike')
-        })
+            );
+          }, 1000);
+          this.$emit('fetchlike');
+        });
     },
     islike() {
-      const like = this.likes.find(like => like.tweet_id == this.tweet.id)
-      return like === undefined
+      const like = this.likes.find(like => like.tweet_id == this.tweet.id);
+      return like === undefined;
     },
   },
-}
+};
 </script>
 
 <style scoped>

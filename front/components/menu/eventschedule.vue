@@ -23,9 +23,16 @@
       </v-tab>
     </v-tabs>
     <v-row justify="center">
-      <v-col cols="12" md="10" sm="10"> </v-col>
+      <v-col
+        cols="12"
+        md="10"
+        sm="10"
+      />
     </v-row>
-    <v-tabs-items v-model="tab" touchless>
+    <v-tabs-items
+      v-model="tab"
+      touchless
+    >
       <v-tab-item>
         <Plan v-if="Plan" />
       </v-tab-item>
@@ -40,9 +47,9 @@
 </template>
 
 <script>
-import Plan from "~/components/menu/eventschedule/Plan.vue"
-import PastPost from "~/components/menu/eventschedule/PastPost.vue"
-import PastParticipation from "~/components/menu/eventschedule/PastParticipation.vue"
+import Plan from '~/components/menu/eventschedule/Plan.vue';
+import PastPost from '~/components/menu/eventschedule/PastPost.vue';
+import PastParticipation from '~/components/menu/eventschedule/PastParticipation.vue';
 
 export default {
   components: {
@@ -56,24 +63,24 @@ export default {
       Plan: true,
       PastPost: false,
       PastParticipation: false,
-    }
+    };
   },
   methods: {
     openPlan() {
-      ;(this.Plan = true),
-        this.PastPost = false,
-        (this.PastParticipation = false)
+      this.Plan = true,
+      this.PastPost = false,
+      this.PastParticipation = false;
     },
     openPastPost() {
-      ;(this.Plan = false),
-        (this.PastPost = true),
-        (this.PastParticipation = false)
+      this.Plan = false,
+      this.PastPost = true,
+      this.PastParticipation = false;
     },
     openPastParticipation() {
-      ;(this.Plan = false),
-        this.PastPost = false,
-        (this.PastParticipation = true)
+      this.Plan = false,
+      this.PastPost = false,
+      this.PastParticipation = true;
     },
   },
-}
+};
 </script>

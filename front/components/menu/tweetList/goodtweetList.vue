@@ -1,6 +1,9 @@
 <template>
   <v-container class="mx-auto">
-    <v-list-item v-for="tweet in tweets" :key="tweet.id">
+    <v-list-item
+      v-for="tweet in tweets"
+      :key="tweet.id"
+    >
       <ForTweet
         :tweet="tweet"
         :likes="likes"
@@ -19,7 +22,7 @@
 </template>
 
 <script>
-import ForTweet from "~/components/menu/tweetList/ForTweet.vue"
+import ForTweet from '~/components/menu/tweetList/ForTweet.vue';
 
 export default {
   components: {
@@ -28,38 +31,38 @@ export default {
   data() {
     return {
       tweets: [],
-      tweet: "",
+      tweet: '',
       likes: [],
-    }
+    };
   },
   mounted() {
-    this.fetchTweet()
-    this.fetchLike()
+    this.fetchTweet();
+    this.fetchLike();
   },
 
   methods: {
     async fetchTweet() {
-      const tweets = "http://localhost:3000/api/v1/like_lists"
+      const tweets = 'http://localhost:3000/api/v1/like_lists';
       const response = await this.$axios.get(tweets, {
         params: { user_id: this.$auth.user.id },
-      })
-      this.tweets = response.data.tweets
+      });
+      this.tweets = response.data.tweets;
     },
     async fetchLike(get) {
-      const likes = "http://localhost:3000/api/v1/likes"
-      const response = await this.$axios.get(likes, get)
-      this.likes = response.data
+      const likes = 'http://localhost:3000/api/v1/likes';
+      const response = await this.$axios.get(likes, get);
+      this.likes = response.data;
     },
     infiniteHandler() {
       setTimeout(() => {
         if (this.count < 100) {
-          this.count += 20
-          this.$refs.infiniteLoading.stateChanger.loaded()
+          this.count += 20;
+          this.$refs.infiniteLoading.stateChanger.loaded();
         } else {
-          this.$refs.infiniteLoading.stateChanger.complete()
+          this.$refs.infiniteLoading.stateChanger.complete();
         }
-      }, 1000)
+      }, 1000);
     },
   },
-}
+};
 </script>

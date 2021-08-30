@@ -7,5 +7,5 @@ export default {
   props: {
     load: null,
   },
-}
+};
 </script>

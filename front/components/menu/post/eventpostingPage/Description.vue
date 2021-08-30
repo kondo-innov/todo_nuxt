@@ -11,7 +11,7 @@
         :counter="1000"
         clearable
         clear-icon="mdi-close-circle"
-      ></v-textarea>
+      />
       <span id="error">{{ errors[0] }}</span>
     </ValidationProvider>
   </v-container>
@@ -22,7 +22,7 @@ export default {
   props: {
     rules: {
       type: [Object, String],
-      default: "",
+      default: '',
     },
     value: {
       type: null,
@@ -32,12 +32,12 @@ export default {
   computed: {
     descriptionValue: {
       get() {
-        return this.value
+        return this.value;
       },
       set(newVal) {
-        if (this.value !== newVal) this.$emit("input", newVal)
+        if (this.value !== newVal) this.$emit('input', newVal);
       },
     },
   },
-}
+};
 </script>

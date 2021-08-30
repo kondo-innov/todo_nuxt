@@ -1,14 +1,27 @@
 <template>
-  <v-form ref="form" lazy-validation class="mb-6">
+  <v-form
+    ref="form"
+    lazy-validation
+    class="mb-6"
+  >
     <v-row class="pt-4 pl-3">
       <v-icon>mdi-account-box</v-icon>
       <span>ユーザー画像</span>
     </v-row>
-    <v-row justify="center" class="pt-6">
+    <v-row
+      justify="center"
+      class="pt-6"
+    >
       <v-avatar size="150">
         <template v-if="imageFile !== null">
-          <v-img v-if="url == null" :src="defaultImg" />
-          <v-img v-else :src="url" />
+          <v-img
+            v-if="url == null"
+            :src="defaultImg"
+          />
+          <v-img
+            v-else
+            :src="url"
+          />
         </template>
         <template v-else>
           <v-img :src="defaultImg" />
@@ -24,7 +37,7 @@
           class="pt-14"
           type="file"
           @change="setImage"
-        />
+        >
       </v-col>
     </v-row>
   </v-form>
@@ -35,37 +48,37 @@ export default {
   data() {
     return {
       imageFile: [],
-      url: "",
-      defaultImg: require("@/assets/images/default_user_icon.jpeg"),
-    }
+      url: '',
+      defaultImg: require('@/assets/images/default_user_icon.jpeg'),
+    };
   },
   mounted() {
-    this.fetchUser()
+    this.fetchUser();
   },
   methods: {
     setImage(e) {
-      e.preventDefault()
-      this.imageFile = e.target.files[0]
-      this.upload()
+      e.preventDefault();
+      this.imageFile = e.target.files[0];
+      this.upload();
     },
     async upload() {
-      let formData = new FormData()
+      let formData = new FormData();
       if (this.imageFile !== null) {
-        formData.append("image", this.imageFile)
+        formData.append('image', this.imageFile);
       }
-      this.createPost(formData)
+      this.createPost(formData);
     },
     async fetchUser(get) {
-      const url = "http://localhost:3000/api/v1/current_user"
-      const response = await this.$axios.get(url, get)
-      this.url = response.data.url
+      const url = 'http://localhost:3000/api/v1/current_user';
+      const response = await this.$axios.get(url, get);
+      this.url = response.data.url;
     },
     async createPost(post) {
-      const url = "http://localhost:3000/api/v1/users"
-      const response = await this.$axios.post(url, post)
-      this.url = response.data.url
-      this.$store.dispatch("image/doSearch")
+      const url = 'http://localhost:3000/api/v1/users';
+      const response = await this.$axios.post(url, post);
+      this.url = response.data.url;
+      this.$store.dispatch('image/doSearch');
     },
   },
-}
+};
 </script>
