@@ -17,10 +17,10 @@
   </v-container>
 </template>
 <script>
-import sideMenu from "~/components/menu/sideMenu.vue"
-import tweetList from "~/components/menu/tweetList.vue"
-import eventsearch from "~/components/menu/eventsearch.vue"
-import eventschedule from "~/components/menu/eventschedule.vue"
+import sideMenu from '~/components/menu/sideMenu.vue';
+import tweetList from '~/components/menu/tweetList.vue';
+import eventsearch from '~/components/menu/eventsearch.vue';
+import eventschedule from '~/components/menu/eventschedule.vue';
 export default {
   components: {
     sideMenu,
@@ -33,30 +33,30 @@ export default {
       tweetList: true,
       eventsearch: false,
       eventschedule: false,
-    }
+    };
   },
   methods: {
     // メインコンテンツ表示切り替え関連
     opentweetList() {
-      this.tweetList = true
-      this.eventsearch = false
-      this.eventschedule = false
+      this.tweetList = true;
+      this.eventsearch = false;
+      this.eventschedule = false;
     },
     openeventsearch() {
-      this.tweetList = false
-      this.eventsearch = true
-      this.eventschedule = false
+      this.tweetList = false;
+      this.eventsearch = true;
+      this.eventschedule = false;
     },
     openeventschedule() {
-      this.tweetList = false
-      this.eventsearch = false
-      this.eventschedule = true
+      this.tweetList = false;
+      this.eventsearch = false;
+      this.eventschedule = true;
     },
   },
-}
+};
 </script>
 
-<style>
+<style scoped>
 .menu_list {
   padding: 0;
 }

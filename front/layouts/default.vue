@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import FlashMessage from "../components/layouts/FlashMessage.vue"
-import Footer from "../components/layouts/Footer.vue"
-import Header from "../components/layouts/Header.vue"
+import FlashMessage from '../components/layouts/FlashMessage.vue';
+import Footer from '../components/layouts/Footer.vue';
+import Header from '../components/layouts/Header.vue';
 export default {
   auth: false,
   components: {
@@ -22,7 +22,7 @@ export default {
     Footer,
     FlashMessage,
   },
-}
+};
 </script>
 
 <style></style>
