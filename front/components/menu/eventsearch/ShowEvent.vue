@@ -3,51 +3,86 @@
     <v-card-title class="justify-space-between">
       <span class="text-h4">{{ event.eventname }}</span>
     </v-card-title>
-    <v-divider></v-divider>
+    <v-divider />
     <v-card-text>
       <v-container>
-        <v-card-text class="text-h5"
-          >開催日時:{{
+        <v-card-text
+          class="text-h5"
+        >
+          開催日時:{{
             $moment(event.datetime).format("YYYY年MM月DD日 HH時mm分")
-          }}</v-card-text
+          }}
+        </v-card-text>
+        <v-divider />
+        <v-card-text class="text-h5">
+          開催市区:{{ event.cityward }}
+        </v-card-text>
+        <v-divider />
+        <v-card-text
+          class="text-h5"
         >
-        <v-divider></v-divider>
-        <v-card-text class="text-h5">開催市区:{{ event.cityward }}</v-card-text>
-        <v-divider></v-divider>
-        <v-card-text class="text-h5"
-          >開催地:{{ event.streetaddress }}</v-card-text
-        >
-        <v-divider></v-divider>
-        <v-card-text class="text-h6">イベント内容:</v-card-text>
-        <v-card-text class="text-h5">{{ event.description }}</v-card-text>
-        <v-divider></v-divider>
+          開催地:{{ event.streetaddress }}
+        </v-card-text>
+        <v-divider />
+        <v-card-text class="text-h6">
+          イベント内容:
+        </v-card-text>
+        <v-card-text class="text-h5">
+          {{ event.description }}
+        </v-card-text>
+        <v-divider />
         <v-container>
-          <v-card-text class="text-h5">参加メンバー一覧</v-card-text>
+          <v-card-text class="text-h5">
+            参加メンバー一覧
+          </v-card-text>
           <ul>
-            <li v-for="join in joins" :key="join.id">
+            <li
+              v-for="join in joins"
+              :key="join.id"
+            >
               <h4>
                 {{ join.user.name }}
               </h4>
             </li>
           </ul>
           <v-card-actions class="justify-end">
-            <v-btn color="blue" text outlined @click="$emit('closeDialog')">
+            <v-btn
+              color="blue"
+              text
+              outlined
+              @click="$emit('closeDialog')"
+            >
               閉じる
             </v-btn>
-            <v-btn v-if="isjoin()" color="primary" @click="deleteJoin">
+            <v-btn
+              v-if="isjoin()"
+              color="primary"
+              @click="deleteJoin"
+            >
               参加済
             </v-btn>
-            <v-btn v-else color="blue" text outlined @click="sendJoin">
+            <v-btn
+              v-else
+              color="blue"
+              text
+              outlined
+              @click="sendJoin"
+            >
               参加
             </v-btn>
           </v-card-actions>
         </v-container>
-        <v-divider></v-divider>
+        <v-divider />
       </v-container>
       <v-container>
-        <v-card-text class="text-h5">コメント一覧</v-card-text>
+        <v-card-text class="text-h5">
+          コメント一覧
+        </v-card-text>
         <v-row>
-          <v-list-item v-for="comment in event.comment" :key="comment.id">
+          <v-list-item
+            v-for="comment in event.comment"
+            :key="comment.id"
+          >
             <v-col cols="10">
               {{ comment.content }}
             </v-col>
@@ -66,7 +101,10 @@
         <form>
           <ValidationObserver v-slot="ObserverProps">
             <v-row class="footer">
-              <v-col cols="9" class="ml-8">
+              <v-col
+                cols="9"
+                class="ml-8"
+              >
                 <ValidationProvider
                   v-slot="{ errors }"
                   rules="max:100|required"
@@ -77,7 +115,7 @@
                     :counter="100"
                     label="コメント"
                     dense
-                  ></v-text-field>
+                  />
                   <span id="error">{{ errors[0] }}</span>
                 </ValidationProvider>
               </v-col>
@@ -102,141 +140,141 @@
 
 <script>
 export default {
-  props: ["event"],
+  props: ['event'],
   data() {
     return {
-      content: "",
-      join: "",
+      content: '',
+      join: '',
       joins: [],
       dialog: false,
-      defaultImg: require("@/assets/images/default_user_icon.jpeg"),
-    }
+      defaultImg: require('@/assets/images/default_user_icon.jpeg'),
+    };
   },
 
   mounted() {
-    this.fetchJoin()
+    this.fetchJoin();
   },
 
   methods: {
     async fetchJoin() {
-      const joins = "http://localhost:3000/api/v1/joins"
+      const joins = 'http://localhost:3000/api/v1/joins';
       const response = await this.$axios.get(joins, {
         params: { event_id: this.event.id },
-      })
-      this.joins = response.data
+      });
+      this.joins = response.data;
     },
     sendcontent() {
-      const formData = new FormData()
-      formData.append("content", this.content)
-      formData.append("event_id", this.event.id)
+      const formData = new FormData();
+      formData.append('content', this.content);
+      formData.append('event_id', this.event.id);
       const config = {
         headers: {
-          "content-type": "multipart/form-data",
+          'content-type': 'multipart/form-data',
         },
-      }
+      };
       this.$axios
-        .post("/api/v1/event_comments", formData, config)
+        .post('/api/v1/event_comments', formData, config)
         .then(() => {
-          console.log("投稿に成功しました")
-          ;(this.content = ""), this.$emit("eventdelete", this.event)
+          console.log('投稿に成功しました')
+          ;this.content = '', this.$emit('eventdelete', this.event);
           setTimeout(() => {
             this.$store.dispatch(
-              "flashMessage/showMessage",
+              'flashMessage/showMessage',
               {
-                message: "投稿に成功しました.",
-                type: "sucess",
+                message: '投稿に成功しました.',
+                type: 'sucess',
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
+            );
+          }, 1000);
         })
         .catch((err) => {
           setTimeout(() => {
             this.$store.dispatch(
-              "flashMessage/showMessage",
+              'flashMessage/showMessage',
               {
-                message: "投稿に失敗しました.",
-                type: "sucess",
+                message: '投稿に失敗しました.',
+                type: 'sucess',
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
-        })
+            );
+          }, 1000);
+        });
     },
     commentDelete(id) {
       this.$axios
         .delete(`/api/v1/event_comments/${id}`)
         .then(() => {
-          this.$emit("eventdelete", this.event)
+          this.$emit('eventdelete', this.event);
           setTimeout(() => {
             this.$store.dispatch(
-              "flashMessage/showMessage",
+              'flashMessage/showMessage',
               {
-                message: "削除に成功しました.",
-                type: "sucess",
+                message: '削除に成功しました.',
+                type: 'sucess',
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
+            );
+          }, 1000);
         })
         .catch((err) => {
           setTimeout(() => {
             this.$store.dispatch(
-              "flashMessage/showMessage",
+              'flashMessage/showMessage',
               {
-                message: "削除に失敗しました.",
-                type: "sucess",
+                message: '削除に失敗しました.',
+                type: 'sucess',
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
-        })
+            );
+          }, 1000);
+        });
     },
     sendJoin() {
       this.$axios
-        .post("/api/v1/joins", { event_id: this.event.id })
+        .post('/api/v1/joins', { event_id: this.event.id })
         .then(() => {
-          this.fetchJoin()
+          this.fetchJoin();
           setTimeout(() => {
             this.$store.dispatch(
-              "flashMessage/showMessage",
+              'flashMessage/showMessage',
               {
-                message: "参加しました.",
-                type: "sucess",
+                message: '参加しました.',
+                type: 'sucess',
                 status: true,
               },
               { root: true }
-            )
-          }, 1000)
-        })
+            );
+          }, 1000);
+        });
     },
     deleteJoin() {
       const joins = this.joins.find(
         (join) => join.user.id == this.$auth.user.id
-      )
+      );
       this.$axios.delete(`/api/v1/joins/${joins.id}`).then(() => {
-        this.fetchJoin()
+        this.fetchJoin();
         setTimeout(() => {
           this.$store.dispatch(
-            "flashMessage/showMessage",
+            'flashMessage/showMessage',
             {
-              message: "参加をキャンセルしました.",
-              type: "sucess",
+              message: '参加をキャンセルしました.',
+              type: 'sucess',
               status: true,
             },
             { root: true }
-          )
-        }, 1000)
-      })
+          );
+        }, 1000);
+      });
     },
     isjoin() {
-      const join = this.joins.find((join) => join.user_id == this.$auth.user.id)
-      return join !== undefined
+      const join = this.joins.find((join) => join.user_id == this.$auth.user.id);
+      return join !== undefined;
     },
   },
-}
+};
 </script>

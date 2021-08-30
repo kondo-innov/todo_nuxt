@@ -1,13 +1,22 @@
 <template>
   <v-card>
-    <v-toolbar color="cyan darken-1" dark flat>
+    <v-toolbar
+      color="cyan darken-1"
+      dark
+      flat
+    >
       <v-toolbar-title>
-        <v-icon class="mr-3"> mdi-menu </v-icon>
+        <v-icon class="mr-3">
+          mdi-menu
+        </v-icon>
         Menu
       </v-toolbar-title>
     </v-toolbar>
     <v-list>
-      <v-list-item-group color="orange" mandatory>
+      <v-list-item-group
+        color="orange"
+        mandatory
+      >
         <v-list-item
           v-for="item in menuItems"
           :key="item.id"
@@ -32,27 +41,27 @@ export default {
     return {
       menuItems: [
         {
-          title: "つぶやき",
-          name: "tweetList",
-          icon: "mdi-post-outline",
+          title: 'つぶやき',
+          name: 'tweetList',
+          icon: 'mdi-post-outline',
         },
         {
-          title: "イベント検索",
-          name: "eventsearch",
-          icon: "mdi-magnify",
+          title: 'イベント検索',
+          name: 'eventsearch',
+          icon: 'mdi-magnify',
         },
         {
-          title: "イベント予定",
-          name: "eventschedule",
-          icon: "mdi-calendar-month",
+          title: 'イベント予定',
+          name: 'eventschedule',
+          icon: 'mdi-calendar-month',
         },
       ],
-    }
+    };
   },
   methods: {
     menuClick(name) {
-      this.$emit(`open${name}`)
+      this.$emit(`open${name}`);
     },
   },
-}
+};
 </script>

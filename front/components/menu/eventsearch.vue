@@ -23,9 +23,16 @@
       </v-tab>
     </v-tabs>
     <v-row justify="center">
-      <v-col cols="12" md="10" sm="10"> </v-col>
+      <v-col
+        cols="12"
+        md="10"
+        sm="10"
+      />
     </v-row>
-    <v-tabs-items v-model="tab" touchless>
+    <v-tabs-items
+      v-model="tab"
+      touchless
+    >
       <v-tab-item>
         <newEvent v-if="newEvent" />
       </v-tab-item>
@@ -47,9 +54,9 @@
 </template>
 
 <script>
-import newEvent from "~/components/menu/eventsearch/newEvent.vue"
-import Search from "~/components/menu/eventsearch/Search.vue"
-import eventpostingPage from "~/components/menu/post/eventpostingPage.vue"
+import newEvent from '~/components/menu/eventsearch/newEvent.vue';
+import Search from '~/components/menu/eventsearch/Search.vue';
+import eventpostingPage from '~/components/menu/post/eventpostingPage.vue';
 
 export default {
   components: {
@@ -64,25 +71,25 @@ export default {
       newEvent: true,
       Search: false,
       eventpostingPage: false,
-    }
+    };
   },
   methods: {
     opennewEvent() {
-      ;(this.newEvent = true),
-        (this.Search = false),
-        this.eventpostingPage = false
+      this.newEvent = true,
+      this.Search = false,
+      this.eventpostingPage = false;
     },
     openSearch() {
-      ;(this.newEvent = false),
-        this.Search = true,
-        (this.eventpostingPage = false)
+      this.newEvent = false,
+      this.Search = true,
+      this.eventpostingPage = false;
     },
     openPost() {
-      ;(this.newEvent = false),
-        (this.Search = false),
-        (this.eventpostingPage = true),
-        (this.dialog = true)
+      this.newEvent = false,
+      this.Search = false,
+      this.eventpostingPage = true,
+      this.dialog = true;
     },
   },
-}
+};
 </script>

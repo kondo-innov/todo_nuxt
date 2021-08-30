@@ -1,3 +1,3 @@
 <template>
   <p>工事中</p>
-</template>
+</template>;

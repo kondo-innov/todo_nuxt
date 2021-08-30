@@ -22,7 +22,10 @@
         <v-icon>mdi-file-send</v-icon>
       </v-tab>
     </v-tabs>
-    <v-tabs-items v-model="tab" touchless>
+    <v-tabs-items
+      v-model="tab"
+      touchless
+    >
       <v-tab-item>
         <newtweetList v-if="shownewtweetList" />
       </v-tab-item>
@@ -44,9 +47,9 @@
 </template>
 
 <script>
-import newtweetList from "~/components/menu/tweetList/newtweetList.vue"
-import goodtweetList from "~/components/menu/tweetList/goodtweetList.vue"
-import tweetpostingPage from "~/components/menu/post/tweetpostingPage.vue"
+import newtweetList from '~/components/menu/tweetList/newtweetList.vue';
+import goodtweetList from '~/components/menu/tweetList/goodtweetList.vue';
+import tweetpostingPage from '~/components/menu/post/tweetpostingPage.vue';
 
 export default {
   components: {
@@ -61,25 +64,25 @@ export default {
       shownewtweetList: true,
       showgoodtweetList: false,
       tweetpostingPage: false,
-    }
+    };
   },
   methods: {
     opennewtweetList() {
-      ;(this.shownewtweetList = true),
-        this.showgoodtweetList = false,
-        this.tweetpostingPage = false
+      this.shownewtweetList = true,
+      this.showgoodtweetList = false,
+      this.tweetpostingPage = false;
     },
     opengoodtweetList() {
-      ;(this.shownewtweetList = false),
-        this.showgoodtweetList = true,
-        this.tweetpostingPage = false
+      this.shownewtweetList = false,
+      this.showgoodtweetList = true,
+      this.tweetpostingPage = false;
     },
     opentweetPost() {
-      ;(this.shownewtweetList = false),
-        this.showgoodtweetList = false,
-        (this.tweetpostingPage = true),
-        (this.dialog = true)
+      this.shownewtweetList = false,
+      this.showgoodtweetList = false,
+      this.tweetpostingPage = true,
+      this.dialog = true;
     },
   },
-}
+};
 </script>

@@ -2,8 +2,12 @@
   <v-container>
     <v-row>
       <v-col cols="12">
-        <h2 class="pb-4">ユーザー名:{{ url.name }}</h2>
-        <h2 class="pb-4">メールアドレス:{{ url.email }}</h2>
+        <h2 class="pb-4">
+          ユーザー名:{{ url.name }}
+        </h2>
+        <h2 class="pb-4">
+          メールアドレス:{{ url.email }}
+        </h2>
       </v-col>
     </v-row>
   </v-container>
@@ -13,20 +17,20 @@
 export default {
   data() {
     return {
-      users: "",
-      url: "",
-    }
+      users: '',
+      url: '',
+    };
   },
   mounted() {
-    this.User()
+    this.User();
   },
 
   methods: {
     async User(get) {
-      const url = "http://localhost:3000/api/v1/users"
-      const response = await this.$axios.get(url, get)
-      this.url = response.data
+      const url = 'http://localhost:3000/api/v1/users';
+      const response = await this.$axios.get(url, get);
+      this.url = response.data;
     },
   },
-}
+};
 </script>
