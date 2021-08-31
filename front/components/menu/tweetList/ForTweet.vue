@@ -98,57 +98,42 @@ export default {
     return {
       defaultImg: require('@/assets/images/default_user_icon.jpeg'),
       comments: [],
+      message: '',
     };
   },
 
   methods: {
+    showMessage() {
+      setTimeout(() => {
+        this.$store.dispatch(
+          'flashMessage/showMessage',
+          {
+            message: this.message,
+            type: 'sucess',
+            status: true,
+          },
+          { root: true }
+        );
+      }, 1000);
+    },
     sendDelete(id) {
       this.$axios.delete(`/api/v1/tweets/${id}`)
         .then(() => {
           this.$emit('comment', this.tweet);
-          setTimeout(() => {
-          // ここの処理共通化できそうです。
-          // this.showMessage(message)を呼び出すイメージ
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '削除に成功しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '削除に成功しました';
+          this.showMessage();
         })
         .catch((err) => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '削除に失敗しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '削除に失敗しました';
+          this.showMessage();
         });
     },
     sendGood() {
       this.$axios
         .post('/api/v1/likes', {tweet_id: this.tweet.id})
         .then(() => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: 'つぶやきにいいねしました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = 'つぶやきにいいねしました';
+          this.showMessage();
           this.$emit('fetchlike');
         });
     },
@@ -156,17 +141,8 @@ export default {
       this.$axios
         .delete(`/api/v1/likes/${this.tweet.id}`, {tweet_id: this.tweet.id})
         .then(() => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: 'つぶやきを外しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = 'いいねを外しました';
+          this.showMessage();
           this.$emit('fetchlike');
         });
     },
