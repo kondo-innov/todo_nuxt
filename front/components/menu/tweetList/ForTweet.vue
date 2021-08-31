@@ -107,6 +107,8 @@ export default {
         .then(() => {
           this.$emit('comment', this.tweet);
           setTimeout(() => {
+          // ここの処理共通化できそうです。
+          // this.showMessage(message)を呼び出すイメージ
             this.$store.dispatch(
               'flashMessage/showMessage',
               {
