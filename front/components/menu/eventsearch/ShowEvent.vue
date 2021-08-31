@@ -144,6 +144,7 @@ export default {
   props: ['event'],
   data() {
     return {
+      comment: '',
       content: '',
       join: '',
       joins: [],
@@ -157,6 +158,19 @@ export default {
   },
 
   methods: {
+    showMessage() {
+      setTimeout(() => {
+        this.$store.dispatch(
+          'flashMessage/showMessage',
+          {
+            message: this.message,
+            type: 'sucess',
+            status: true,
+          },
+          { root: true }
+        );
+      }, 1000);
+    },
     async fetchJoin() {
       const joins = 'http://localhost:3000/api/v1/joins';
       const response = await this.$axios.get(joins, {
@@ -176,32 +190,13 @@ export default {
       this.$axios
         .post('/api/v1/event_comments', formData, config)
         .then(() => {
-          console.log('投稿に成功しました')
-          ;this.content = '', this.$emit('eventdelete', this.event);
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '投稿に成功しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.content = '', this.$emit('eventdelete', this.event);
+          this.message = '投稿に成功しました';
+          this.showMessage();
         })
         .catch((err) => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '投稿に失敗しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '投稿に失敗しました';
+          this.showMessage();
         });
     },
     commentDelete(id) {
@@ -209,30 +204,12 @@ export default {
         .delete(`/api/v1/event_comments/${id}`)
         .then(() => {
           this.$emit('eventdelete', this.event);
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '削除に成功しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '削除に成功しました';
+          this.showMessage();
         })
         .catch((err) => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '削除に失敗しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '削除に失敗しました';
+          this.showMessage();
         });
     },
     sendJoin() {
@@ -240,17 +217,8 @@ export default {
         .post('/api/v1/joins', { event_id: this.event.id })
         .then(() => {
           this.fetchJoin();
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '参加しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '参加しました';
+          this.showMessage();
         });
     },
     deleteJoin() {
@@ -259,17 +227,8 @@ export default {
       );
       this.$axios.delete(`/api/v1/joins/${joins.id}`).then(() => {
         this.fetchJoin();
-        setTimeout(() => {
-          this.$store.dispatch(
-            'flashMessage/showMessage',
-            {
-              message: '参加をキャンセルしました.',
-              type: 'sucess',
-              status: true,
-            },
-            { root: true }
-          );
-        }, 1000);
+        this.message = '参加をキャンセルしました';
+        this.showMessage();
       });
     },
     isjoin() {

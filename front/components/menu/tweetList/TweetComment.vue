@@ -102,35 +102,30 @@ export default {
   },
 
   methods: {
+    showMessage() {
+      setTimeout(() => {
+        this.$store.dispatch(
+          'flashMessage/showMessage',
+          {
+            message: this.message,
+            type: 'sucess',
+            status: true,
+          },
+          { root: true }
+        );
+      }, 1000);
+    },
     sendDelete(id) {
       this.$axios
         .delete(`/api/v1/tweet_comments/${id}`)
         .then(() => {
           this.$emit('setcomment', this.tweet);
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '削除に成功しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '削除に成功しました';
+          this.showMessage();
         })
         .catch((err) => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '削除に失敗しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '削除に失敗しました';
+          this.showMessage();
         });
     },
     sendcontent() {
@@ -145,32 +140,13 @@ export default {
       this.$axios
         .post('/api/v1/tweet_comments', formData, config)
         .then(() => {
-          console.log('投稿に成功しました')
-          ;this.content = '', this.$emit('setcomment', this.tweet);
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '投稿に成功しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.content = '', this.$emit('setcomment', this.tweet);
+          this.message = '投稿に成功しました';
+          this.showMessage();
         })
         .catch((err) => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              'flashMessage/showMessage',
-              {
-                message: '投稿に失敗しました.',
-                type: 'sucess',
-                status: true,
-              },
-              { root: true }
-            );
-          }, 1000);
+          this.message = '投稿に失敗しました';
+          this.showMessage();
         });
     },
   },
