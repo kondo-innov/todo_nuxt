@@ -32,6 +32,15 @@
     </template>
     <template v-else>
       <v-btn
+        text
+        color="white"
+        :outlined="true"
+        small
+        @click="GuestLogin"
+      >
+        <span>ゲストログイン</span>
+      </v-btn>
+      <v-btn
         to="/users/login"
         text
         color="white"
@@ -57,6 +66,8 @@
 export default {
   data() {
     return {
+      email: 'guestlogin@gmail.com',
+      password: 'aaaaaa',
       drawer: false,
       group: null,
       defaultImg: require('@/assets/images/default_user_icon.jpeg'),
@@ -80,6 +91,49 @@ export default {
       const url = 'http://localhost:3000/api/v1/current_user';
       const response = await this.$axios.get(url, get);
       this.url = response.data.url;
+    },
+    async GuestLogin() {
+      await this.$auth
+        .loginWith('local', {
+          data: {
+            email: this.email,
+            password: this.password,
+          },
+        })
+        .then(
+          (response) => {
+            // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
+            localStorage.setItem(
+              'access-token',
+              response.headers['access-token']
+            );
+            localStorage.setItem('client', response.headers.client);
+            localStorage.setItem('uid', response.headers.uid);
+            localStorage.setItem('token-type', response.headers['token-type']);
+            this.$store.dispatch(
+              'flashMessage/showMessage',
+              {
+                message: 'ゲストログインしました.',
+                type: 'sucess',
+                status: true,
+              },
+              { root: true }
+            );
+            return response;
+          },
+          (error) => {
+            this.$store.dispatch(
+              'flashMessage/showMessage',
+              {
+                message: 'ゲストログイン出来ませんでした.',
+                type: 'sucess',
+                status: true,
+              },
+              { root: true }
+            );
+            return error;
+          }
+        );
     },
   },
 };
