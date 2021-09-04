@@ -5,24 +5,24 @@
       :key="tweet.id"
     >
       <ForTweet
-        :tweet ="tweet"
-        :likes ="likes"
-        @comment='fetchTweet'
-        @fetchlike='fetchLike'
+        :tweet="tweet"
+        :likes="likes"
+        @comment="fetchTweet"
+        @fetchlike="fetchLike"
       />
     </v-list-item>
-    <infinite-loading 
-      ref="infiniteLoading" 
+    <infinite-loading
+      ref="infiniteLoading"
       spinner="spiral"
-      @infinite="infiniteHandler">
-      <div slot="no-results"/>
+      @infinite="infiniteHandler"
+    >
+      <div slot="no-results" />
     </infinite-loading>
   </v-container>
 </template>
 
-
 <script>
-import ForTweet    from "~/components/menu/tweetList/ForTweet.vue"
+import ForTweet from '~/components/menu/tweetList/ForTweet.vue';
 
 export default {
   components: {
@@ -30,38 +30,37 @@ export default {
   },
   data() {
     return {
-      tweets:   [],
-      tweet:    '',
-      likes:    [],
-    }
+      tweets: [],
+      tweet: '',
+      likes: [],
+    };
   },
   mounted() {
-    this.fetchTweet()
-    this.fetchLike()
+    this.fetchTweet();
+    this.fetchLike();
   },
 
   methods: {
     async fetchTweet(get) {
-      const tweets = 'http://localhost:3000/api/v1/tweets'
-      const response = await this.$axios.get(tweets, get)
-      this.tweets = response.data.tweets
+      const tweets = 'http://localhost:3000/api/v1/tweets';
+      const response = await this.$axios.get(tweets, get);
+      this.tweets = response.data.tweets;
     },
     async fetchLike(get) {
-      const likes = 'http://localhost:3000/api/v1/likes'
-      const response = await this.$axios.get(likes, get)
-      this.likes = response.data
+      const likes = 'http://localhost:3000/api/v1/likes';
+      const response = await this.$axios.get(likes, get);
+      this.likes = response.data;
     },
     infiniteHandler() {
       setTimeout(() => {
         if (this.count < 100) {
-          this.count += 20
-          this.$refs.infiniteLoading.stateChanger.loaded()
+          this.count += 20;
+          this.$refs.infiniteLoading.stateChanger.loaded();
         } else {
-          this.$refs.infiniteLoading.stateChanger.complete()
+          this.$refs.infiniteLoading.stateChanger.complete();
         }
-      }, 1000)
-    }
-  }
-
-}
+      }, 1000);
+    },
+  },
+};
 </script>

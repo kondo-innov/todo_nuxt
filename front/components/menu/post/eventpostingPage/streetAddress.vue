@@ -11,7 +11,7 @@
         outlined
         dense
         clearable
-      ></v-text-field>
+      />
       <span id="error">{{ errors[0] }}</span>
     </ValidationProvider>
   </v-container>
@@ -22,22 +22,22 @@ export default {
   props: {
     rules: {
       type: [Object, String],
-      default: ''
+      default: '',
     },
     value: {
-      type: String
-    }
+      type: String,
+    },
   },
 
   computed: {
     addressValue: {
-      get () {
-        return this.value
+      get() {
+        return this.value;
       },
-      set (newVal) {
-        if (this.value !== newVal) this.$emit('input', newVal)
-      }
-    }
-  }
-}
+      set(newVal) {
+        if (this.value !== newVal) this.$emit('input', newVal);
+      },
+    },
+  },
+};
 </script>

@@ -1,4 +1,5 @@
 FactoryBot.define do
-  factory :join do
+  factory :user_event do
+    
   end
 end

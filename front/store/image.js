@@ -1,7 +1,7 @@
 export const state = () => ({
   imagedate: null,
-  loading: false
-})
+  loading: false,
+});
 
 export const getters = {
   imagedate(state) {
@@ -9,17 +9,19 @@ export const getters = {
   },
   loading(state) {
     return state.loading;
-  }
+  },
 };
 
 export const actions = {
-  async doSearch({ commit, axios}, keyword) {
-    commit("setLoading", true);
-    const imagedate = await this.$axios.get("http://localhost:3000/api/v1/current_user");
-    commit("setLoading", false);
+  async doSearch({ commit, axios }, keyword) {
+    commit('setLoading', true);
+    const imagedate = await this.$axios.get(
+      'http://localhost:3000/api/v1/current_user'
+    );
+    commit('setLoading', false);
     const { data } = imagedate;
-    commit("setImagedate", data.url);
-  }
+    commit('setImagedate', data.url);
+  },
 };
 
 export const mutations = {
@@ -28,5 +30,5 @@ export const mutations = {
   },
   setLoading(state, bool) {
     state.loading = bool;
-  }
+  },
 };

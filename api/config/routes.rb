@@ -17,7 +17,7 @@ Rails.application.routes.draw do
       resources :likes,          only: %i[index create destroy]
       resources :tweet_comments, format: 'json'
       resources :event_comments, format: 'json'
-      resources :joins,          only: %i[index create destroy]
+      resources :user_events,          only: %i[index create destroy]
       resources :like_lists, format: 'json'
     end
   end

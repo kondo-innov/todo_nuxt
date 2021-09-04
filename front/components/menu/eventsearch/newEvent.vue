@@ -4,22 +4,23 @@
       v-for="event in events"
       :key="event.id"
     >
-      <ForEvent 
-        :event ="event"
-        @eventdelete= 'fetchEvent'
+      <ForEvent
+        :event="event"
+        @eventdelete="fetchEvent"
       />
     </v-list-item>
-    <infinite-loading 
-      ref="infiniteLoading" 
+    <infinite-loading
+      ref="infiniteLoading"
       spinner="spiral"
-      @infinite="infiniteHandler">
-      <div slot="no-results"/>
+      @infinite="infiniteHandler"
+    >
+      <div slot="no-results" />
     </infinite-loading>
   </v-container>
 </template>
 
 <script>
-import ForEvent    from "~/components/menu/eventsearch/ForEvent.vue"
+import ForEvent from '~/components/menu/eventsearch/ForEvent.vue';
 
 export default {
   components: {
@@ -27,37 +28,37 @@ export default {
   },
   data() {
     return {
-      count:       10,
-      event:     '',
-      events:    [],
-      dialog: false
-    }
-  },
-  mounted () {
-    this.fetchEvent()
+      count: 10,
+      event: '',
+      events: [],
+      dialog: false,
+    };
   },
   computed: {
     image() {
-      const hoge = this.$store.getters['image/imagedate']
-      return hoge
+      const hoge = this.$store.getters['image/imagedate'];
+      return hoge;
     },
+  },
+  mounted() {
+    this.fetchEvent();
   },
   methods: {
     async fetchEvent(get) {
-      const events = 'http://localhost:3000/api/v1/events'
-      const response = await this.$axios.get(events, get)
-      this.events = response.data.events
+      const events = 'http://localhost:3000/api/v1/events';
+      const response = await this.$axios.get(events, get);
+      this.events = response.data.events;
     },
     infiniteHandler() {
       setTimeout(() => {
         if (this.count < 100) {
-          this.count += 20
-          this.$refs.infiniteLoading.stateChanger.loaded()
+          this.count += 20;
+          this.$refs.infiniteLoading.stateChanger.loaded();
         } else {
-          this.$refs.infiniteLoading.stateChanger.complete()
+          this.$refs.infiniteLoading.stateChanger.complete();
         }
-      }, 1000)
-    }
-  }
-}
+      }, 1000);
+    },
+  },
+};
 </script>

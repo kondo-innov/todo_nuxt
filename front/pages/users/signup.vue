@@ -66,55 +66,58 @@
 export default {
   auth: false,
   data() {
-    const max = 20
-    const min = 6
+    const max = 20;
+    const min = 6;
     return {
-      isValid:      false,
+      isValid: false,
       noValidation: false,
-      show:         false,
+      show: false,
       user: {
-        name:                  '',
-        password:              '',
-        email:                 '',
+        name: '',
+        password: '',
+        email: '',
         password_confirmation: '',
       },
       max,
       rules: {
-        required: v => !!v || '入力してください',
-        name:     v => (!!v && max >= v.length) || `${max}文字以内で入力してください`,
-        email:    v => /.+@.+\..+/.test(v) || '',
-        password: v => (!!v && min <= v.length) || `${min}文字以上で入力してください`,
+        required: (v) => !!v || '入力してください',
+        name: (v) =>
+          !!v && max >= v.length || `${max}文字以内で入力してください`,
+        email: (v) => /.+@.+\..+/.test(v) || '',
+        password: (v) =>
+          !!v && min <= v.length || `${min}文字以上で入力してください`,
       },
-    }
+    };
   },
   computed: {
     nameForm() {
-      const placeholder = this.noValidation ? undefined : "username"
-      return { placeholder }
+      const placeholder = this.noValidation ? undefined : 'username';
+      return { placeholder };
     },
     emailForm() {
-      const placeholder = this.noValidation ? undefined : "your@email.com"
-      return { placeholder }
+      const placeholder = this.noValidation ? undefined : 'your@email.com';
+      return { placeholder };
     },
     form() {
-      const min = "6文字以上"
-      const placeholder = this.noValidation ? undefined : min
-      return { placeholder }
+      const min = '6文字以上';
+      const placeholder = this.noValidation ? undefined : min;
+      return { placeholder };
     },
     toggle() {
-      const icon = this.show ? "mdi-eye" : "mdi-eye-off"
-      const type = this.show ? "text" : "password"
-      return { icon, type }
+      const icon = this.show ? 'mdi-eye' : 'mdi-eye-off';
+      const type = this.show ? 'text' : 'password';
+      return { icon, type };
     },
   },
   methods: {
     registerUser() {
-      if (this.$refs.form.validate()){
-        this.$axios.post('/api/v1/auth', this.user)
-          .then(async(response) => {
+      if (this.$refs.form.validate()) {
+        this.$axios
+          .post('/api/v1/auth', this.user)
+          .then(async (response) => {
             await this.$auth
               .loginWith('local', {
-              // emailとpasswordの情報を送信
+                // emailとpasswordの情報を送信
                 data: {
                   email: this.user.email,
                   password: this.user.password,
@@ -123,40 +126,46 @@ export default {
               .then(
                 (response) => {
                   // レスポンスで返ってきた、認証に必要な情報をlocalStorageに保存
-                  localStorage.setItem('access-token', response.headers['access-token'])
-                  localStorage.setItem('client', response.headers.client)
-                  localStorage.setItem('uid', response.headers.uid)
-                  localStorage.setItem('token-type', response.headers['token-type'])
-                    this.$store.dispatch(
-                      "flashMessage/showMessage",
-                      {
-                        message: "新規登録しました.",
-                        type: "sucess",
-                        status: true,
-                      },
-                      { root: true }
-                    )
-                    window.location.href = '/'
-                  return response
+                  localStorage.setItem(
+                    'access-token',
+                    response.headers['access-token']
+                  );
+                  localStorage.setItem('client', response.headers.client);
+                  localStorage.setItem('uid', response.headers.uid);
+                  localStorage.setItem(
+                    'token-type',
+                    response.headers['token-type']
+                  );
+                  this.$store.dispatch(
+                    'flashMessage/showMessage',
+                    {
+                      message: '新規登録しました.',
+                      type: 'sucess',
+                      status: true,
+                    },
+                    { root: true }
+                  );
+                  window.location.href = '/';
+                  return response;
                 },
                 (error) => {
-                  return error
+                  return error;
                 }
-              )
-            })
+              );
+          })
           .catch((error) => {
             this.$store.dispatch(
-              "flashMessage/showMessage",
+              'flashMessage/showMessage',
               {
-                message: "新規登録出来ませんでした.",
-                type: "sucess",
+                message: '新規登録出来ませんでした.',
+                type: 'sucess',
                 status: true,
               },
               { root: true }
-            )
-          })
+            );
+          });
       }
     },
   },
-}
+};
 </script>

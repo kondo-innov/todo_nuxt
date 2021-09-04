@@ -41,11 +41,10 @@
     </v-row>
   </v-container>
 </template>
-  
 
 <script>
-import editAvatar from "~/components/editUser/editAvatar"
-import NameEmail from "~/components/editUser/NameEmail"
+import editAvatar from '~/components/editUser/editAvatar';
+import NameEmail from '~/components/editUser/NameEmail';
 export default {
   components: {
     editAvatar,
@@ -54,9 +53,8 @@ export default {
   data() {
     return {
       tab: null,
-    }
+    };
   },
-  methods: {
-  },
-}
+  methods: {},
+};
 </script>
