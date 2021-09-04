@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
   has_many :likes, dependent: :destroy
   has_many :tweet_comments, dependent: :destroy
   has_many :event_comments, dependent: :destroy
-  has_many :joins, dependent: :destroy
+  has_many :user_events, dependent: :destroy
 
   ################################################################################################
   # バリデーション

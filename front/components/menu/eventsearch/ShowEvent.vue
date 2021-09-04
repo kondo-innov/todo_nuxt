@@ -37,11 +37,11 @@
           </v-card-text>
           <ul>
             <li
-              v-for="join in joins"
-              :key="join.id"
+              v-for="participation in participations"
+              :key="participation.id"
             >
               <h4>
-                {{ join.user.name }}
+                {{ participation.user.name }}
               </h4>
             </li>
           </ul>
@@ -55,9 +55,9 @@
               閉じる
             </v-btn>
             <v-btn
-              v-if="isjoin()"
+              v-if="isParticipation()"
               color="primary"
-              @click="deleteJoin"
+              @click="deleteParticipation"
             >
               参加済
             </v-btn>
@@ -66,7 +66,7 @@
               color="blue"
               text
               outlined
-              @click="sendJoin"
+              @click="sendParticipation"
             >
               参加
             </v-btn>
@@ -146,15 +146,15 @@ export default {
     return {
       comment: '',
       content: '',
-      join: '',
-      joins: [],
+      participation: '',
+      participations: [],
       dialog: false,
       defaultImg: require('@/assets/images/default_user_icon.jpeg'),
     };
   },
 
   mounted() {
-    this.fetchJoin();
+    this.fetchParticipation();
   },
 
   methods: {
@@ -171,12 +171,12 @@ export default {
         );
       }, 1000);
     },
-    async fetchJoin() {
-      const joins = 'http://localhost:3000/api/v1/joins';
-      const response = await this.$axios.get(joins, {
+    async fetchParticipation() {
+      const Participations = 'http://localhost:3000/api/v1/user_events';
+      const response = await this.$axios.get(Participations, {
         params: { event_id: this.event.id },
       });
-      this.joins = response.data;
+      this.participations = response.data;
     },
     sendcontent() {
       const formData = new FormData();
@@ -212,28 +212,28 @@ export default {
           this.showMessage();
         });
     },
-    sendJoin() {
+    sendParticipation() {
       this.$axios
-        .post('/api/v1/joins', { event_id: this.event.id })
+        .post('/api/v1/user_events', { event_id: this.event.id })
         .then(() => {
-          this.fetchJoin();
+          this.fetchParticipation();
           this.message = '参加しました';
           this.showMessage();
         });
     },
-    deleteJoin() {
-      const joins = this.joins.find(
-        (join) => join.user.id == this.$auth.user.id
+    deleteParticipation() {
+      const Participations = this.participations.find(
+        (participation) => participation.user.id == this.$auth.user.id
       );
-      this.$axios.delete(`/api/v1/joins/${joins.id}`).then(() => {
-        this.fetchJoin();
+      this.$axios.delete(`/api/v1/user_events/${Participations.id}`).then(() => {
+        this.fetchParticipation();
         this.message = '参加をキャンセルしました';
         this.showMessage();
       });
     },
-    isjoin() {
-      const join = this.joins.find((join) => join.user_id == this.$auth.user.id);
-      return join !== undefined;
+    isParticipation() {
+      const participation = this.participations.find((participation) => participation.user_id == this.$auth.user.id);
+      return participation !== undefined;
     },
   },
 };
