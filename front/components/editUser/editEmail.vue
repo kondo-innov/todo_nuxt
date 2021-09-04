@@ -22,6 +22,7 @@
         />
         <v-card-actions>
           <v-btn
+            :disabled="!isDisabled"
             color="light-green darken-1"
             class="white--text"
             @click="editEmail"
@@ -45,6 +46,7 @@ export default {
         name: '',
         email: '',
       },
+      guest: '',
       rules: {
         name: (v) =>
           !!v && max >= v.length || `${max}文字以内で入力してください`,
@@ -61,11 +63,28 @@ export default {
       const placeholder = this.noValidation ? undefined : 'your@email.com';
       return { placeholder };
     },
+    isDisabled () {
+      if (this.guest.email !== 'guestlogin@gmail.com') {
+        return true;
+      } else {
+        return false;
+      }
+    },
   },
+
+  mounted() {
+    this.fetchUser();
+  },
+
   methods: {
+    async fetchUser(get) {
+      const guest = 'http://localhost:3000/api/v1/users';
+      const response = await this.$axios.get(guest, get);
+      this.guest = response.data;
+    },
     editEmail() {
       this.$axios
-        .put('api/v1/auth', this.user, {
+        .put('api/v1/auth', this.user, { 
           headers: {
             'access-token': localStorage.getItem('access-token'),
             uid: localStorage.getItem('uid'),
