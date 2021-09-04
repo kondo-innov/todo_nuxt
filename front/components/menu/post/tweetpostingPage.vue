@@ -1,67 +1,73 @@
 <template>
   <v-card>
     <v-form>
-      <v-card-title
-        class="cyan darken-1"
-        flat
-      >
-        <span class="text-h4 white--text">投稿する</span>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
-          <v-row>
-            <v-col cols="12">
-              <v-row class="pt-4 pl-3">
-                <v-icon>mdi-camera</v-icon>
-                <span>つぶやき画像</span>
-              </v-row>
-              <v-row
-                justify="center"
-                class="pt-6"
-              >
-                <v-avatar
-                  tile
-                  size="200"
+      <ValidationObserver v-slot="ObserverProps">
+        <v-card-title
+          class="cyan darken-1"
+          flat
+        >
+          <span class="text-h4 white--text">投稿する</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-row class="pt-4 pl-3">
+                  <v-icon>mdi-camera</v-icon>
+                  <span>つぶやき画像</span>
+                </v-row>
+                <v-row
+                  justify="center"
+                  class="pt-6"
                 >
-                  <img :src="image">
-                </v-avatar>
-                <v-col cols="12">
-                  <input
-                    v-if="view"
-                    id="image-files"
-                    accept="image/png, image/jpeg, image/bmp"
-                    prepend-icon="mdi-image"
-                    label="画像を選択してください"
-                    class="pt-14"
-                    type="file"
-                    @change="addPicture"
+                  <v-avatar
+                    tile
+                    size="200"
                   >
-                </v-col>
-              </v-row>
-            </v-col>
-            <v-col cols="12">
-              <TweetDescription v-model="description" />
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer />
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="$emit('closeDialog')"
-        >
-          閉じる
-        </v-btn>
-        <v-btn
-          color="blue darken-1"
-          text
-          @click="tweetPost"
-        >
-          送信
-        </v-btn>
-      </v-card-actions>
+                    <img :src="image">
+                  </v-avatar>
+                  <v-col cols="12">
+                    <input
+                      v-if="view"
+                      id="image-files"
+                      accept="image/png, image/jpeg, image/bmp"
+                      prepend-icon="mdi-image"
+                      label="画像を選択してください"
+                      class="pt-14"
+                      type="file"
+                      @change="addPicture"
+                    >
+                  </v-col>
+                </v-row>
+              </v-col>
+              <v-col cols="12">
+                <TweetDescription 
+                  v-model="description"
+                  rules="max:100|required"
+                />
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer />
+          <v-btn
+            color="blue darken-1"
+            text
+            @click="$emit('closeDialog')"
+          >
+            閉じる
+          </v-btn>
+          <v-btn
+            :disabled="ObserverProps.invalid"
+            color="blue darken-1"
+            text
+            @click="tweetPost"
+          >
+            送信
+          </v-btn>
+        </v-card-actions>
+      </ValidationObserver>
     </v-form>
   </v-card>
 </template>
