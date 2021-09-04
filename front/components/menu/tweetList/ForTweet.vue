@@ -1,11 +1,21 @@
 <template>
   <v-row class="mt-8">
     <v-col cols="12">
-      <v-card color="gray" position: relative>
+      <v-card
+        color="gray"
+        position:
+        relative
+      >
         <span>
           <v-avatar size="80">
-            <v-img v-if="tweet.image == null" :src="defaultImg" />
-            <v-img v-else :src="tweet.image" />
+            <v-img
+              v-if="tweet.image == null"
+              :src="defaultImg"
+            />
+            <v-img
+              v-else
+              :src="tweet.image"
+            />
           </v-avatar>
           <h2 class="name">
             {{ tweet.name }}<br>
@@ -20,12 +30,18 @@
           </v-col>
         </v-row>
         <v-row justify="center">
-          <v-avatar tile size="150">
+          <v-avatar
+            tile
+            size="150"
+          >
             <v-img :src="tweet.picture" />
           </v-avatar>
         </v-row>
         <div>
-          <v-row justify="end" class="mt-8 mr-6">
+          <v-row
+            justify="end"
+            class="mt-8 mr-6"
+          >
             <v-btn
               v-if="tweet.user_id === $auth.user.id"
               icon
@@ -38,9 +54,9 @@
               </v-icon>
             </v-btn>
             <TweetComment 
-              :tweet= "tweet"
-              :comments= "comments"
-              @setcomment= "$listeners['comment']"
+              :tweet="tweet"
+              :comments="comments"
+              @setcomment="$listeners['comment']"
             />
             <v-btn
               v-if="islike()"
@@ -72,95 +88,73 @@
 </template>
 
 <script>
-import TweetComment        from "~/components/menu/tweetList/TweetComment.vue"
+import TweetComment from '~/components/menu/tweetList/TweetComment.vue';
 export default {
   components: {
     TweetComment
   },
+  props: ['tweet', 'likes'],
   data() {
     return {
-      defaultImg: require("@/assets/images/default_user_icon.jpeg"),
-      comments:  [],
-    }
+      defaultImg: require('@/assets/images/default_user_icon.jpeg'),
+      comments: [],
+      message: '',
+    };
   },
-  props: ["tweet", "likes"],
 
   methods: {
+    showMessage() {
+      setTimeout(() => {
+        this.$store.dispatch(
+          'flashMessage/showMessage',
+          {
+            message: this.message,
+            type: 'sucess',
+            status: true,
+          },
+          { root: true }
+        );
+      }, 1000);
+    },
     sendDelete(id) {
       this.$axios.delete(`/api/v1/tweets/${id}`)
-      .then(() => {
-        this.$emit("comment", this.tweet);
-        setTimeout(() => {
-          this.$store.dispatch(
-            "flashMessage/showMessage",
-            {
-              message: "削除に成功しました.",
-              type: "sucess",
-              status: true,
-            },
-            { root: true }
-          )
-        },1000)
-      })
-      .catch((err) => {
-        setTimeout(() => {
-          this.$store.dispatch(
-            "flashMessage/showMessage",
-            {
-              message: "削除に失敗しました.",
-              type: "sucess",
-              status: true,
-            },
-            { root: true }
-          )
-        },1000)
-      })
+        .then(() => {
+          this.$emit('comment', this.tweet);
+          this.message = '削除に成功しました';
+          this.showMessage();
+        })
+        .catch((err) => {
+          this.message = '削除に失敗しました';
+          this.showMessage();
+        });
     },
     sendGood() {
       this.$axios
-        .post('/api/v1/likes' , {tweet_id: this.tweet.id})
+        .post('/api/v1/likes', {tweet_id: this.tweet.id})
         .then(() => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              "flashMessage/showMessage",
-              {
-                message: "つぶやきにいいねしました.",
-                type: "sucess",
-                status: true,
-              },
-              { root: true }
-            )
-          },1000)
-          this.$emit("fetchlike")
-        })
+          this.message = 'つぶやきにいいねしました';
+          this.showMessage();
+          this.$emit('fetchlike');
+        });
     },
     sendgoodDelete() {
       this.$axios
         .delete(`/api/v1/likes/${this.tweet.id}`, {tweet_id: this.tweet.id})
         .then(() => {
-          setTimeout(() => {
-            this.$store.dispatch(
-              "flashMessage/showMessage",
-              {
-                message: "つぶやきを外しました.",
-                type: "sucess",
-                status: true,
-              },
-              { root: true }
-            )
-          },1000)
-          this.$emit("fetchlike")
-        })
+          this.message = 'いいねを外しました';
+          this.showMessage();
+          this.$emit('fetchlike');
+        });
     },
     islike() {
       const like = this.likes.find(like => like.tweet_id == this.tweet.id);
-      return like === undefined
+      return like === undefined;
     },
   },
-}
+};
 </script>
 
-<style>
+<style scoped>
 .name {
   display: inline-block;
   text-align: center;

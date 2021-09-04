@@ -5,7 +5,7 @@
 <script>
 export default {
   props: {
-    load: null
+    load: null,
   },
-}
+};
 </script>

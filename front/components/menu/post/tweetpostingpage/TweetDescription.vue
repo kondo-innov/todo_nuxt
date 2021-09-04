@@ -1,5 +1,5 @@
 <template>
-  <v-container >
+  <v-container>
     <ValidationProvider
       v-slot="{ errors }"
       :rules="rules"
@@ -11,7 +11,7 @@
         :counter="100"
         clearable
         clear-icon="mdi-close-circle"
-      ></v-textarea>
+      />
       <span id="error">{{ errors[0] }}</span>
     </ValidationProvider>
   </v-container>
@@ -22,21 +22,21 @@ export default {
   props: {
     rules: {
       type: [Object, String],
-      default: ''
+      default: '',
     },
     value: {
-      type: null
-    }
+      type: null,
+    },
   },
   computed: {
     tweetValue: {
-      get () {
-        return this.value
+      get() {
+        return this.value;
       },
-      set (newVal) {
-        if (this.value !== newVal) this.$emit('input', newVal)
-      }
-    }
-  }
-}
+      set(newVal) {
+        if (this.value !== newVal) this.$emit('input', newVal);
+      },
+    },
+  },
+};
 </script>

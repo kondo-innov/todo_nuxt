@@ -1,0 +1,40 @@
+{
+  "root": true,                            // 親階層を見るか否か
+
+  "parserOptions": {                        // サポートするJavaScript言語オプション
+    "ecmaVersion": 2017
+  },
+
+  "env": {
+    "browser": true,                       // ブラウザのグローバル変数を有効にするか否か
+    "commonjs": true,                      // CommonJSグローバル変数とCommonJSスコープを有効にするか否か
+    "node": true                      // nodeのグローバル変数とnode特有のルールを有効にするか否か
+  },
+
+  "extends": [
+      "eslint:recommended",
+      "plugin:vue/recommended"
+  ],
+
+  "rules": {
+      "semi": ["warn", "always"],                   // ASIのセミコロンの使用を許可するか否か
+      "indent": ["error", 2],
+      "vue/max-attributes-per-line": "off",
+      "no-unused-vars": "off", //使っていない変数を許可
+      "vue/html-self-closing": "off", //空タグを許可する
+      "no-extra-parens": 1, // 不要なカッコは消す
+      "no-multi-spaces": 2, // 無駄なスペースは削除
+      "func-call-spacing": [2, "never"], // 関数とカッコはあけない(function hoge() {/** */})
+      "no-unneeded-ternary": 2, // true/falseを無駄に使うな
+      "space-in-parens": [2, "never"], // かっこの中はスペースなし！違和感
+      "no-console": 0, // コンソールは許可
+      "comma-spacing": 2, // カンマの前後にスペース入れる？
+      "computed-property-spacing": 2, // 配列のindexには空白入れるな(hogehoge[ x ])
+      "key-spacing": 2, // キー
+      "keyword-spacing": 2, // キーワードの前後には適切なスペースを
+      "vue/require-prop-types": 0,
+      "vue/no-template-shadow": 0,
+      "vue/require-default-prop": 0,
+      "quotes": ["warn", "single"]   // 文字列はシングルクオートのみ
+    }
+}
