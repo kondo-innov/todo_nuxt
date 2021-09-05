@@ -55,6 +55,5 @@ export default {
       tab: null,
     };
   },
-  methods: {},
 };
 </script>
