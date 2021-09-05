@@ -8,4 +8,4 @@
       2021 Crearn City
     </v-col>
   </v-footer>
-</template>;
+</template>
