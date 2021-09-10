@@ -7,7 +7,8 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:8080'
+    origins 'localhost:3000', '127.0.0.1:3000', 'nuxtjs-rails-front.herokuapp.com'
+
     resource '*',
              headers: :any,
              expose: %w[access-token uid client token-type],

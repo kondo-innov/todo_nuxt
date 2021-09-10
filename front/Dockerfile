@@ -1,8 +1,16 @@
 FROM node:12.18.3-alpine
 
-ENV APP_HOME /app
-RUN mkdir -p $APP_HOME
-WORKDIR $APP_HOME
+ENV HOME="/app" \
+    LANG=C.UTF-8 \
+    TZ=Asia/Tokyo
+
+WORKDIR ${HOME}
 
 RUN apk update && \
-  npm install -g create-nuxt-app
+    apk upgrade && \
+    npm install -g npm && \
+    npm install -g @vue/cli \
+    npm install -g create-nuxt-app
+
+ENV HOST 0.0.0.0
+EXPOSE 3000
