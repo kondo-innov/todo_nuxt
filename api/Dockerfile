@@ -1,21 +1,27 @@
-FROM ruby:2.7.2
+FROM ruby:2.7.2-alpine
 
-ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata postgresql-dev postgresql" \
+ARG WORKDIR
+
+ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata postgresql-dev postgresql git" \
     DEV_PACKAGES="build-base curl-dev" \
-    HOME="/app" \
+    HOME=/${WORKDIR} \
     LANG=C.UTF-8 \
     TZ=Asia/Tokyo
 
+# ENV test（このRUN命令は確認のためなので無くても良い）
+RUN echo ${HOME}
+
 WORKDIR ${HOME}
 
-ADD Gemfile ${HOME}/Gemfile
-# ADD Gemfile.lock ${HOME}/Gemfile.lock
+COPY Gemfile* ./
 
-RUN apt-get update -qq && \
-    apt-get install -y build-essential \
-                      libpq-dev \       
-                      nodejs \
-  && rm -rf /var/lib/apt/lists/*
+RUN apk update && \
+    apk upgrade && \
+    apk add --no-cache ${RUNTIME_PACKAGES} && \
+    apk add --virtual build-dependencies --no-cache ${DEV_PACKAGES} && \
+    bundle install -j4 && \
+    apk del build-dependencies
 
-ADD . ${HOME}
-CMD ["rails", "server", "-p", "8080", "-b", "0.0.0.0"]
+COPY . .
+
+CMD ["rails", "server", "-b", "0.0.0.0"]
