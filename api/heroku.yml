@@ -1,12 +1,11 @@
-# setup部分は必要なし
-# setup:
-#   addons:
-#     - plan: heroku-postgresql
-#       as: DATABASE
 build:
   docker:
     web: Dockerfile
   config:
-    WORKDIR: app
+    RAILS_ENV: production
+release:
+  command:
+    - bundle exec rake db:migrate
+  image: web
 run:
   web: bundle exec puma -C config/puma.rb
