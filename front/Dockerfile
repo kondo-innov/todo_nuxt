@@ -1,5 +1,7 @@
 FROM node:12.18.3-alpine
 
+ARG NODE_ENV=production
+
 ENV LANG=C.UTF-8 \
     TZ=Asia/Tokyo
 
@@ -8,14 +10,10 @@ ENV APP_ROOT /app
 WORKDIR $APP_ROOT
 
 RUN apk update && \
-    apk upgrade && \
-    npm install -g npm && \
-    npm install -g @vue/cli
+    apk upgrade
 
 COPY . /app
 RUN npm install
-
-ENV HOST 0.0.0.0
-EXPOSE 3000
+RUN npm run build
 
 CMD ["npm", "run", "dev"]

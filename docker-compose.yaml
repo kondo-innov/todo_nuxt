@@ -39,6 +39,8 @@ services:
     tty: true
     stdin_open: true
     command: npm run dev
+    environment:
+      NODE_ENV: development
     depends_on:
       - app
 
