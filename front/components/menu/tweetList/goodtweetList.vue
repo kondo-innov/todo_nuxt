@@ -42,14 +42,14 @@ export default {
 
   methods: {
     async fetchTweet() {
-      const tweets = 'http://todonuxt-api.herokuapp.com/api/v1/like_lists';
+      const tweets = 'https://todonuxt-api.herokuapp.com/api/v1/like_lists';
       const response = await this.$axios.get(tweets, {
         params: { user_id: this.$auth.user.id },
       });
       this.tweets = response.data.tweets;
     },
     async fetchLike(get) {
-      const likes = 'http://todonuxt-api.herokuapp.com/api/v1/likes';
+      const likes = 'https://todonuxt-api.herokuapp.com/api/v1/likes';
       const response = await this.$axios.get(likes, get);
       this.likes = response.data;
     },

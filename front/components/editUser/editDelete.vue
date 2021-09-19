@@ -36,7 +36,7 @@ export default {
 
   methods: {
     async fetchUser(get) {
-      const user = 'http://todonuxt-api.herokuapp.com/api/v1/users';
+      const user = 'https://todonuxt-api.herokuapp.com/api/v1/users';
       const response = await this.$axios.get(user, get);
       this.user = response.data;
     },

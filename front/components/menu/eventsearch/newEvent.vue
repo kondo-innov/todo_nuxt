@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     async fetchEvent(get) {
-      const events = 'http://todonuxt-api.herokuapp.com/api/v1/events';
+      const events = 'https://todonuxt-api.herokuapp.com/api/v1/events';
       const response = await this.$axios.get(events, get);
       this.events = response.data.events;
     },
