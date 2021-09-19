@@ -11,7 +11,7 @@
         style="color: white; text-decoration: none"
       >
         <h2 class="app-title">
-          Crearn City！
+          Clean City！
         </h2>
       </n-link>
     </v-toolbar-title>

@@ -5,7 +5,7 @@
     app
   >
     <v-col class="text-center">
-      2021 Crearn City
+      2021 Clean City
     </v-col>
   </v-footer>
 </template>
