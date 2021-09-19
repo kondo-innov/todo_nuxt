@@ -172,7 +172,7 @@ export default {
       }, 1000);
     },
     async fetchParticipation() {
-      const Participations = 'http://localhost:3000/api/v1/user_events';
+      const Participations = 'http://todonuxt-api.herokuapp.com/api/v1/user_events';
       const response = await this.$axios.get(Participations, {
         params: { event_id: this.event.id },
       });

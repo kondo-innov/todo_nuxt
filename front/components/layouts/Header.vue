@@ -88,7 +88,7 @@ export default {
   },
   methods: {
     async fetchUser(get) {
-      const url = 'http://localhost:3000/api/v1/current_user';
+      const url = 'http://todonuxt-api.herokuapp.com/api/v1/current_user';
       const response = await this.$axios.get(url, get);
       this.url = response.data.url;
     },

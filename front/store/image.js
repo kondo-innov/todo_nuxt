@@ -16,7 +16,7 @@ export const actions = {
   async doSearch({ commit, axios }, keyword) {
     commit('setLoading', true);
     const imagedate = await this.$axios.get(
-      'http://localhost:3000/api/v1/current_user'
+      'http://todonuxt-api.herokuapp.com/api/v1/current_user'
     );
     commit('setLoading', false);
     const { data } = imagedate;

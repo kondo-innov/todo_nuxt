@@ -78,7 +78,7 @@ export default {
 
   methods: {
     async fetchUser(get) {
-      const guest = 'http://localhost:3000/api/v1/users';
+      const guest = 'http://todonuxt-api.herokuapp.com/api/v1/users';
       const response = await this.$axios.get(guest, get);
       this.guest = response.data;
     },

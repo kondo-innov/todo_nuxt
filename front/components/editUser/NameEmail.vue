@@ -27,7 +27,7 @@ export default {
 
   methods: {
     async User(get) {
-      const url = 'http://localhost:3000/api/v1/users';
+      const url = 'http://todonuxt-api.herokuapp.com/api/v1/users';
       const response = await this.$axios.get(url, get);
       this.url = response.data;
     },

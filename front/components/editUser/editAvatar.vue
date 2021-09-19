@@ -69,16 +69,16 @@ export default {
       this.createPost(formData);
     },
     async fetchUser(get) {
-      const url = 'http://localhost:3000/api/v1/current_user';
+      const url = 'http://todonuxt-api.herokuapp.com/api/v1/current_user';
       const response = await this.$axios.get(url, get);
       this.url = response.data.url;
     },
     async createPost(post) {
-      const url = 'http://localhost:3000/api/v1/users';
+      const url = 'http://todonuxt-api.herokuapp.com/api/v1/users';
       const response = await this.$axios.post(url, post);
       this.url = response.data.url;
       this.$store.dispatch('image/doSearch');
     },
   },
 };
-</script>
+</script>todonuxt-api.herokuapp.com

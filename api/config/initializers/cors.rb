@@ -7,7 +7,12 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'http://localhost:8080'
+    if Rails.env.production?
+      origins 'https://todonuxt-front.herokuapp.com'
+    else
+      origins 'http://localhost:8080'
+    end
+
     resource '*',
              headers: :any,
              expose: %w[access-token uid client token-type],

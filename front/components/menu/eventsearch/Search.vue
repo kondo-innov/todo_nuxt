@@ -109,7 +109,7 @@ export default {
 
   methods: {
     async fetchEvent() {
-      const events = 'http://localhost:3000/api/v1/events';
+      const events = 'http://todonuxt-api.herokuapp.com/api/v1/events';
       const response = await this.$axios.get(events);
       this.events = response.data.events;
       this.filteredSearch();

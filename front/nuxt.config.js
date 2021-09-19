@@ -53,11 +53,6 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: ["@nuxtjs/axios", "@nuxtjs/auth"],
 
-  proxy: {
-    "/api": {
-      target: "http://localhost:3000/",
-    },
-  },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
@@ -79,7 +74,7 @@ export default {
   },
 
   axios: {
-    baseURL: "http://localhost:3000",
+    baseURL: "https://todonuxt-api.herokuapp.com",
   },
   auth: {
     redirect: {
