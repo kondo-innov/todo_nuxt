@@ -12,7 +12,7 @@ https://todonuxt-front.herokuapp.com/
 学校や職場、家の近くなどで当たり前に見かけるポイ捨てごみ。<br>
 ボランティアで拾ってくれる方々もいますが、それでも集めきれないゴミの量。<br>
 ボランティアの方を少しでもサポートしたい、もっとゴミ拾いの活動の輪を広げていきたい<br>
-さらにSDGsの項目「海の豊かさを守ろう」「住み続けられるまちづくりを」「つくる責任つかう責任」の後押しにつながればと思い作成した。
+さらにSDGsの項目「海の豊かさを守ろう」「住み続けられるまちづくりを」「つくる責任つかう責任」の後押しにつながればと思い作成しました。
 
 # サービスの特徴
 
@@ -27,7 +27,7 @@ https://todonuxt-front.herokuapp.com/
 
 # イベント
 
-![event.jpg](https://user-images.githubusercontent.com/77315028/134330743-24d7c6d3-f22d-4fe0-80ce-4c7c994a356c.png)
+![event.png](https://user-images.githubusercontent.com/77315028/134344404-69874592-b23b-4d28-9363-31d332fc9afb.png)
 
 # Ajax処理
 
@@ -79,7 +79,7 @@ https://todonuxt-front.herokuapp.com/
 
 # DB設計
 
-![DB設計.png]("https://user-images.githubusercontent.com/77315028/134315340-b5ed7fed-4978-44e2-823b-0234855d7e24.png")
+![DB設計.png](https://user-images.githubusercontent.com/77315028/134330743-24d7c6d3-f22d-4fe0-80ce-4c7c994a356c.png)
 
 # アプリの機能紹介
 | 機能名 | 説明 |
