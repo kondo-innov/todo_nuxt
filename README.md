@@ -27,11 +27,11 @@ https://todonuxt-front.herokuapp.com/
 
 # イベント
 
-![event.jpg](https://user-images.githubusercontent.com/77315028/134214742-f72ab15d-d553-4340-870d-d4ea37349691.jpg)
+![event.jpg](https://user-images.githubusercontent.com/77315028/134330743-24d7c6d3-f22d-4fe0-80ce-4c7c994a356c.png)
 
 # Ajax処理
 
-![Ajax.mov](https://user-images.githubusercontent.com/77315028/134311871-9ad4315e-968a-4c00-a0e3-631f14bfbc46.mov)
+![Ajax.gif](https://user-images.githubusercontent.com/77315028/134339507-8d4add82-21d5-4730-8ccc-8583f2599c9d.gif)
 
 # 使用技術
 
@@ -95,6 +95,17 @@ https://todonuxt-front.herokuapp.com/
 
 # 苦労したところ
 
-###### ① ログイン機能
+| 苦労したところ | 理由 |
+|----|----|
+| AuthModuleログイン機能 | Qiitaを見ながら作り始めましたが、変更が必要な箇所が多く、<br>
+                          それぞれの関連性が分かっていなかったため、エラーが頻発し苦労しました。 |
+| 親コンポーネントと子コンポーネントのデータ受け渡し | propsとemitのデータ受け渡しの理解に苦労しました。 |
+| vuexの仕組み | state,getters,mutations,actionsの仕組みの理解に時間がかかりました。 |
+| 命名規則 | 命名規則の理解が曖昧まま作業をしており、キャメルケースを用いた記述をしているのに気づくのが遅れてしまいました。 |
+| Herokuでのエラー | applicationerrorが発生し、解決までに1週間ほどかかってしまいました。 （備忘録としてQiitaにまとめました)|
 
+# 最後に
 
+大変お忙しい中、最後までご覧いただき誠にありがとうございました。<br>
+ご興味を持っていただけましたら、下記リンクもご覧頂けると幸いです。<br>
+[→[Qiita](https://qiita.com/TETSU33):発信力を持ったエンジニアになるべく今後は学んだことをドシドシ投稿していきます！]
