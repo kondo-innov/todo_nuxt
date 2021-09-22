@@ -1,4 +1,4 @@
-#ポートフォリオ紹介
+# ポートフォリオ紹介
 
 「Clean City」はゴミ拾い活動を活性化させたいと思い作成したアプリケーションです。<br>
 Twitterクローンに近く、さらにイベントを組み合わせたSNSアプリです。<br>
@@ -7,41 +7,41 @@ Twitterクローンに近く、さらにイベントを組み合わせたSNSア�
 https://todonuxt-front.herokuapp.com/
 
 
-#制作背景
+# 制作背景
 
 学校や職場、家の近くなどで当たり前に見かけるポイ捨てごみ。<br>
 ボランティアで拾ってくれる方々もいますが、それでも集めきれないゴミの量。<br>
 ボランティアの方を少しでもサポートしたい、もっとゴミ拾いの活動の輪を広げていきたい<br>
 さらにSDGsの項目「海の豊かさを守ろう」「住み続けられるまちづくりを」「つくる責任つかう責任」の後押しにつながればと思い作成した。
 
-#サービスの特徴
+# サービスの特徴
 
 このサービスはSNSとイベント二つを軸に構成されており、<br>
 つぶやきでゴミ拾いの記録をつけ、コメントでメッセージを送り合う。<br>
 イベントでは参加者と一緒にゴミ拾いを行い、同じ目的を持った仲間ができます。
 
 
-#トップページ(つぶやき)
+# トップページ(つぶやき)
 
-https://user-images.githubusercontent.com/77315028/134213355-fb4ddd68-d795-4063-8739-77ff32ed8dc7.jpg
+![toppage.jpg](https://user-images.githubusercontent.com/77315028/134213355-fb4ddd68-d795-4063-8739-77ff32ed8dc7.jpg)
 
-#イベント
+# イベント
 
-https://user-images.githubusercontent.com/77315028/134214742-f72ab15d-d553-4340-870d-d4ea37349691.jpg
+![event.jpg](https://user-images.githubusercontent.com/77315028/134214742-f72ab15d-d553-4340-870d-d4ea37349691.jpg)
 
-#Ajax処理
+# Ajax処理
 
-https://user-images.githubusercontent.com/77315028/134311871-9ad4315e-968a-4c00-a0e3-631f14bfbc46.mov
+![Ajax.mov](https://user-images.githubusercontent.com/77315028/134311871-9ad4315e-968a-4c00-a0e3-631f14bfbc46.mov)
 
-#使用技術
+# 使用技術
 
 各バージョン
-Ruby 2.7.2<br>
-Rails 6.0.4.1<br>
-nuxt 2.13.3<br>
-@nuxtjs/vuetify 1.11.3<br>
-Docker 20.10.8<br>
-docker-compose 1.29.2<br>
+- Ruby 2.7.2
+- Rails 6.0.4.1
+- nuxt 2.13.3
+- @nuxtjs/vuetify 1.11.3
+- Docker 20.10.8
+- docker-compose 1.29.2
 
 #### フロントエンド
 | 名称 | 説明 |
@@ -77,11 +77,11 @@ docker-compose 1.29.2<br>
 | Github | バージョン管理 |
 - ローカル開発環境からデプロイまで一貫してDockerを使用。
 
-#DB設計
+# DB設計
 
-"https://user-images.githubusercontent.com/77315028/134315340-b5ed7fed-4978-44e2-823b-0234855d7e24.png"
+![DB設計.png]("https://user-images.githubusercontent.com/77315028/134315340-b5ed7fed-4978-44e2-823b-0234855d7e24.png")
 
-#アプリの機能紹介
+# アプリの機能紹介
 | 機能名 | 説明 |
 |----|----|
 | ユーザー機能 | 新規登録、登録内容変更、アバター登録、アバター変更、ログイン、ログアウト |
@@ -93,8 +93,8 @@ docker-compose 1.29.2<br>
 | イベント参加機能 | イベントへの参加ができる、ユーザー名が表示、参加のキャンセルができる |
 | 市区郡検索機能 | 市区郡別で検索が可能 |
 
-#苦労したところ
+# 苦労したところ
 
-######① ログイン機能
+###### ① ログイン機能
 
 
