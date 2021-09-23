@@ -31,7 +31,7 @@ https://todonuxt-front.herokuapp.com/
 
 # Ajax処理
 
-![Ajax.gif](https://user-images.githubusercontent.com/77315028/134339507-8d4add82-21d5-4730-8ccc-8583f2599c9d.gif)
+![Ajax.gif](https://user-images.githubusercontent.com/77315028/134439445-761bad4c-4c7e-4a9b-8ebe-f54d6399c1de.gif)
 
 # 使用技術
 
