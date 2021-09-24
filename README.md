@@ -30,7 +30,7 @@ https://todonuxt-front.herokuapp.com/
 ![event.png](https://user-images.githubusercontent.com/77315028/134344404-69874592-b23b-4d28-9363-31d332fc9afb.png)
 
 # Ajax処理
-
+(投稿機能もajaxに動作します)
 ![Ajax.gif](https://user-images.githubusercontent.com/77315028/134439445-761bad4c-4c7e-4a9b-8ebe-f54d6399c1de.gif)
 
 # 使用技術
